@@ -787,27 +787,38 @@
   </footer>
 
   <script>
-    // FULL-PAGE HOVER TRANSFORMATION INTERACTION
+    // FULL-PAGE HOVER TRANSFORMATION INTERACTION (BACKGROUND PREVIEW ONLY)
     const body = document.body;
     const cardSoftware = document.getElementById('card-software');
     const cardGraphics = document.getElementById('card-graphics');
 
-    cardSoftware.addEventListener('mouseenter', () => {
-      body.classList.add('hover-software');
-      body.classList.remove('hover-graphics');
-    });
+    function resetNeutralState() {
+      body.classList.remove('hover-software', 'hover-graphics');
+    }
 
-    cardSoftware.addEventListener('mouseleave', () => {
-      body.classList.remove('hover-software');
-    });
+    if (cardSoftware) {
+      cardSoftware.addEventListener('mouseenter', () => {
+        body.classList.add('hover-software');
+        body.classList.remove('hover-graphics');
+      });
+      cardSoftware.addEventListener('mouseleave', resetNeutralState);
+      cardSoftware.addEventListener('click', resetNeutralState);
+    }
 
-    cardGraphics.addEventListener('mouseenter', () => {
-      body.classList.add('hover-graphics');
-      body.classList.remove('hover-software');
-    });
+    if (cardGraphics) {
+      cardGraphics.addEventListener('mouseenter', () => {
+        body.classList.add('hover-graphics');
+        body.classList.remove('hover-software');
+      });
+      cardGraphics.addEventListener('mouseleave', resetNeutralState);
+      cardGraphics.addEventListener('click', resetNeutralState);
+    }
 
-    cardGraphics.addEventListener('mouseleave', () => {
-      body.classList.remove('hover-graphics');
+    // Always ensure neutral theme when navigating back (including browser bfcache)
+    window.addEventListener('pageshow', resetNeutralState);
+    window.addEventListener('blur', resetNeutralState);
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'visible') resetNeutralState();
     });
 
     // i18n Dictionary
