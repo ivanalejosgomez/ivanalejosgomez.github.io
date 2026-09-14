@@ -3,26 +3,29 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Iván Alejos Gómez | Software Engineer & Computer Graphics</title>
+  <title>Iván Alejos Gómez | Portfolio Arcade</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
   <style>
     :root {
-      --bg: #0d1117;
-      --surface: #161b22;
-      --surface-subtle: #1c2128;
-      --border: #30363d;
-      --border-hover: #6e7681;
-      --text: #e6edf3;
-      --text-muted: #8b949e;
-      --accent: #58a6ff;
-      --accent-glow: rgba(88, 166, 255, 0.15);
-      --tag-bg: rgba(110, 118, 129, 0.1);
-      --font-mono: 'JetBrains Mono', monospace;
+      --bg: #000000;
+      --card-bg: #05050f;
+      --card-inner: #0a0a1a;
+      --pacman-blue: #2121ff;
+      --pacman-blue-dark: #12128a;
+      --pacman-yellow: #ffff00;
+      --pacman-pellet: #ffb897;
+      --blinky-red: #ff0000;
+      --pinky-pink: #ffb8ff;
+      --inky-cyan: #00ffff;
+      --clyde-orange: #ffb852;
+      --text-main: #ffffff;
+      --text-muted: #a0a6b8;
       --font-pixel: 'Press Start 2P', monospace;
+      --font-mono: 'JetBrains Mono', monospace;
     }
 
     * {
@@ -32,11 +35,16 @@
     }
 
     body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-family: var(--font-mono);
       background-color: var(--bg);
-      color: var(--text);
+      color: var(--text-main);
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
+      background-image: 
+        radial-gradient(circle at 50% 50%, rgba(33, 33, 255, 0.05) 0%, transparent 80%),
+        linear-gradient(rgba(33, 33, 255, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(33, 33, 255, 0.04) 1px, transparent 1px);
+      background-size: 100% 100%, 36px 36px, 36px 36px;
     }
 
     .container {
@@ -45,25 +53,25 @@
       padding: 0 24px;
     }
 
-    /* Top Navigation with Pac-Man Map Background */
+    /* Top Navigation (Pac-Man Arcade Bar) */
     nav {
       position: sticky;
       top: 0;
-      z-index: 50;
+      z-index: 100;
       background: #000000;
-      border-bottom: 2px solid #2121ff;
+      border-bottom: 3px solid var(--pacman-blue);
+      box-shadow: 0 4px 20px rgba(33, 33, 255, 0.4);
       overflow: hidden;
-      box-shadow: 0 4px 22px rgba(33, 33, 255, 0.35);
     }
 
-    #pacman-canvas {
+    #pacman-nav-canvas {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
       z-index: 1;
-      opacity: 0.65;
+      opacity: 0.6;
       pointer-events: none;
     }
 
@@ -73,39 +81,34 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      min-height: 66px;
-      padding: 6px 0;
+      min-height: 68px;
+      padding: 8px 0;
     }
 
-    /* Pixel Art Brand in place of ivan.alejos_ */
     .nav-brand-pacman {
-      display: flex;
+      display: inline-flex;
       align-items: center;
       gap: 10px;
       text-decoration: none;
-      background: rgba(13, 17, 23, 0.88);
-      backdrop-filter: blur(8px);
+      background: rgba(0, 0, 0, 0.85);
       padding: 8px 14px;
-      border-radius: 6px;
-      border: 1px solid rgba(33, 33, 255, 0.5);
-      box-shadow: 0 0 12px rgba(33, 33, 255, 0.25);
+      border: 2px solid var(--pacman-blue);
+      box-shadow: 0 0 12px rgba(33, 33, 255, 0.5);
       transition: all 0.2s ease;
     }
 
     .nav-brand-pacman:hover {
-      border-color: #ffff00;
-      box-shadow: 0 0 16px rgba(255, 255, 0, 0.4);
+      border-color: var(--pacman-yellow);
+      box-shadow: 0 0 16px rgba(255, 255, 0, 0.6);
+      transform: translateY(-1px);
     }
 
     .pixel-brand-text {
       font-family: var(--font-pixel);
-      font-size: 0.8rem;
-      color: #ffff00;
-      letter-spacing: 0.8px;
-      text-shadow: 
-        2px 2px 0px #000000,
-        -1px -1px 0px #000000,
-        0 0 10px rgba(255, 255, 0, 0.6);
+      font-size: 0.78rem;
+      color: var(--pacman-yellow);
+      letter-spacing: 1px;
+      text-shadow: 2px 2px 0px #000000, 0 0 8px rgba(255, 255, 0, 0.5);
       white-space: nowrap;
     }
 
@@ -113,103 +116,149 @@
       display: flex;
       align-items: center;
       gap: 16px;
-      background: rgba(13, 17, 23, 0.88);
-      backdrop-filter: blur(8px);
+      background: rgba(0, 0, 0, 0.85);
       padding: 6px 14px;
-      border-radius: 6px;
-      border: 1px solid rgba(48, 54, 61, 0.8);
+      border: 2px solid var(--pacman-blue);
+      box-shadow: 0 0 10px rgba(33, 33, 255, 0.3);
     }
 
     .nav-menu {
       display: flex;
-      gap: 18px;
+      gap: 16px;
       list-style: none;
     }
 
     .nav-menu a {
+      font-family: var(--font-pixel);
+      font-size: 0.65rem;
       color: var(--text-muted);
       text-decoration: none;
-      font-size: 0.86rem;
-      font-weight: 500;
       transition: color 0.15s ease;
+      letter-spacing: 0.5px;
     }
 
     .nav-menu a:hover {
-      color: var(--text);
+      color: var(--inky-cyan);
+      text-shadow: 0 0 8px rgba(0, 255, 255, 0.6);
     }
 
-    /* Minimalist Language Switcher */
+    /* Pixel Language Switcher */
     .lang-toggle {
       display: inline-flex;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 6px;
+      background: #000000;
+      border: 1px solid var(--pacman-blue);
       padding: 2px;
+      gap: 2px;
     }
 
     .lang-btn {
       background: transparent;
       border: none;
       color: var(--text-muted);
-      font-family: var(--font-mono);
-      font-size: 0.72rem;
-      font-weight: 600;
-      padding: 4px 8px;
-      border-radius: 4px;
+      font-family: var(--font-pixel);
+      font-size: 0.62rem;
+      padding: 5px 8px;
       cursor: pointer;
       transition: all 0.15s ease;
     }
 
     .lang-btn.active {
-      background: var(--border);
-      color: var(--text);
+      background: var(--pacman-blue);
+      color: #ffffff;
+      box-shadow: 0 0 6px rgba(33, 33, 255, 0.8);
     }
 
-    /* Clean Hero / Profile Header */
+    /* Hero / Arcade Character Card */
     .hero {
-      padding: 60px 0 45px;
-      border-bottom: 1px solid var(--border);
+      padding: 50px 0 40px;
+      border-bottom: 2px solid var(--pacman-blue);
+    }
+
+    .arcade-hud {
+      display: flex;
+      justify-content: space-between;
+      max-width: 600px;
+      margin: 0 auto 16px;
+      font-family: var(--font-pixel);
+      font-size: 0.68rem;
+      letter-spacing: 1px;
+    }
+
+    .hud-label {
+      color: var(--blinky-red);
+      margin-right: 6px;
+    }
+
+    .hud-val {
+      color: #ffffff;
+    }
+
+    .hero-card {
+      background: var(--card-bg);
+      border: 3px solid var(--pacman-blue);
+      box-shadow: 0 0 24px rgba(33, 33, 255, 0.25), inset 0 0 20px rgba(33, 33, 255, 0.1);
+      padding: 32px;
+      position: relative;
+    }
+
+    /* Pac-man decorative corners */
+    .hero-card::before {
+      content: 'ᗧ';
+      position: absolute;
+      top: -14px;
+      left: 20px;
+      background: var(--bg);
+      padding: 0 8px;
+      color: var(--pacman-yellow);
+      font-family: var(--font-pixel);
+      font-size: 1.1rem;
     }
 
     .hero-layout {
       display: flex;
-      gap: 36px;
+      gap: 32px;
       align-items: flex-start;
     }
 
-    .hero-photo {
-      width: 110px;
-      height: 110px;
-      border-radius: 12px;
-      border: 1px solid var(--border);
-      object-fit: cover;
+    .hero-photo-wrapper {
+      position: relative;
       flex-shrink: 0;
-      background: var(--surface);
+    }
+
+    .hero-photo {
+      width: 120px;
+      height: 120px;
+      border: 3px solid var(--pacman-yellow);
+      object-fit: cover;
+      display: block;
+      box-shadow: 0 0 12px rgba(255, 255, 0, 0.4);
     }
 
     .hero-text h1 {
-      font-size: 2.1rem;
-      font-weight: 700;
-      letter-spacing: -0.5px;
-      color: var(--text);
-      line-height: 1.2;
-      margin-bottom: 6px;
+      font-family: var(--font-pixel);
+      font-size: 1.6rem;
+      color: #ffffff;
+      letter-spacing: 1px;
+      line-height: 1.35;
+      margin-bottom: 10px;
+      text-shadow: 2px 2px 0px #000, 0 0 10px rgba(255, 255, 255, 0.3);
     }
 
     .hero-subtitle {
-      font-family: var(--font-mono);
-      font-size: 0.92rem;
-      color: var(--accent);
-      margin-bottom: 14px;
-      font-weight: 500;
+      font-family: var(--font-pixel);
+      font-size: 0.75rem;
+      color: var(--inky-cyan);
+      margin-bottom: 16px;
+      letter-spacing: 0.5px;
+      text-shadow: 0 0 8px rgba(0, 255, 255, 0.4);
     }
 
     .hero-bio {
-      font-size: 0.98rem;
+      font-size: 0.94rem;
       color: var(--text-muted);
       max-width: 680px;
       line-height: 1.65;
-      margin-bottom: 22px;
+      margin-bottom: 24px;
     }
 
     .hero-links {
@@ -218,174 +267,213 @@
       flex-wrap: wrap;
     }
 
-    .btn {
+    /* Pixel Arcade Buttons */
+    .arcade-btn {
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      padding: 8px 16px;
-      border-radius: 6px;
-      font-size: 0.85rem;
-      font-weight: 500;
+      padding: 10px 18px;
+      font-family: var(--font-pixel);
+      font-size: 0.7rem;
       text-decoration: none;
       cursor: pointer;
-      transition: all 0.15s ease;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      transition: all 0.1s ease;
+      position: relative;
     }
 
-    .btn-primary {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      color: var(--text);
-    }
-
-    .btn-primary:hover {
-      background: var(--surface-subtle);
-      border-color: var(--border-hover);
-    }
-
-    .btn-accent {
-      background: #1f6feb;
-      border: 1px solid rgba(255, 255, 255, 0.1);
+    .btn-red {
+      background: var(--blinky-red);
       color: #ffffff;
+      border: 2px solid #ffffff;
+      box-shadow: 3px 3px 0px var(--pacman-blue);
     }
 
-    .btn-accent:hover {
-      background: #388bfd;
+    .btn-red:hover {
+      background: #ff3333;
+      transform: translate(2px, 2px);
+      box-shadow: 1px 1px 0px var(--pacman-blue);
+    }
+
+    .btn-yellow {
+      background: var(--pacman-yellow);
+      color: #000000;
+      border: 2px solid #ffffff;
+      box-shadow: 3px 3px 0px var(--pacman-blue);
+      font-weight: 700;
+    }
+
+    .btn-yellow:hover {
+      background: #ffff66;
+      transform: translate(2px, 2px);
+      box-shadow: 1px 1px 0px var(--pacman-blue);
+    }
+
+    .btn-blue {
+      background: var(--pacman-blue);
+      color: #ffffff;
+      border: 2px solid #ffffff;
+      box-shadow: 3px 3px 0px var(--pacman-yellow);
+    }
+
+    .btn-blue:hover {
+      background: #3b3bff;
+      transform: translate(2px, 2px);
+      box-shadow: 1px 1px 0px var(--pacman-yellow);
     }
 
     /* Section Styles */
     section {
       padding: 50px 0;
-      border-bottom: 1px solid var(--border);
+      border-bottom: 2px solid var(--pacman-blue);
     }
 
     .section-head {
       margin-bottom: 28px;
+      border-left: 4px solid var(--pacman-yellow);
+      padding-left: 14px;
     }
 
-    .section-label {
-      font-family: var(--font-mono);
-      font-size: 0.8rem;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      margin-bottom: 4px;
+    .section-stage {
+      font-family: var(--font-pixel);
+      font-size: 0.72rem;
+      color: var(--clyde-orange);
+      letter-spacing: 1px;
       display: block;
+      margin-bottom: 6px;
     }
 
     .section-heading {
-      font-size: 1.4rem;
-      font-weight: 600;
-      letter-spacing: -0.3px;
-      color: var(--text);
+      font-family: var(--font-pixel);
+      font-size: 1.15rem;
+      color: #ffffff;
+      letter-spacing: 0.5px;
+      line-height: 1.4;
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
     }
 
-    /* Project Cards */
-    .project-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 28px;
-      margin-bottom: 24px;
-      transition: border-color 0.2s ease;
+    /* Arcade Dossier Cards */
+    .arcade-card {
+      background: var(--card-bg);
+      border: 2px solid var(--pacman-blue);
+      box-shadow: 0 0 16px rgba(33, 33, 255, 0.2);
+      padding: 26px;
+      margin-bottom: 28px;
+      transition: all 0.2s ease;
     }
 
-    .project-card:hover {
-      border-color: var(--border-hover);
+    .arcade-card:hover {
+      border-color: var(--inky-cyan);
+      box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
     }
 
     .project-header {
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
-      margin-bottom: 12px;
+      margin-bottom: 14px;
       gap: 16px;
+      border-bottom: 1px dashed var(--pacman-blue);
+      padding-bottom: 10px;
     }
 
     .project-title {
-      font-size: 1.2rem;
-      font-weight: 600;
-      color: var(--text);
+      font-family: var(--font-pixel);
+      font-size: 0.95rem;
+      color: var(--pacman-yellow);
+      letter-spacing: 0.5px;
+      line-height: 1.4;
+      text-shadow: 1px 1px 0px #000;
     }
 
     .project-meta {
-      font-family: var(--font-mono);
-      font-size: 0.78rem;
-      color: var(--text-muted);
+      font-family: var(--font-pixel);
+      font-size: 0.65rem;
+      color: var(--clyde-orange);
       white-space: nowrap;
     }
 
     .project-desc {
       font-size: 0.92rem;
-      color: var(--text-muted);
-      margin-bottom: 18px;
-      line-height: 1.6;
+      color: #d1d5db;
+      margin-bottom: 20px;
+      line-height: 1.65;
     }
 
-    /* Technical Specs / Dossier Details */
+    /* Technical Specs / Dossier Grid */
     .tech-dossier {
-      background: var(--bg);
-      border: 1px solid rgba(255, 255, 255, 0.05);
-      border-radius: 6px;
+      background: var(--card-inner);
+      border: 1px solid rgba(33, 33, 255, 0.4);
       padding: 16px;
       margin-bottom: 18px;
     }
 
     .tech-dossier-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
       gap: 14px;
     }
 
     .dossier-item h4 {
-      font-family: var(--font-mono);
-      font-size: 0.75rem;
-      color: var(--accent);
-      text-transform: uppercase;
-      margin-bottom: 3px;
+      font-family: var(--font-pixel);
+      font-size: 0.68rem;
+      color: var(--pinky-pink);
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
     }
 
     .dossier-item p {
       font-size: 0.84rem;
-      color: #c9d1d9;
+      color: var(--text-muted);
       line-height: 1.45;
     }
 
     .tag-list {
       display: flex;
       flex-wrap: wrap;
-      gap: 6px;
+      gap: 8px;
     }
 
-    .tag {
-      font-family: var(--font-mono);
-      font-size: 0.75rem;
-      padding: 3px 8px;
-      background: var(--tag-bg);
-      border: 1px solid rgba(255, 255, 255, 0.06);
-      border-radius: 4px;
-      color: #8b949e;
+    .pixel-tag {
+      font-family: var(--font-pixel);
+      font-size: 0.6rem;
+      padding: 4px 8px;
+      background: #000000;
+      border: 1px solid var(--inky-cyan);
+      color: var(--inky-cyan);
+      letter-spacing: 0.5px;
     }
 
-    /* Technical Stack Section */
+    /* Skills Grid (Inventory Style) */
     .skills-block {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
       gap: 20px;
     }
 
+    .skill-group {
+      background: var(--card-bg);
+      border: 2px solid var(--pacman-blue);
+      padding: 18px;
+      box-shadow: 0 0 10px rgba(33, 33, 255, 0.15);
+    }
+
     .skill-group h4 {
-      font-family: var(--font-mono);
-      font-size: 0.8rem;
-      color: var(--text);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      margin-bottom: 10px;
+      font-family: var(--font-pixel);
+      font-size: 0.72rem;
+      color: var(--pacman-yellow);
+      margin-bottom: 14px;
+      border-bottom: 1px solid var(--pacman-blue);
+      padding-bottom: 6px;
     }
 
     .skill-items {
       display: flex;
       flex-direction: column;
-      gap: 6px;
+      gap: 8px;
     }
 
     .skill-item {
@@ -397,49 +485,56 @@
     }
 
     .skill-item::before {
-      content: "›";
-      color: var(--accent);
-      font-weight: bold;
+      content: '•';
+      color: var(--pacman-pellet);
+      font-size: 1.2rem;
     }
 
-    /* Footer / Contact */
+    /* Footer / High Score & Credit */
     footer {
-      padding: 40px 0 60px;
-      font-size: 0.85rem;
-      color: var(--text-muted);
+      padding: 45px 0 60px;
+      background: #000000;
+      border-top: 3px solid var(--pacman-blue);
+      text-align: center;
     }
 
-    .footer-content {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 16px;
+    .footer-arcade-msg {
+      font-family: var(--font-pixel);
+      font-size: 0.8rem;
+      color: var(--pacman-yellow);
+      margin-bottom: 16px;
+      letter-spacing: 1px;
+      animation: pulse 1.5s infinite alternate;
+    }
+
+    @keyframes pulse {
+      from { opacity: 0.7; }
+      to { opacity: 1; text-shadow: 0 0 12px rgba(255, 255, 0, 0.8); }
     }
 
     .footer-links {
       display: flex;
-      gap: 18px;
+      justify-content: center;
+      gap: 16px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
     }
 
-    .footer-links a {
+    .footer-copy {
+      font-family: var(--font-pixel);
+      font-size: 0.6rem;
       color: var(--text-muted);
-      text-decoration: none;
-      transition: color 0.15s ease;
-    }
-
-    .footer-links a:hover {
-      color: var(--accent);
+      letter-spacing: 0.5px;
     }
 
     @media (max-width: 768px) {
       .nav-inner {
         flex-direction: column;
-        gap: 8px;
-        padding: 8px 0;
+        gap: 10px;
+        padding: 10px 0;
       }
       .pixel-brand-text {
-        font-size: 0.68rem;
+        font-size: 0.65rem;
       }
       .nav-menu {
         display: none;
@@ -452,34 +547,37 @@
       .hero-links {
         justify-content: center;
       }
+      .hero-text h1 {
+        font-size: 1.25rem;
+      }
       .project-header {
         flex-direction: column;
-        gap: 4px;
+        gap: 6px;
       }
-      .footer-content {
-        flex-direction: column;
-        text-align: center;
+      .arcade-hud {
+        font-size: 0.52rem;
       }
     }
   </style>
 </head>
 <body>
 
-  <!-- Top Navigation with Pac-Man Map Background -->
+  <!-- Top Navigation (Pac-Man Arcade Bar) -->
   <nav>
-    <canvas id="pacman-canvas"></canvas>
+    <canvas id="pacman-nav-canvas"></canvas>
 
     <div class="container nav-inner">
       <!-- Pixel Art Brand replacing ivan.alejos_ -->
       <a href="#" class="nav-brand-pacman">
+        <span style="color: var(--pacman-yellow); font-size: 1rem;">ᗧ</span>
         <span class="pixel-brand-text" data-i18n="nav_pixel_title">PORTFOLIO DE IVÁN ALEJOS</span>
       </a>
 
       <div class="nav-actions">
         <ul class="nav-menu">
-          <li><a href="#graphics" data-i18n="nav_graphics">Graphics & Simulation</a></li>
-          <li><a href="#systems" data-i18n="nav_systems">Systems & Enterprise</a></li>
-          <li><a href="#stack" data-i18n="nav_stack">Stack</a></li>
+          <li><a href="#graphics" data-i18n="nav_graphics">GRAPHICS</a></li>
+          <li><a href="#systems" data-i18n="nav_systems">SYSTEMS</a></li>
+          <li><a href="#stack" data-i18n="nav_stack">STACK</a></li>
         </ul>
 
         <!-- Minimal Language Toggle -->
@@ -491,30 +589,41 @@
     </div>
   </nav>
 
-  <!-- Clean Professional Hero Header -->
+  <!-- Hero / Character Profile Card -->
   <header class="hero">
     <div class="container">
-      <div class="hero-layout">
-        <img src="./FotoPasaporte_small.jpg" alt="Iván Alejos Gómez" class="hero-photo" onerror="this.style.display='none'">
-        
-        <div class="hero-text">
-          <h1>Iván Alejos Gómez</h1>
-          <div class="hero-subtitle" data-i18n="hero_role">Pipeline Software Developer & Multimedia Engineer</div>
-          
-          <p class="hero-bio" data-i18n="hero_bio">
-            Ingeniero Multimedia con Máster en Informática Gráfica y Simulación. Especializado en el desarrollo de herramientas de pipeline, integración entre código y flujos 3D (Houdini, Python, C++), y arquitectura de sistemas industriales y bases de datos.
-          </p>
+      <!-- Arcade HUD Bar -->
+      <div class="arcade-hud">
+        <span><span class="hud-label">1UP</span><span class="hud-val">1999</span></span>
+        <span><span class="hud-label" style="color: var(--inky-cyan);">HIGH SCORE</span><span class="hud-val">999990</span></span>
+        <span><span class="hud-label" style="color: var(--clyde-orange);">STAGE</span><span class="hud-val">01</span></span>
+      </div>
 
-          <div class="hero-links">
-            <a href="mailto:ivanalejosgomez99@gmail.com" class="btn btn-accent">
-              <i class="fa-regular fa-envelope"></i> <span data-i18n="btn_contact">Contactar</span>
-            </a>
-            <a href="./cv_ivan_alejos.pdf" target="_blank" class="btn btn-primary">
-              <i class="fa-regular fa-file-pdf"></i> <span data-i18n="btn_cv">Currículum Vitae (PDF)</span>
-            </a>
-            <a href="https://github.com/ivanalejosgomez" target="_blank" class="btn btn-primary">
-              <i class="fa-brands fa-github"></i> GitHub
-            </a>
+      <div class="hero-card">
+        <div class="hero-layout">
+          <div class="hero-photo-wrapper">
+            <img src="./FotoPasaporte_small.jpg" alt="Iván Alejos Gómez" class="hero-photo" onerror="this.style.display='none'">
+          </div>
+          
+          <div class="hero-text">
+            <h1>IVÁN ALEJOS GÓMEZ</h1>
+            <div class="hero-subtitle" data-i18n="hero_role">PIPELINE SOFTWARE DEVELOPER & MULTIMEDIA ENGINEER</div>
+            
+            <p class="hero-bio" data-i18n="hero_bio">
+              Ingeniero Multimedia con Máster en Informática Gráfica y Simulación. Especializado en el desarrollo de herramientas de pipeline, integración entre código y flujos 3D (Houdini, Python, C++), y arquitectura de sistemas industriales y bases de datos.
+            </p>
+
+            <div class="hero-links">
+              <a href="mailto:ivanalejosgomez99@gmail.com" class="arcade-btn btn-red">
+                <i class="fa-solid fa-envelope"></i> <span data-i18n="btn_contact">Contactar</span>
+              </a>
+              <a href="./cv_ivan_alejos.pdf" target="_blank" class="arcade-btn btn-yellow">
+                <i class="fa-solid fa-file-pdf"></i> <span data-i18n="btn_cv">CV (PDF)</span>
+              </a>
+              <a href="https://github.com/ivanalejosgomez" target="_blank" class="arcade-btn btn-blue">
+                <i class="fa-brands fa-github"></i> GitHub
+              </a>
+            </div>
           </div>
         </div>
       </div>
@@ -526,16 +635,16 @@
     <!-- Section 1: Graphics & Simulation (TFM Spotlight) -->
     <section id="graphics">
       <div class="section-head">
-        <span class="section-label" data-i18n="section_graphics_label">01. Computación Gráfica & Simulación</span>
-        <h2 class="section-heading" data-i18n="section_graphics_title">Efectos Visuales & Dinámicas Físicas</h2>
+        <span class="section-stage" data-i18n="section_graphics_stage">STAGE 01 · GRAPHICS & SIMULATION</span>
+        <h2 class="section-heading" data-i18n="section_graphics_title">EFECTOS VISUALES & DINÁMICAS FÍSICAS</h2>
       </div>
 
       <!-- TFM Case Study Card -->
-      <article class="project-card">
+      <article class="arcade-card">
         <div class="project-header">
           <div>
             <h3 class="project-title" data-i18n="tfm_title">Simulación de Fluidos en Houdini mediante Métodos Híbridos (PIC / FLIP)</h3>
-            <div style="font-size: 0.8rem; color: var(--accent); margin-top: 2px;" data-i18n="tfm_context">Trabajo de Fin de Máster (TFM) · Universidad Rey Juan Carlos</div>
+            <div style="font-family: var(--font-pixel); font-size: 0.65rem; color: var(--inky-cyan); margin-top: 6px;" data-i18n="tfm_context">Trabajo de Fin de Máster (TFM) · Universidad Rey Juan Carlos</div>
           </div>
           <span class="project-meta">2023 - 2025</span>
         </div>
@@ -567,13 +676,13 @@
         </div>
 
         <div class="tag-list">
-          <span class="tag">Houdini FX</span>
-          <span class="tag">VEX</span>
-          <span class="tag">Python</span>
-          <span class="tag">Navier-Stokes</span>
-          <span class="tag">PIC / FLIP</span>
-          <span class="tag">OpenVDB</span>
-          <span class="tag">C++ Architecture</span>
+          <span class="pixel-tag">Houdini FX</span>
+          <span class="pixel-tag">VEX</span>
+          <span class="pixel-tag">Python</span>
+          <span class="pixel-tag">Navier-Stokes</span>
+          <span class="pixel-tag">PIC / FLIP</span>
+          <span class="pixel-tag">OpenVDB</span>
+          <span class="pixel-tag">C++ Arch</span>
         </div>
       </article>
     </section>
@@ -581,16 +690,16 @@
     <!-- Section 2: Enterprise Software & Systems -->
     <section id="systems">
       <div class="section-head">
-        <span class="section-label" data-i18n="section_systems_label">02. Software de Sistemas & Empresa</span>
-        <h2 class="section-heading" data-i18n="section_systems_title">Sistemas Industriales, Backend & Automatización</h2>
+        <span class="section-stage" data-i18n="section_systems_stage">STAGE 02 · ENTERPRISE & SYSTEMS</span>
+        <h2 class="section-heading" data-i18n="section_systems_title">SISTEMAS INDUSTRIALES, BACKEND & AUTOMATIZACIÓN</h2>
       </div>
 
       <!-- Project 1: SCADA / Odoo -->
-      <article class="project-card">
+      <article class="arcade-card">
         <div class="project-header">
           <div>
             <h3 class="project-title" data-i18n="scada_title">Plataforma SCADA, Integración ERP Odoo y Analítica de Vídeo</h3>
-            <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 2px;" data-i18n="scada_context">Diseño e Innovación Técnica SL</div>
+            <div style="font-family: var(--font-pixel); font-size: 0.65rem; color: var(--inky-cyan); margin-top: 6px;" data-i18n="scada_context">Diseño e Innovación Técnica SL</div>
           </div>
           <span class="project-meta">2021 - 2024</span>
         </div>
@@ -600,21 +709,21 @@
         </p>
 
         <div class="tag-list">
-          <span class="tag">Ignition SCADA</span>
-          <span class="tag">Odoo ERP</span>
-          <span class="tag">Python</span>
-          <span class="tag">SQL Server</span>
-          <span class="tag">PostgreSQL</span>
-          <span class="tag">CCTV IP Protocols</span>
+          <span class="pixel-tag">Ignition SCADA</span>
+          <span class="pixel-tag">Odoo ERP</span>
+          <span class="pixel-tag">Python</span>
+          <span class="pixel-tag">SQL Server</span>
+          <span class="pixel-tag">PostgreSQL</span>
+          <span class="pixel-tag">CCTV Protocols</span>
         </div>
       </article>
 
       <!-- Project 2: Computer Vision (TFG) -->
-      <article class="project-card">
+      <article class="arcade-card">
         <div class="project-header">
           <div>
             <h3 class="project-title" data-i18n="cv_title">Sistema de Visión Artificial y Tracking en Tiempo Real para Cámaras Industriales</h3>
-            <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 2px;" data-i18n="cv_context">Trabajo de Fin de Grado (TFG) · Universitat de València</div>
+            <div style="font-family: var(--font-pixel); font-size: 0.65rem; color: var(--inky-cyan); margin-top: 6px;" data-i18n="cv_context">Trabajo de Fin de Grado (TFG) · Universitat de València</div>
           </div>
           <span class="project-meta">2021 - 2022</span>
         </div>
@@ -624,20 +733,20 @@
         </p>
 
         <div class="tag-list">
-          <span class="tag">OpenCV</span>
-          <span class="tag">Python</span>
-          <span class="tag">C++</span>
-          <span class="tag">Image Processing</span>
-          <span class="tag">Hardware Integration</span>
+          <span class="pixel-tag">OpenCV</span>
+          <span class="pixel-tag">Python</span>
+          <span class="pixel-tag">C++</span>
+          <span class="pixel-tag">Image Processing</span>
+          <span class="pixel-tag">Hardware Sync</span>
         </div>
       </article>
 
       <!-- Project 3: SIMODAR Simulation Systems -->
-      <article class="project-card">
+      <article class="arcade-card">
         <div class="project-header">
           <div>
             <h3 class="project-title" data-i18n="sim_title">Integración de Hardware de Simulación y Soporte de Software en Planta</h3>
-            <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 2px;" data-i18n="sim_context">SIMODAR Training Solutions SL</div>
+            <div style="font-family: var(--font-pixel); font-size: 0.65rem; color: var(--inky-cyan); margin-top: 6px;" data-i18n="sim_context">SIMODAR Training Solutions SL</div>
           </div>
           <span class="project-meta">2024 - 2026</span>
         </div>
@@ -647,25 +756,25 @@
         </p>
 
         <div class="tag-list">
-          <span class="tag">C++</span>
-          <span class="tag">Linux / Windows Server</span>
-          <span class="tag">TCP/IP</span>
-          <span class="tag">Hardware Interfacing</span>
-          <span class="tag">Tier-3 Diagnostics</span>
+          <span class="pixel-tag">C++</span>
+          <span class="pixel-tag">Linux / Windows</span>
+          <span class="pixel-tag">TCP/IP</span>
+          <span class="pixel-tag">Hardware Interfacing</span>
+          <span class="pixel-tag">Tier-3 Diagnostics</span>
         </div>
       </article>
     </section>
 
-    <!-- Section 3: Technical Stack Overview -->
+    <!-- Section 3: Technical Stack (Inventory) -->
     <section id="stack">
       <div class="section-head">
-        <span class="section-label" data-i18n="section_stack_label">03. Capacidades Técnicas</span>
-        <h2 class="section-heading" data-i18n="section_stack_title">Stack & Entornos</h2>
+        <span class="section-stage" data-i18n="section_stack_stage">STAGE 03 · INVENTORY</span>
+        <h2 class="section-heading" data-i18n="section_stack_title">STACK & HERRAMIENTAS</h2>
       </div>
 
       <div class="skills-block">
         <div class="skill-group">
-          <h4 data-i18n="stack_g1">Pipeline & Gráficos</h4>
+          <h4 data-i18n="stack_g1">PIPELINE & 3D</h4>
           <div class="skill-items">
             <span class="skill-item">Houdini & VEX</span>
             <span class="skill-item">Python Scripting</span>
@@ -676,10 +785,10 @@
         </div>
 
         <div class="skill-group">
-          <h4 data-i18n="stack_g2">Desarrollo & Backend</h4>
+          <h4 data-i18n="stack_g2">DEV & BACKEND</h4>
           <div class="skill-items">
             <span class="skill-item">C++ (OOP & Concurrencia)</span>
-            <span class="skill-item">Python (Modular / APIs)</span>
+            <span class="skill-item">Python (APIs / Tools)</span>
             <span class="skill-item">C# (.NET / Webservices)</span>
             <span class="skill-item">SQL (PostgreSQL / Server)</span>
             <span class="skill-item">APIs RESTful</span>
@@ -687,7 +796,7 @@
         </div>
 
         <div class="skill-group">
-          <h4 data-i18n="stack_g3">Sistemas & DevOps</h4>
+          <h4 data-i18n="stack_g3">SISTEMAS & DEVOPS</h4>
           <div class="skill-items">
             <span class="skill-item">Linux (Ubuntu/Debian)</span>
             <span class="skill-item">Windows Server</span>
@@ -698,7 +807,7 @@
         </div>
 
         <div class="skill-group">
-          <h4 data-i18n="stack_g4">Software Industrial</h4>
+          <h4 data-i18n="stack_g4">INDUSTRIA & VISIÓN</h4>
           <div class="skill-items">
             <span class="skill-item">Ignition SCADA</span>
             <span class="skill-item">ERP Odoo</span>
@@ -712,31 +821,38 @@
 
   </main>
 
-  <!-- Footer -->
+  <!-- Arcade Footer -->
   <footer>
-    <div class="container footer-content">
-      <div>
-        <span>© 2026 Iván Alejos Gómez</span>
-        <span style="margin: 0 8px; color: var(--border);">·</span>
-        <span data-i18n="footer_location">Torrent, Valencia (España)</span>
+    <div class="container">
+      <div class="footer-arcade-msg" data-i18n="footer_msg">
+        CONTINUE? INSERT COIN OR DROP AN EMAIL
       </div>
 
       <div class="footer-links">
-        <a href="mailto:ivanalejosgomez99@gmail.com"><i class="fa-regular fa-envelope"></i> Email</a>
-        <a href="https://github.com/ivanalejosgomez" target="_blank"><i class="fa-brands fa-github"></i> GitHub</a>
-        <a href="./cv_ivan_alejos.pdf" target="_blank"><i class="fa-regular fa-file-pdf"></i> CV (PDF)</a>
+        <a href="mailto:ivanalejosgomez99@gmail.com" class="arcade-btn btn-red">
+          <i class="fa-solid fa-envelope"></i> EMAIL
+        </a>
+        <a href="./cv_ivan_alejos.pdf" target="_blank" class="arcade-btn btn-yellow">
+          <i class="fa-solid fa-file-pdf"></i> CV (PDF)
+        </a>
+        <a href="https://github.com/ivanalejosgomez" target="_blank" class="arcade-btn btn-blue">
+          <i class="fa-brands fa-github"></i> GITHUB
+        </a>
+      </div>
+
+      <div class="footer-copy">
+        © 2026 IVÁN ALEJOS GÓMEZ · <span data-i18n="footer_location">TORRENT, VALENCIA (ESPAÑA)</span> · HIGH SCORE 999990
       </div>
     </div>
   </footer>
 
   <script>
-    // Pac-Man Maze Animation inside the Navigation Bar
+    // Pac-Man Maze Animation inside Navigation Bar
     (function initNavPacmanCanvas() {
-      const canvas = document.getElementById('pacman-canvas');
+      const canvas = document.getElementById('pacman-nav-canvas');
       if (!canvas) return;
       const ctx = canvas.getContext('2d');
 
-      // Horizontal maze corridor section
       const mazePattern = [
         "################################################################",
         "#............##............##............##............##......#",
@@ -803,7 +919,6 @@
 
         const cols = Math.ceil(canvas.width / tileSize) + 2;
 
-        // Draw maze walls and dots in nav background
         for (let r = 0; r < rows; r++) {
           const rowStr = mazePattern[r];
           for (let c = 0; c < cols; c++) {
@@ -824,14 +939,12 @@
           }
         }
 
-        // Animate Pac-Man & Ghosts running across the center of the nav
         const trackY = canvas.height / 2;
         pacmanX += pacmanSpeed;
         if (pacmanX > canvas.width + 200) {
           pacmanX = -60;
         }
 
-        // Pac-Man
         const mouthAngle = Math.abs(Math.sin(frame * 0.2)) * 0.32 * Math.PI;
         ctx.fillStyle = "#ffff00";
         ctx.beginPath();
@@ -840,7 +953,6 @@
         ctx.closePath();
         ctx.fill();
 
-        // Ghosts
         ghosts.forEach(g => {
           const gx = pacmanX - g.offset;
           if (gx > -40 && gx < canvas.width + 40) {
@@ -858,15 +970,15 @@
     const i18n = {
       es: {
         nav_pixel_title: "PORTFOLIO DE IVÁN ALEJOS",
-        nav_graphics: "Gráficos & Simulación",
-        nav_systems: "Sistemas & Empresa",
-        nav_stack: "Stack",
-        hero_role: "Pipeline Software Developer & Multimedia Engineer",
+        nav_graphics: "GRAPHICS",
+        nav_systems: "SYSTEMS",
+        nav_stack: "STACK",
+        hero_role: "PIPELINE SOFTWARE DEVELOPER & MULTIMEDIA ENGINEER",
         hero_bio: "Ingeniero Multimedia con Máster en Informática Gráfica y Simulación. Especializado en el desarrollo de herramientas de pipeline, integración entre código y flujos 3D (Houdini, Python, C++), y arquitectura de sistemas industriales y bases de datos.",
         btn_contact: "Contactar",
-        btn_cv: "Currículum Vitae (PDF)",
-        section_graphics_label: "01. Computación Gráfica & Simulación",
-        section_graphics_title: "Efectos Visuales & Dinámicas Físicas",
+        btn_cv: "CV (PDF)",
+        section_graphics_stage: "STAGE 01 · GRAPHICS & SIMULATION",
+        section_graphics_title: "EFECTOS VISUALES & DINÁMICAS FÍSICAS",
         tfm_title: "Simulación de Fluidos en Houdini mediante Métodos Híbridos (PIC / FLIP)",
         tfm_context: "Trabajo de Fin de Máster (TFM) · Universidad Rey Juan Carlos",
         tfm_desc: "Investigación e implementación de un solver numérico para la simulación de fluidos multifásicos incompresibles basado en las ecuaciones de Navier-Stokes. El proyecto aborda la transición entre la perspectiva Lagrangiana (partículas) y Euleriana (rejilla espacial), minimizando la pérdida de energía y la disipación artificial de volumen en escenas complejas de efectos visuales.",
@@ -878,8 +990,8 @@
         dossier_perf_p: "Estructuración en mallas volumétricas OpenVDB para el cálculo eficiente de dominios a gran escala (+2M de partículas).",
         dossier_pipe_h: "Enfoque de Pipeline",
         dossier_pipe_p: "Diseñado como módulo exportable para producción cinematográfica y renderizado fotorealista en Karma / Mantra.",
-        section_systems_label: "02. Software de Sistemas & Empresa",
-        section_systems_title: "Sistemas Industriales, Backend & Automatización",
+        section_systems_stage: "STAGE 02 · ENTERPRISE & SYSTEMS",
+        section_systems_title: "SISTEMAS INDUSTRIALES, BACKEND & AUTOMATIZACIÓN",
         scada_title: "Plataforma SCADA, Integración ERP Odoo y Analítica de Vídeo",
         scada_context: "Diseño e Innovación Técnica SL",
         scada_desc: "Desarrollo de módulos para supervisión de procesos industriales en tiempo real utilizando Ignition SCADA y sincronización con el ERP empresarial Odoo. Implementación de servicios de fondo en Python para la ingesta de telemetría, gestión de bases de datos SQL y almacenamiento automático de flujos de vídeo de cámaras industriales.",
@@ -889,25 +1001,26 @@
         sim_title: "Integración de Hardware de Simulación y Soporte de Software en Planta",
         sim_context: "SIMODAR Training Solutions SL",
         sim_desc: "Arquitectura de comunicación y enlace entre simuladores de formación física, instrumentación de hardware y servidores en red. Diagnóstico N2/N3 de incidencias operativas, automatización de rutinas de verificación de sensores y despliegue in situ de sistemas de entrenamiento técnico.",
-        section_stack_label: "03. Capacidades Técnicas",
-        section_stack_title: "Stack & Entornos",
-        stack_g1: "Pipeline & Gráficos",
-        stack_g2: "Desarrollo & Backend",
-        stack_g3: "Sistemas & DevOps",
-        stack_g4: "Software Industrial",
-        footer_location: "Torrent, Valencia (España)"
+        section_stack_stage: "STAGE 03 · INVENTORY",
+        section_stack_title: "STACK & HERRAMIENTAS",
+        stack_g1: "PIPELINE & 3D",
+        stack_g2: "DEV & BACKEND",
+        stack_g3: "SISTEMAS & DEVOPS",
+        stack_g4: "INDUSTRIA & VISIÓN",
+        footer_msg: "CONTINUE? INSERT COIN OR DROP AN EMAIL",
+        footer_location: "TORRENT, VALENCIA (ESPAÑA)"
       },
       en: {
         nav_pixel_title: "IVÁN ALEJOS' PORTFOLIO",
-        nav_graphics: "Graphics & Simulation",
-        nav_systems: "Systems & Enterprise",
-        nav_stack: "Tech Stack",
-        hero_role: "Pipeline Software Developer & Multimedia Engineer",
+        nav_graphics: "GRAPHICS",
+        nav_systems: "SYSTEMS",
+        nav_stack: "STACK",
+        hero_role: "PIPELINE SOFTWARE DEVELOPER & MULTIMEDIA ENGINEER",
         hero_bio: "Multimedia Engineer with an MSc in Computer Graphics & Simulation. Specialized in pipeline tooling, bridging code and 3D production workflows (Houdini, Python, C++), and industrial software architecture with relational databases.",
         btn_contact: "Contact",
         btn_cv: "Resume (PDF)",
-        section_graphics_label: "01. Computer Graphics & Simulation",
-        section_graphics_title: "Visual Effects & Numerical Dynamics",
+        section_graphics_stage: "STAGE 01 · GRAPHICS & SIMULATION",
+        section_graphics_title: "VISUAL EFFECTS & NUMERICAL DYNAMICS",
         tfm_title: "Fluid Simulation in Houdini using Hybrid Methods (PIC / FLIP)",
         tfm_context: "Master's Thesis (MSc) · Universidad Rey Juan Carlos",
         tfm_desc: "Research and implementation of a numerical solver for incompressible multiphase fluid simulation based on the Navier-Stokes equations. Addresses the transition between Lagrangian (particles) and Eulerian (grid) perspectives, minimizing artificial volume dissipation and energy loss in complex VFX scenes.",
@@ -919,8 +1032,8 @@
         dossier_perf_p: "Structured OpenVDB sparse volumetric grids for efficient domain processing at large scale (+2M particles).",
         dossier_pipe_h: "Pipeline Approach",
         dossier_pipe_p: "Engineered as an exportable asset module for film production and physically based rendering in Karma / Mantra.",
-        section_systems_label: "02. Systems & Enterprise Software",
-        section_systems_title: "Industrial Systems, Backend & Automation",
+        section_systems_stage: "STAGE 02 · ENTERPRISE & SYSTEMS",
+        section_systems_title: "INDUSTRIAL SYSTEMS, BACKEND & AUTOMATION",
         scada_title: "Industrial SCADA Platform, Odoo ERP Integration & Video Analytics",
         scada_context: "Diseño e Innovación Técnica SL",
         scada_desc: "Engineered real-time industrial supervision modules with Ignition SCADA and enterprise Odoo ERP synchronization. Developed Python background daemon services for telemetry ingestion, SQL database management, and automated IP camera video stream recording.",
@@ -930,13 +1043,14 @@
         sim_title: "Simulation Hardware Integration & Plant Software Support",
         sim_context: "SIMODAR Training Solutions SL",
         sim_desc: "Communication architecture linking physical training hardware, sensor instrumentation, and networked simulation servers. Handled Tier-2/3 technical troubleshooting, sensor health telemetry automation, and client on-site deployment.",
-        section_stack_label: "03. Technical Stack",
-        section_stack_title: "Stack & Tooling",
-        stack_g1: "Pipeline & Graphics",
-        stack_g2: "Development & Backend",
-        stack_g3: "Systems & DevOps",
-        stack_g4: "Industrial Software",
-        footer_location: "Valencia, Spain"
+        section_stack_stage: "STAGE 03 · INVENTORY",
+        section_stack_title: "STACK & TOOLING",
+        stack_g1: "PIPELINE & 3D",
+        stack_g2: "DEV & BACKEND",
+        stack_g3: "SYSTEMS & DEVOPS",
+        stack_g4: "INDUSTRIA & VISIÓN",
+        footer_msg: "CONTINUE? INSERT COIN OR DROP AN EMAIL",
+        footer_location: "VALENCIA, SPAIN"
       }
     };
 
