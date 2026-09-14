@@ -6,7 +6,7 @@
   <title>Iván Alejos Gómez | Software Engineer & Computer Graphics</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
   <style>
@@ -22,6 +22,7 @@
       --accent-glow: rgba(88, 166, 255, 0.15);
       --tag-bg: rgba(110, 118, 129, 0.1);
       --font-mono: 'JetBrains Mono', monospace;
+      --font-pixel: 'Press Start 2P', monospace;
     }
 
     * {
@@ -49,7 +50,7 @@
       position: sticky;
       top: 0;
       z-index: 50;
-      background: rgba(13, 17, 23, 0.92);
+      background: rgba(13, 17, 23, 0.94);
       backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--border);
     }
@@ -125,50 +126,117 @@
       color: var(--text);
     }
 
-    /* Hero / Profile Header */
+    /* Pac-Man Arcade Hero Header */
     .hero {
-      padding: 70px 0 40px;
-      border-bottom: 1px solid var(--border);
+      position: relative;
+      padding: 50px 0 45px;
+      border-bottom: 2px solid #2121ff;
+      background-color: #000000;
+      overflow: hidden;
+      box-shadow: 0 4px 25px rgba(33, 33, 255, 0.25);
+    }
+
+    #pacman-canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      opacity: 0.75;
+      pointer-events: none;
+    }
+
+    .pacman-overlay {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at center, rgba(13, 17, 23, 0.65) 0%, rgba(5, 7, 12, 0.88) 85%);
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .hero-content-wrapper {
+      position: relative;
+      z-index: 3;
+    }
+
+    /* Arcade HUD & Pixel Title */
+    .arcade-hud {
+      display: flex;
+      justify-content: space-between;
+      max-width: 580px;
+      margin: 0 auto 14px;
+      font-family: var(--font-pixel);
+      font-size: 0.68rem;
+      letter-spacing: 1px;
+    }
+
+    .hud-label {
+      color: #ff2222;
+      margin-right: 6px;
+    }
+
+    .hud-val {
+      color: #ffffff;
+    }
+
+    .pixel-title {
+      font-family: var(--font-pixel);
+      font-size: 1.45rem;
+      color: #ffff00;
+      text-align: center;
+      line-height: 1.5;
+      margin-bottom: 24px;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      text-shadow: 
+        3px 3px 0px #000000,
+        -2px -2px 0px #000000,
+        2px -2px 0px #000000,
+        -2px 2px 0px #000000,
+        0 0 16px rgba(255, 255, 0, 0.6);
+    }
+
+    .hero-profile-card {
+      background: rgba(13, 17, 23, 0.88);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(33, 33, 255, 0.35);
+      border-radius: 12px;
+      padding: 26px 30px;
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.65), 0 0 15px rgba(33, 33, 255, 0.12);
     }
 
     .hero-layout {
       display: flex;
-      gap: 36px;
+      gap: 32px;
       align-items: flex-start;
     }
 
     .hero-photo {
-      width: 110px;
-      height: 110px;
-      border-radius: 12px;
-      border: 1px solid var(--border);
+      width: 105px;
+      height: 105px;
+      border-radius: 10px;
+      border: 2px solid rgba(33, 33, 255, 0.5);
       object-fit: cover;
       flex-shrink: 0;
       background: var(--surface);
-    }
-
-    .hero-text h1 {
-      font-size: 2rem;
-      font-weight: 700;
-      letter-spacing: -0.5px;
-      color: var(--text);
-      line-height: 1.2;
-      margin-bottom: 6px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
     }
 
     .hero-subtitle {
       font-family: var(--font-mono);
       font-size: 0.9rem;
       color: var(--accent);
-      margin-bottom: 16px;
+      margin-bottom: 12px;
+      font-weight: 600;
     }
 
     .hero-bio {
-      font-size: 0.98rem;
+      font-size: 0.95rem;
       color: var(--text-muted);
       max-width: 680px;
-      line-height: 1.65;
-      margin-bottom: 24px;
+      line-height: 1.6;
+      margin-bottom: 20px;
     }
 
     .hero-links {
@@ -392,6 +460,12 @@
     }
 
     @media (max-width: 680px) {
+      .pixel-title {
+        font-size: 1.05rem;
+      }
+      .arcade-hud {
+        font-size: 0.55rem;
+      }
       .hero-layout {
         flex-direction: column;
         align-items: center;
@@ -439,30 +513,45 @@
     </div>
   </nav>
 
-  <!-- Hero Profile -->
+  <!-- Pac-Man Hero Header -->
   <header class="hero">
-    <div class="container">
-      <div class="hero-layout">
-        <img src="./FotoPasaporte_small.jpg" alt="Iván Alejos Gómez" class="hero-photo" onerror="this.style.display='none'">
-        
-        <div class="hero-text">
-          <h1>Iván Alejos Gómez</h1>
-          <div class="hero-subtitle" data-i18n="hero_role">Pipeline Software Developer & Multimedia Engineer</div>
-          
-          <p class="hero-bio" data-i18n="hero_bio">
-            Ingeniero Multimedia con Máster en Informática Gráfica y Simulación. Especializado en el desarrollo de herramientas de pipeline, integración entre código y flujos 3D (Houdini, Python, C++), y arquitectura de sistemas industriales y bases de datos.
-          </p>
+    <canvas id="pacman-canvas"></canvas>
+    <div class="pacman-overlay"></div>
 
-          <div class="hero-links">
-            <a href="mailto:ivanalejosgomez99@gmail.com" class="btn btn-accent">
-              <i class="fa-regular fa-envelope"></i> <span data-i18n="btn_contact">Contactar</span>
-            </a>
-            <a href="./cv_ivan_alejos.pdf" target="_blank" class="btn btn-primary">
-              <i class="fa-regular fa-file-pdf"></i> <span data-i18n="btn_cv">Currículum Vitae</span>
-            </a>
-            <a href="https://github.com/ivanalejosgomez" target="_blank" class="btn btn-primary">
-              <i class="fa-brands fa-github"></i> GitHub
-            </a>
+    <div class="container hero-content-wrapper">
+      <!-- Arcade Status Bar -->
+      <div class="arcade-hud">
+        <span><span class="hud-label">1UP</span><span class="hud-val">1999</span></span>
+        <span><span class="hud-label" style="color:#00ffff;">HIGH SCORE</span><span class="hud-val">999990</span></span>
+        <span><span class="hud-label" style="color:#ffb852;">STAGE</span><span class="hud-val">01</span></span>
+      </div>
+
+      <!-- Pixel Art Title -->
+      <h1 class="pixel-title" data-i18n="pixel_title">PORTFOLIO DE IVÁN ALEJOS</h1>
+
+      <!-- Profile Card on Top of Maze -->
+      <div class="hero-profile-card">
+        <div class="hero-layout">
+          <img src="./FotoPasaporte_small.jpg" alt="Iván Alejos Gómez" class="hero-photo" onerror="this.style.display='none'">
+          
+          <div class="hero-text">
+            <div class="hero-subtitle" data-i18n="hero_role">Pipeline Software Developer & Multimedia Engineer</div>
+            
+            <p class="hero-bio" data-i18n="hero_bio">
+              Ingeniero Multimedia con Máster en Informática Gráfica y Simulación. Especializado en el desarrollo de herramientas de pipeline, integración entre código y flujos 3D (Houdini, Python, C++), y arquitectura de sistemas industriales y bases de datos.
+            </p>
+
+            <div class="hero-links">
+              <a href="mailto:ivanalejosgomez99@gmail.com" class="btn btn-accent">
+                <i class="fa-regular fa-envelope"></i> <span data-i18n="btn_contact">Contactar</span>
+              </a>
+              <a href="./cv_ivan_alejos.pdf" target="_blank" class="btn btn-primary">
+                <i class="fa-regular fa-file-pdf"></i> <span data-i18n="btn_cv">Currículum Vitae (PDF)</span>
+              </a>
+              <a href="https://github.com/ivanalejosgomez" target="_blank" class="btn btn-primary">
+                <i class="fa-brands fa-github"></i> GitHub
+              </a>
+            </div>
           </div>
         </div>
       </div>
@@ -627,7 +716,7 @@
           <h4 data-i18n="stack_g2">Desarrollo & Backend</h4>
           <div class="skill-items">
             <span class="skill-item">C++ (OOP & Concurrencia)</span>
-            <span class="skill-item">Python (Moduler / APIs)</span>
+            <span class="skill-item">Python (Modular / APIs)</span>
             <span class="skill-item">C# (.NET / Webservices)</span>
             <span class="skill-item">SQL (PostgreSQL / Server)</span>
             <span class="skill-item">APIs RESTful</span>
@@ -678,11 +767,181 @@
   </footer>
 
   <script>
+    // Pac-Man Maze & Arcade Animation
+    (function initPacmanCanvas() {
+      const canvas = document.getElementById('pacman-canvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+
+      const maze = [
+        "############################",
+        "#............##............#",
+        "#.####.#####.##.#####.####.#",
+        "#o####.#####.##.#####.####o#",
+        "#.####.#####.##.#####.####.#",
+        "#..........................#",
+        "#.####.##.########.##.####.#",
+        "#.####.##.########.##.####.#",
+        "#......##....##....##......#",
+        "######.##### ## #####.######",
+        "     #.##### ## #####.#     ",
+        "     #.##          ##.#     ",
+        "     #.## ###--### ##.#     ",
+        "######.## #      # ##.######",
+        "      .   #      #   .      ",
+        "######.## #      # ##.######",
+        "     #.## ######## ##.#     ",
+        "     #.##          ##.#     ",
+        "     #.## ######## ##.#     ",
+        "######.## ######## ##.######",
+        "#............##............#",
+        "#.####.#####.##.#####.####.#",
+        "#.####.#####.##.#####.####.#",
+        "#o..##................##..o#",
+        "###.##.##.########.##.##.###",
+        "#......##....##....##......#",
+        "#.##########.##.##########.#",
+        "#..........................#",
+        "############################"
+      ];
+
+      const rows = maze.length;
+      const cols = maze[0].length;
+      let tileSize = 20;
+      let offsetX = 0;
+      let offsetY = 0;
+
+      function resize() {
+        const header = canvas.parentElement;
+        canvas.width = header.offsetWidth;
+        canvas.height = header.offsetHeight;
+
+        // Size tiles to fit nicely across the header
+        tileSize = Math.max(15, Math.ceil(Math.max(canvas.width / cols, canvas.height / rows)));
+        offsetX = Math.floor((canvas.width - cols * tileSize) / 2);
+        offsetY = Math.floor((canvas.height - rows * tileSize) / 2);
+      }
+
+      window.addEventListener('resize', resize);
+      resize();
+
+      // Characters for Animation
+      let pacmanX = -50;
+      const pacmanSpeed = 2.4;
+      const ghosts = [
+        { name: "blinky", color: "#ff0000", offset: 50 },
+        { name: "pinky", color: "#ffb8ff", offset: 90 },
+        { name: "inky", color: "#00ffff", offset: 130 },
+        { name: "clyde", color: "#ffb852", offset: 170 }
+      ];
+
+      function drawGhost(x, y, size, color) {
+        ctx.fillStyle = color;
+        ctx.beginPath();
+        // Head dome
+        ctx.arc(x, y - size * 0.1, size * 0.45, Math.PI, 0, false);
+        // Body bottom skirt
+        ctx.lineTo(x + size * 0.45, y + size * 0.4);
+        ctx.lineTo(x + size * 0.2, y + size * 0.25);
+        ctx.lineTo(x, y + size * 0.4);
+        ctx.lineTo(x - size * 0.2, y + size * 0.25);
+        ctx.lineTo(x - size * 0.45, y + size * 0.4);
+        ctx.closePath();
+        ctx.fill();
+
+        // Eyes
+        ctx.fillStyle = "#ffffff";
+        ctx.beginPath();
+        ctx.arc(x - size * 0.16, y - size * 0.12, size * 0.14, 0, Math.PI * 2);
+        ctx.arc(x + size * 0.16, y - size * 0.12, size * 0.14, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Pupils
+        ctx.fillStyle = "#2121ff";
+        ctx.beginPath();
+        ctx.arc(x - size * 0.20, y - size * 0.12, size * 0.07, 0, Math.PI * 2);
+        ctx.arc(x + size * 0.12, y - size * 0.12, size * 0.07, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      let frameCount = 0;
+
+      function render() {
+        frameCount++;
+        ctx.fillStyle = "#000000";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        const blink = Math.floor(frameCount / 18) % 2 === 0;
+
+        // Draw maze
+        for (let r = 0; r < rows; r++) {
+          for (let c = 0; c < cols; c++) {
+            const ch = maze[r][c];
+            const x = offsetX + c * tileSize;
+            const y = offsetY + r * tileSize;
+
+            if (ch === '#') {
+              // Classic double blue walls
+              ctx.strokeStyle = "#2121de";
+              ctx.lineWidth = Math.max(1.8, tileSize * 0.14);
+              ctx.strokeRect(x + 2, y + 2, tileSize - 4, tileSize - 4);
+            } else if (ch === '.') {
+              // Food pellet
+              ctx.fillStyle = "#ffb897";
+              ctx.beginPath();
+              ctx.arc(x + tileSize / 2, y + tileSize / 2, Math.max(1.5, tileSize * 0.09), 0, Math.PI * 2);
+              ctx.fill();
+            } else if (ch === 'o' && blink) {
+              // Blinking Power Pellet
+              ctx.fillStyle = "#ffb897";
+              ctx.beginPath();
+              ctx.arc(x + tileSize / 2, y + tileSize / 2, Math.max(3.5, tileSize * 0.26), 0, Math.PI * 2);
+              ctx.fill();
+            } else if (ch === '-') {
+              // Ghost door
+              ctx.fillStyle = "#ffb8ff";
+              ctx.fillRect(x, y + tileSize / 2 - 2, tileSize, 4);
+            }
+          }
+        }
+
+        // Animated Corridor Run: Pac-Man followed by Ghosts along central horizontal alley
+        const trackY = offsetY + 14 * tileSize + tileSize / 2;
+        pacmanX += pacmanSpeed;
+        if (pacmanX > canvas.width + 250) {
+          pacmanX = -80;
+        }
+
+        // Draw Pac-Man
+        const mouthAngle = Math.abs(Math.sin(frameCount * 0.18)) * 0.35 * Math.PI;
+        ctx.fillStyle = "#ffff00";
+        ctx.beginPath();
+        ctx.arc(pacmanX, trackY, tileSize * 0.5, mouthAngle, 2 * Math.PI - mouthAngle);
+        ctx.lineTo(pacmanX, trackY);
+        ctx.closePath();
+        ctx.fill();
+
+        // Draw Ghosts chasing Pac-Man
+        ghosts.forEach(g => {
+          const gx = pacmanX - g.offset;
+          if (gx > -40 && gx < canvas.width + 50) {
+            drawGhost(gx, trackY, tileSize, g.color);
+          }
+        });
+
+        requestAnimationFrame(render);
+      }
+
+      render();
+    })();
+
+    // i18n Dictionary
     const i18n = {
       es: {
         nav_graphics: "Gráficos & Simulación",
         nav_systems: "Sistemas & Empresa",
         nav_stack: "Stack",
+        pixel_title: "PORTFOLIO DE IVÁN ALEJOS",
         hero_role: "Pipeline Software Developer & Multimedia Engineer",
         hero_bio: "Ingeniero Multimedia con Máster en Informática Gráfica y Simulación. Especializado en el desarrollo de herramientas de pipeline, integración entre código y flujos 3D (Houdini, Python, C++), y arquitectura de sistemas industriales y bases de datos.",
         btn_contact: "Contactar",
@@ -723,6 +982,7 @@
         nav_graphics: "Graphics & Simulation",
         nav_systems: "Systems & Enterprise",
         nav_stack: "Tech Stack",
+        pixel_title: "IVÁN ALEJOS' PORTFOLIO",
         hero_role: "Pipeline Software Developer & Multimedia Engineer",
         hero_bio: "Multimedia Engineer with an MSc in Computer Graphics & Simulation. Specialized in pipeline tooling, bridging code and 3D production workflows (Houdini, Python, C++), and industrial software architecture with relational databases.",
         btn_contact: "Contact",
