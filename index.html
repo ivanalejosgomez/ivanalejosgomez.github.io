@@ -92,7 +92,7 @@
       height: 64px;
     }
 
-    /* Unified Brand with Pac-Man Typography */
+    /* Neutral Page Brand: Button font in Uppercase and Bold */
     .nav-brand {
       display: flex;
       align-items: center;
@@ -100,20 +100,18 @@
       text-decoration: none;
     }
 
-    .pacman-char {
-      font-family: var(--font-pixel);
+    .brand-title-neutral {
+      font-family: var(--font-sans);
       font-size: 0.95rem;
-      color: var(--pacman-yellow);
-      text-shadow: 0 0 8px rgba(255, 255, 0, 0.7);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: #ffffff;
+      transition: color 0.2s ease;
     }
 
-    .brand-pixel-title {
-      font-family: var(--font-pixel);
-      font-size: 0.74rem;
-      color: var(--pacman-yellow);
-      letter-spacing: 0.5px;
-      text-shadow: 2px 2px 0px #000, 0 0 8px rgba(255, 255, 0, 0.4);
-      line-height: 1.3;
+    .nav-brand:hover .brand-title-neutral {
+      color: var(--accent);
     }
 
     .nav-actions {
@@ -601,8 +599,8 @@
         height: auto;
         padding: 12px 0;
       }
-      .brand-pixel-title {
-        font-size: 0.62rem;
+      .brand-title-neutral {
+        font-size: 0.85rem;
       }
       .footer-content {
         flex-direction: column;
@@ -617,8 +615,7 @@
   <nav>
     <div class="container nav-inner">
       <a href="./index.html" class="nav-brand">
-        <span class="pacman-char">ᗧ</span>
-        <span class="brand-pixel-title" data-i18n="brand_title">Portfolio de Iván Alejos</span>
+        <span class="brand-title-neutral" data-i18n="brand_title">PORTFOLIO DE IVÁN ALEJOS</span>
       </a>
 
       <div class="nav-actions">
@@ -816,7 +813,7 @@
     // i18n Dictionary
     const i18n = {
       es: {
-        brand_title: "Portfolio de Iván Alejos",
+        brand_title: "PORTFOLIO DE IVÁN ALEJOS",
         nav_home: "Inicio",
         nav_software: "Software & Sistemas",
         nav_graphics: "Gráficos & VFX",
@@ -835,7 +832,7 @@
         footer_location: "Valencia, España"
       },
       en: {
-        brand_title: "Portfolio - Iván Alejos",
+        brand_title: "PORTFOLIO - IVÁN ALEJOS",
         nav_home: "Home",
         nav_software: "Software & Systems",
         nav_graphics: "Graphics & VFX",
