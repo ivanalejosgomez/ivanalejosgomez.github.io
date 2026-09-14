@@ -79,7 +79,7 @@
       position: sticky;
       top: 0;
       z-index: 100;
-      background: rgba(12, 15, 23, 0.92);
+      background: rgba(12, 15, 23, 0.94);
       backdrop-filter: blur(14px);
       border-bottom: 1px solid var(--border);
       transition: all 0.3s ease;
@@ -92,68 +92,89 @@
       height: 64px;
     }
 
+    /* Unified Brand with Pac-Man Typography */
     .nav-brand {
-      font-family: var(--font-mono);
-      font-size: 0.92rem;
-      font-weight: 600;
-      color: var(--text);
-      text-decoration: none;
-      letter-spacing: -0.3px;
       display: flex;
       align-items: center;
       gap: 10px;
+      text-decoration: none;
     }
 
-    .nav-brand .brand-tag {
+    .pacman-char {
       font-family: var(--font-pixel);
-      font-size: 0.65rem;
+      font-size: 0.95rem;
       color: var(--pacman-yellow);
-      background: rgba(255, 255, 0, 0.1);
-      padding: 3px 6px;
-      border: 1px solid rgba(255, 255, 0, 0.3);
-      border-radius: 4px;
+      text-shadow: 0 0 8px rgba(255, 255, 0, 0.7);
+    }
+
+    .brand-portfolio {
+      font-family: var(--font-pixel);
+      font-size: 0.82rem;
+      color: var(--pacman-yellow);
+      letter-spacing: 1.2px;
+      text-shadow: 2px 2px 0px #000, 0 0 10px rgba(255, 255, 0, 0.5);
+    }
+
+    .brand-name {
+      font-family: var(--font-mono);
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #e6edf3;
+      margin-left: 2px;
     }
 
     .nav-actions {
       display: flex;
       align-items: center;
-      gap: 16px;
+      gap: 14px;
     }
 
-    .nav-tabs {
+    .nav-links {
       display: flex;
-      gap: 10px;
+      gap: 8px;
       list-style: none;
     }
 
-    .nav-tab-link {
-      padding: 7px 14px;
+    .nav-link {
+      padding: 7px 13px;
       border-radius: 6px;
-      font-size: 0.85rem;
+      font-size: 0.83rem;
       font-weight: 500;
       color: var(--text-muted);
       text-decoration: none;
       transition: all 0.2s ease;
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 7px;
       border: 1px solid var(--border);
       background: var(--surface);
     }
 
-    .nav-tab-link:hover {
+    .nav-link:hover {
       color: var(--text);
       background: rgba(255, 255, 255, 0.08);
       border-color: #58a6ff;
     }
 
-    .nav-tab-link.btn-soft:hover {
+    .nav-link.active {
+      color: #ffffff;
+      background: rgba(88, 166, 255, 0.15);
+      border-color: #58a6ff;
+    }
+
+    .nav-link.nav-link-soft:hover {
       border-color: var(--ubuntu-orange);
       color: #ff9b71;
     }
 
-    .nav-tab-link.btn-graph:hover {
+    .nav-link.nav-link-graph:hover {
       border-color: var(--pacman-blue);
+      color: var(--pacman-yellow);
+    }
+
+    .ghost-icon {
+      font-family: var(--font-pixel);
+      font-size: 0.65rem;
       color: var(--pacman-yellow);
     }
 
@@ -184,7 +205,7 @@
       color: var(--text);
     }
 
-    /* Neutral Hero Section */
+    /* Neutral Hero Section (Photo + Description only on Main Portal) */
     .hero {
       padding: 48px 0 32px;
       border-bottom: 1px solid var(--border);
@@ -596,25 +617,32 @@
 </head>
 <body>
 
-  <!-- Sticky Top Navigation -->
+  <!-- Sticky Top Navigation with Unified Brand and Buttons -->
   <nav>
     <div class="container nav-inner">
       <a href="./index.html" class="nav-brand">
-        <span class="brand-tag">PORTFOLIO</span>
-        <span>Iván Alejos</span>
+        <span class="pacman-char">ᗧ</span>
+        <span class="brand-portfolio">PORTFOLIO</span>
+        <span class="brand-name">Iván Alejos</span>
       </a>
 
       <div class="nav-actions">
-        <ul class="nav-tabs">
+        <ul class="nav-links">
           <li>
-            <a href="./software.html" class="nav-tab-link btn-soft" id="tab-software">
+            <a href="./index.html" class="nav-link active" id="nav-home">
+              <i class="fa-solid fa-house"></i>
+              <span data-i18n="nav_home">Inicio</span>
+            </a>
+          </li>
+          <li>
+            <a href="./software.html" class="nav-link nav-link-soft" id="nav-software">
               <i class="fa-solid fa-terminal" style="color: var(--ubuntu-orange);"></i>
               <span data-i18n="nav_software">Software & Sistemas</span>
             </a>
           </li>
           <li>
-            <a href="./graphics.html" class="nav-tab-link btn-graph" id="tab-graphics">
-              <span style="color: var(--pacman-yellow); font-family: var(--font-pixel); font-size: 0.65rem;">ᗧ</span>
+            <a href="./graphics.html" class="nav-link nav-link-graph" id="nav-graphics">
+              <span class="ghost-icon">ᗣ</span>
               <span data-i18n="nav_graphics">Gráficos & VFX</span>
             </a>
           </li>
@@ -629,7 +657,7 @@
     </div>
   </nav>
 
-  <!-- Neutral Hero Header -->
+  <!-- Neutral Hero Header (Photo and Bio on Main Landing Page) -->
   <header class="hero">
     <div class="container">
       <div class="hero-layout">
@@ -793,6 +821,7 @@
     // i18n Dictionary
     const i18n = {
       es: {
+        nav_home: "Inicio",
         nav_software: "Software & Sistemas",
         nav_graphics: "Gráficos & VFX",
         hero_role: "Ingeniero Multimedia & Desarrollador de Software",
@@ -810,6 +839,7 @@
         footer_location: "Valencia, España"
       },
       en: {
+        nav_home: "Home",
         nav_software: "Software & Systems",
         nav_graphics: "Graphics & VFX",
         hero_role: "Multimedia Engineer & Software Developer",

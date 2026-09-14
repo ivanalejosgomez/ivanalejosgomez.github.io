@@ -42,17 +42,20 @@
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
       background-image: 
-        radial-gradient(circle at 50% 10%, rgba(33, 33, 255, 0.15) 0%, transparent 60%),
-        radial-gradient(circle at 85% 60%, rgba(255, 255, 0, 0.04) 0%, transparent 50%),
+        radial-gradient(circle at 50% 10%, rgba(33, 33, 255, 0.18) 0%, transparent 60%),
+        radial-gradient(circle at 85% 60%, rgba(255, 255, 0, 0.05) 0%, transparent 50%),
         linear-gradient(180deg, #020206 0%, #060614 100%);
       background-attachment: fixed;
       min-height: 100vh;
+      display: flex;
+      flex-direction: column;
     }
 
     .container {
       max-width: 980px;
       margin: 0 auto;
       padding: 0 24px;
+      width: 100%;
     }
 
     /* Arcade HUD Banner */
@@ -85,8 +88,8 @@
     nav {
       position: sticky;
       top: 0;
-      z-index: 50;
-      background: rgba(4, 4, 12, 0.95);
+      z-index: 100;
+      background: rgba(4, 4, 12, 0.96);
       backdrop-filter: blur(12px);
       border-bottom: 2px solid var(--border-maze);
       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.8), 0 0 10px rgba(33, 33, 255, 0.2);
@@ -99,16 +102,35 @@
       height: 64px;
     }
 
+    /* Unified Brand with Pac-Man Typography */
     .nav-brand {
       display: flex;
       align-items: center;
       gap: 10px;
       text-decoration: none;
+    }
+
+    .pacman-char {
       font-family: var(--font-pixel);
-      font-size: 0.8rem;
+      font-size: 0.95rem;
       color: var(--pacman-yellow);
-      letter-spacing: 0.5px;
-      text-shadow: 2px 2px 0px #000;
+      text-shadow: 0 0 8px rgba(255, 255, 0, 0.7);
+    }
+
+    .brand-portfolio {
+      font-family: var(--font-pixel);
+      font-size: 0.82rem;
+      color: var(--pacman-yellow);
+      letter-spacing: 1.2px;
+      text-shadow: 2px 2px 0px #000, 0 0 10px rgba(255, 255, 0, 0.5);
+    }
+
+    .brand-name {
+      font-family: var(--font-mono);
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #e6edf3;
+      margin-left: 2px;
     }
 
     .nav-actions {
@@ -119,42 +141,48 @@
 
     .nav-links {
       display: flex;
-      gap: 12px;
+      gap: 8px;
       list-style: none;
     }
 
-    .nav-btn {
-      padding: 7px 14px;
-      border-radius: 4px;
-      font-family: var(--font-pixel);
-      font-size: 0.6rem;
-      color: var(--text);
+    .nav-link {
+      padding: 7px 13px;
+      border-radius: 6px;
+      font-size: 0.83rem;
+      font-weight: 500;
+      color: var(--text-muted);
       text-decoration: none;
       transition: all 0.2s ease;
       display: inline-flex;
       align-items: center;
-      gap: 6px;
-      border: 1px solid var(--border-maze);
+      gap: 7px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
       background: #000000;
     }
 
-    .nav-btn:hover {
-      background: var(--border-maze);
+    .nav-link:hover {
       color: #ffffff;
-      box-shadow: 0 0 10px var(--border-maze);
+      background: rgba(33, 33, 255, 0.2);
+      border-color: var(--border-maze);
+      box-shadow: 0 0 10px rgba(33, 33, 255, 0.3);
     }
 
-    .nav-btn-ubuntu {
-      background: rgba(233, 84, 32, 0.12);
-      border-color: rgba(233, 84, 32, 0.6);
+    .nav-link.active {
+      background: rgba(33, 33, 255, 0.25);
+      border-color: var(--border-maze);
+      color: var(--pacman-yellow);
+      box-shadow: 0 0 12px rgba(33, 33, 255, 0.4);
+    }
+
+    .nav-link.nav-link-soft:hover {
+      border-color: var(--ubuntu-orange);
       color: #ff9b71;
     }
 
-    .nav-btn-ubuntu:hover {
-      background: var(--ubuntu-orange);
-      border-color: var(--ubuntu-orange);
-      color: #ffffff;
-      box-shadow: 0 0 10px var(--ubuntu-orange);
+    .ghost-icon {
+      font-family: var(--font-pixel);
+      font-size: 0.65rem;
+      color: var(--pacman-yellow);
     }
 
     /* Language Switcher */
@@ -198,9 +226,9 @@
       display: block;
     }
 
-    /* Arcade Cabinet Hero Section */
+    /* Arcade Cabinet Hero Section (No personal photo or general bio) */
     .hero {
-      padding: 45px 0 35px;
+      padding: 42px 0 35px;
     }
 
     .arcade-hero-cabinet {
@@ -210,7 +238,7 @@
       box-shadow: 
         0 0 25px rgba(33, 33, 255, 0.35),
         inset 0 0 20px rgba(33, 33, 255, 0.15);
-      padding: 36px;
+      padding: 34px 30px;
       position: relative;
     }
 
@@ -229,68 +257,40 @@
       border-radius: 9px;
     }
 
-    .hero-layout {
+    .arcade-hud-mini {
       display: flex;
-      gap: 32px;
-      align-items: center;
-      position: relative;
-      z-index: 2;
-    }
-
-    .hero-avatar-wrap {
-      position: relative;
-      flex-shrink: 0;
-    }
-
-    .hero-photo {
-      width: 120px;
-      height: 120px;
-      border-radius: 8px;
-      border: 2px solid var(--pacman-yellow);
-      box-shadow: 0 0 15px rgba(255, 255, 0, 0.4);
-      object-fit: cover;
-      display: block;
-      background: #000;
-    }
-
-    .hero-avatar-badge {
-      position: absolute;
-      bottom: -10px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: #000;
-      border: 1px solid var(--border-maze);
-      color: var(--pacman-yellow);
+      gap: 14px;
       font-family: var(--font-pixel);
-      font-size: 0.52rem;
-      padding: 2px 6px;
-      white-space: nowrap;
-      border-radius: 3px;
+      font-size: 0.62rem;
+      margin-bottom: 14px;
     }
+
+    .arcade-hud-mini span.label { color: var(--ghost-red); }
+    .arcade-hud-mini span.val { color: #ffffff; }
 
     .hero-text h1 {
       font-family: var(--font-pixel);
       font-size: 1.25rem;
       color: var(--pacman-yellow);
       line-height: 1.5;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
       text-shadow: 2px 2px 0px #000, 0 0 10px rgba(255, 255, 0, 0.5);
     }
 
     .hero-subtitle {
       font-family: var(--font-mono);
-      font-size: 0.95rem;
+      font-size: 0.94rem;
       color: var(--ghost-cyan);
       margin-bottom: 14px;
       font-weight: 500;
     }
 
-    .hero-bio {
+    .track-desc {
       font-size: 0.96rem;
       color: #cbd5e1;
       line-height: 1.65;
-      margin-bottom: 22px;
-      max-width: 700px;
+      margin-bottom: 24px;
+      max-width: 840px;
     }
 
     .hero-links {
@@ -341,12 +341,17 @@
     }
 
     /* Section Styling */
+    main {
+      padding: 30px 0 50px;
+      flex-grow: 1;
+    }
+
     .section-block {
-      padding: 50px 0 30px;
+      padding: 40px 0 20px;
     }
 
     .section-head {
-      margin-bottom: 28px;
+      margin-bottom: 26px;
       border-left: 4px solid var(--border-maze);
       padding-left: 14px;
     }
@@ -525,8 +530,8 @@
     footer {
       border-top: 2px solid var(--border-maze);
       background: #000000;
-      padding: 35px 0 50px;
-      margin-top: 50px;
+      padding: 35px 0 45px;
+      margin-top: auto;
       font-size: 0.85rem;
       color: var(--text-muted);
     }
@@ -557,13 +562,6 @@
     }
 
     @media (max-width: 768px) {
-      .hero-layout {
-        flex-direction: column;
-        text-align: center;
-      }
-      .hero-links {
-        justify-content: center;
-      }
       .nav-inner {
         flex-direction: column;
         height: auto;
@@ -606,23 +604,33 @@
     <canvas id="pacmanCanvas"></canvas>
   </div>
 
-  <!-- Sticky Navigation -->
+  <!-- Sticky Top Navigation (Consistent across all pages) -->
   <nav>
     <div class="container nav-inner">
       <a href="./index.html" class="nav-brand">
-        <span>ᗧ IVÁN.ALEJOS_</span>
+        <span class="pacman-char">ᗧ</span>
+        <span class="brand-portfolio">PORTFOLIO</span>
+        <span class="brand-name">Iván Alejos</span>
       </a>
 
       <div class="nav-actions">
         <ul class="nav-links">
           <li>
-            <a href="./index.html" class="nav-btn">
-              <i class="fa-solid fa-arrow-left"></i> <span data-i18n="nav_home">Portada</span>
+            <a href="./index.html" class="nav-link" id="nav-home">
+              <i class="fa-solid fa-house"></i>
+              <span data-i18n="nav_home">Inicio</span>
             </a>
           </li>
           <li>
-            <a href="./software.html" class="nav-btn nav-btn-ubuntu">
-              <i class="fa-brands fa-ubuntu"></i> <span data-i18n="nav_software">Software & Sistemas</span>
+            <a href="./software.html" class="nav-link nav-link-soft" id="nav-software">
+              <i class="fa-solid fa-terminal" style="color: var(--ubuntu-orange);"></i>
+              <span data-i18n="nav_software">Software & Sistemas</span>
+            </a>
+          </li>
+          <li>
+            <a href="./graphics.html" class="nav-link nav-link-graph active" id="nav-graphics">
+              <span class="ghost-icon">ᗣ</span>
+              <span data-i18n="nav_graphics">Gráficos & VFX</span>
             </a>
           </li>
         </ul>
@@ -636,35 +644,33 @@
     </div>
   </nav>
 
-  <!-- Arcade Hero Header -->
+  <!-- Arcade Hero Header (Focused on Graphics Track - No personal photo or general bio) -->
   <header class="hero">
     <div class="container">
       <div class="arcade-hero-cabinet">
-        <div class="hero-layout">
-          <div class="hero-avatar-wrap">
-            <img src="./FotoPasaporte_small.jpg" alt="Iván Alejos Gómez" class="hero-photo" onerror="this.style.display='none'">
-            <div class="hero-avatar-badge">PLAYER 1</div>
+        <div class="hero-text">
+          <div class="arcade-hud-mini">
+            <span><span class="label">STAGE</span> <span class="val">01 VFX</span></span>
+            <span><span class="label">MISSION</span> <span class="val">PHYSICS SIMULATION</span></span>
           </div>
           
-          <div class="hero-text">
-            <h1 data-i18n="hero_title">COMPUTACIÓN GRÁFICA & SIMULACIÓN 3D</h1>
-            <div class="hero-subtitle" data-i18n="hero_subtitle">Ingeniería Multimedia · Procedural FX · Solvers Físicos</div>
-            
-            <p class="hero-bio" data-i18n="hero_bio">
-              Especialización técnica en simulación numérica de dinámicas de fluidos (PIC/FLIP) en SideFX Houdini, computación matemática con VEX, estructuras de aceleración volumétrica OpenVDB y herramientas de desarrollo para pipelines de efectos visuales y videojuegos.
-            </p>
+          <h1 data-i18n="hero_title">COMPUTACIÓN GRÁFICA & SIMULACIÓN 3D</h1>
+          <div class="hero-subtitle" data-i18n="hero_subtitle">SideFX Houdini · Solvers Físicos PIC/FLIP · Programación VEX · Dinámicas Numéricas</div>
+          
+          <p class="track-desc" data-i18n="track_desc">
+            Especialización técnica en simulación numérica de fluidos multifásicos basada en las ecuaciones de Navier-Stokes, cálculo procedural vectorial en VEX, estructuras de aceleración volumétrica OpenVDB y herramientas de desarrollo para pipelines de efectos visuales y gráficos interactivos.
+          </p>
 
-            <div class="hero-links">
-              <a href="mailto:ivanalejosgomez99@gmail.com" class="btn btn-pacman">
-                <i class="fa-regular fa-envelope"></i> <span data-i18n="btn_contact">Contactar</span>
-              </a>
-              <a href="./cv_ivan_alejos.pdf" target="_blank" class="btn btn-arcade-sec">
-                <i class="fa-regular fa-file-pdf"></i> <span data-i18n="btn_cv">CV Especializado (PDF)</span>
-              </a>
-              <a href="https://github.com/ivanalejosgomez" target="_blank" class="btn btn-arcade-sec">
-                <i class="fa-brands fa-github"></i> GitHub
-              </a>
-            </div>
+          <div class="hero-links">
+            <a href="mailto:ivanalejosgomez99@gmail.com" class="btn btn-pacman">
+              <i class="fa-regular fa-envelope"></i> <span data-i18n="btn_contact">Contactar</span>
+            </a>
+            <a href="./cv_ivan_alejos.pdf" target="_blank" class="btn btn-arcade-sec">
+              <i class="fa-regular fa-file-pdf"></i> <span data-i18n="btn_cv">CV Especializado (PDF)</span>
+            </a>
+            <a href="https://github.com/ivanalejosgomez" target="_blank" class="btn btn-arcade-sec">
+              <i class="fa-brands fa-github"></i> GitHub
+            </a>
           </div>
         </div>
       </div>
@@ -698,7 +704,7 @@
           <div class="tech-dossier-grid">
             <div class="dossier-item">
               <h4 data-i18n="dossier_math_h">Navier-Stokes & Proyección</h4>
-              <p data-i18n="dossier_math_p">Resolución de la ecuación de Poisson para el campo de presión con descomposición de Helmholtz-Hodge para garantizar divergencia nula (\(\nabla \cdot \mathbf{u} = 0\)).</p>
+              <p data-i18n="dossier_math_p">Resolución de la ecuación de Poisson para el campo de presión con descomposición de Helmholtz-Hodge para garantizar divergencia nula.</p>
             </div>
             <div class="dossier-item">
               <h4 data-i18n="dossier_vex_h">Arquitectura VEX / Python</h4>
@@ -851,7 +857,6 @@
         <a href="mailto:ivanalejosgomez99@gmail.com"><i class="fa-regular fa-envelope"></i> Email</a>
         <a href="https://github.com/ivanalejosgomez" target="_blank"><i class="fa-brands fa-github"></i> GitHub</a>
         <a href="./cv_ivan_alejos.pdf" target="_blank"><i class="fa-regular fa-file-pdf"></i> CV (PDF)</a>
-        <a href="./software.html" style="color: var(--ubuntu-orange);"><i class="fa-brands fa-ubuntu"></i> Software Track</a>
       </div>
     </div>
   </footer>
@@ -976,11 +981,12 @@
     // Bilingual Dictionary
     const i18n = {
       es: {
-        nav_home: "Portada",
+        nav_home: "Inicio",
         nav_software: "Software & Sistemas",
+        nav_graphics: "Gráficos & VFX",
         hero_title: "COMPUTACIÓN GRÁFICA & SIMULACIÓN 3D",
-        hero_subtitle: "Ingeniería Multimedia · Procedural FX · Solvers Físicos",
-        hero_bio: "Especialización técnica en simulación numérica de dinámicas de fluidos (PIC/FLIP) en SideFX Houdini, computación matemática con VEX, estructuras de aceleración volumétrica OpenVDB y herramientas de desarrollo para pipelines de efectos visuales y videojuegos.",
+        hero_subtitle: "SideFX Houdini · Solvers Físicos PIC/FLIP · Programación VEX · Dinámicas Numéricas",
+        track_desc: "Especialización técnica en simulación numérica de fluidos multifásicos basada en las ecuaciones de Navier-Stokes, cálculo procedural vectorial en VEX, estructuras de aceleración volumétrica OpenVDB y herramientas de desarrollo para pipelines de efectos visuales y gráficos interactivos.",
         btn_contact: "Contactar",
         btn_cv: "CV Especializado (PDF)",
         label_tfm: "BONUS STAGE · MASTER THESIS (TFM)",
@@ -1015,9 +1021,10 @@
       en: {
         nav_home: "Home",
         nav_software: "Software & Systems",
+        nav_graphics: "Graphics & VFX",
         hero_title: "3D COMPUTER GRAPHICS & SIMULATION",
-        hero_subtitle: "Multimedia Engineering · Procedural FX · Physics Solvers",
-        hero_bio: "Technical specialization in numerical fluid dynamics simulation (PIC/FLIP) in SideFX Houdini, mathematical computing with VEX, OpenVDB sparse volumetric grids, and pipeline tool development for VFX and real-time interactive graphics.",
+        hero_subtitle: "SideFX Houdini · PIC/FLIP Physics Solvers · VEX Programming · Numerical Dynamics",
+        track_desc: "Technical specialization in numerical multiphase fluid dynamics based on the Navier-Stokes equations, procedural vector computing in VEX, OpenVDB sparse volumetric grids, and pipeline tool development for VFX and interactive graphics.",
         btn_contact: "Contact",
         btn_cv: "Specialized CV (PDF)",
         label_tfm: "BONUS STAGE · MASTER'S THESIS (MSc)",
