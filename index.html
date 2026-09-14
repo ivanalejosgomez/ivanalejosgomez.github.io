@@ -11,9 +11,9 @@
 
   <style>
     :root {
-      --bg-base: #0d1117;
-      --surface: #161b22;
-      --border: #30363d;
+      --bg-base: #0c0f17;
+      --surface: #141923;
+      --border: #272f3d;
       --text: #e6edf3;
       --text-muted: #8b949e;
       --accent: #58a6ff;
@@ -23,14 +23,14 @@
 
       /* Ubuntu Palette */
       --ubuntu-aubergine: #300a24;
-      --ubuntu-dark-aubergine: #1e0516;
+      --ubuntu-dark-aubergine: #190413;
       --ubuntu-orange: #e95420;
-      --ubuntu-glow: rgba(233, 84, 32, 0.25);
+      --ubuntu-glow: rgba(233, 84, 32, 0.35);
 
       /* Pac-Man Arcade Palette */
       --pacman-blue: #2121ff;
       --pacman-yellow: #ffff00;
-      --pacman-glow: rgba(33, 33, 255, 0.35);
+      --pacman-glow: rgba(33, 33, 255, 0.45);
     }
 
     * {
@@ -47,28 +47,31 @@
       -webkit-font-smoothing: antialiased;
       transition: background 0.45s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.45s ease;
       min-height: 100vh;
+      display: flex;
+      flex-direction: column;
       position: relative;
     }
 
     /* Dynamic Full-Page Theme Backgrounds on Hover */
     body.hover-software {
       background: 
-        radial-gradient(circle at 25% 35%, rgba(233, 84, 32, 0.15) 0%, transparent 50%),
-        radial-gradient(circle at 35% 55%, rgba(119, 33, 111, 0.3) 0%, transparent 60%),
-        linear-gradient(135deg, #180312 0%, #0d1117 80%);
+        radial-gradient(circle at 25% 35%, rgba(233, 84, 32, 0.18) 0%, transparent 55%),
+        radial-gradient(circle at 35% 55%, rgba(119, 33, 111, 0.35) 0%, transparent 65%),
+        linear-gradient(135deg, #1f0418 0%, #0d1117 80%);
     }
 
     body.hover-graphics {
       background: 
-        radial-gradient(circle at 75% 35%, rgba(33, 33, 255, 0.22) 0%, transparent 50%),
-        radial-gradient(circle at 65% 55%, rgba(255, 255, 0, 0.06) 0%, transparent 55%),
-        linear-gradient(135deg, #050512 0%, #000000 85%);
+        radial-gradient(circle at 75% 35%, rgba(33, 33, 255, 0.28) 0%, transparent 55%),
+        radial-gradient(circle at 65% 55%, rgba(255, 255, 0, 0.08) 0%, transparent 60%),
+        linear-gradient(135deg, #060618 0%, #010105 85%);
     }
 
     .container {
       max-width: 1040px;
       margin: 0 auto;
       padding: 0 24px;
+      width: 100%;
     }
 
     /* Sticky Top Navigation Bar */
@@ -76,7 +79,7 @@
       position: sticky;
       top: 0;
       z-index: 100;
-      background: rgba(13, 17, 23, 0.92);
+      background: rgba(12, 15, 23, 0.92);
       backdrop-filter: blur(14px);
       border-bottom: 1px solid var(--border);
       transition: all 0.3s ease;
@@ -98,7 +101,7 @@
       letter-spacing: -0.3px;
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 10px;
     }
 
     .nav-brand .brand-tag {
@@ -124,7 +127,7 @@
     }
 
     .nav-tab-link {
-      padding: 6px 14px;
+      padding: 7px 14px;
       border-radius: 6px;
       font-size: 0.85rem;
       font-weight: 500;
@@ -133,26 +136,25 @@
       transition: all 0.2s ease;
       display: flex;
       align-items: center;
-      gap: 6px;
-      border: 1px solid transparent;
+      gap: 8px;
+      border: 1px solid var(--border);
+      background: var(--surface);
     }
 
     .nav-tab-link:hover {
       color: var(--text);
-      background: rgba(255, 255, 255, 0.05);
-      border-color: var(--border);
+      background: rgba(255, 255, 255, 0.08);
+      border-color: #58a6ff;
     }
 
-    .nav-tab-link.active-software {
-      color: #ffffff;
-      background: rgba(233, 84, 32, 0.15);
+    .nav-tab-link.btn-soft:hover {
       border-color: var(--ubuntu-orange);
+      color: #ff9b71;
     }
 
-    .nav-tab-link.active-graphics {
-      color: #ffffff;
-      background: rgba(33, 33, 255, 0.18);
+    .nav-tab-link.btn-graph:hover {
       border-color: var(--pacman-blue);
+      color: var(--pacman-yellow);
     }
 
     /* Minimal Language Toggle */
@@ -184,24 +186,25 @@
 
     /* Neutral Hero Section */
     .hero {
-      padding: 55px 0 35px;
+      padding: 48px 0 32px;
       border-bottom: 1px solid var(--border);
     }
 
     .hero-layout {
       display: flex;
       gap: 32px;
-      align-items: flex-start;
+      align-items: center;
     }
 
     .hero-photo {
-      width: 105px;
-      height: 105px;
+      width: 110px;
+      height: 110px;
       border-radius: 12px;
       border: 1px solid var(--border);
       object-fit: cover;
       flex-shrink: 0;
       background: var(--surface);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
     }
 
     .hero-text h1 {
@@ -215,7 +218,7 @@
 
     .hero-subtitle {
       font-family: var(--font-mono);
-      font-size: 0.92rem;
+      font-size: 0.94rem;
       color: var(--accent);
       margin-bottom: 12px;
       font-weight: 500;
@@ -224,7 +227,7 @@
     .hero-bio {
       font-size: 0.98rem;
       color: var(--text-muted);
-      max-width: 680px;
+      max-width: 720px;
       line-height: 1.6;
       margin-bottom: 20px;
     }
@@ -255,7 +258,7 @@
     }
 
     .btn-primary:hover {
-      background: #21262d;
+      background: #222938;
       border-color: #8b949e;
     }
 
@@ -271,8 +274,8 @@
 
     /* THE TWO INTERACTIVE PORTAL CARDS */
     .portal-section {
-      padding: 50px 0 60px;
-      border-bottom: 1px solid var(--border);
+      padding: 48px 0 55px;
+      flex-grow: 1;
     }
 
     .portal-header {
@@ -282,8 +285,8 @@
 
     .portal-tag {
       font-family: var(--font-mono);
-      font-size: 0.8rem;
-      color: var(--text-muted);
+      font-size: 0.82rem;
+      color: var(--accent);
       text-transform: uppercase;
       letter-spacing: 1px;
       margin-bottom: 6px;
@@ -291,7 +294,7 @@
     }
 
     .portal-title {
-      font-size: 1.6rem;
+      font-size: 1.7rem;
       font-weight: 700;
       color: #ffffff;
       letter-spacing: -0.3px;
@@ -305,16 +308,18 @@
 
     /* Portal Card 1: Ubuntu / Linux Terminal (Software) */
     .portal-card-software {
-      background: #1e1b24;
-      border: 1px solid rgba(233, 84, 32, 0.35);
+      background: #1c1822;
+      border: 1px solid rgba(233, 84, 32, 0.4);
       border-radius: 10px;
       overflow: hidden;
       cursor: pointer;
       transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
       position: relative;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
       display: flex;
       flex-direction: column;
+      text-decoration: none;
+      color: inherit;
     }
 
     .ubuntu-window-bar {
@@ -343,7 +348,7 @@
 
     .ubuntu-title-text {
       font-family: var(--font-mono);
-      font-size: 0.75rem;
+      font-size: 0.76rem;
       color: #dfdbd2;
       letter-spacing: 0.3px;
     }
@@ -358,7 +363,7 @@
 
     .terminal-prompt {
       font-family: var(--font-mono);
-      font-size: 0.8rem;
+      font-size: 0.82rem;
       color: #87e076;
       margin-bottom: 14px;
     }
@@ -375,9 +380,9 @@
     }
 
     .portal-software-desc {
-      font-size: 0.92rem;
+      font-size: 0.93rem;
       color: #c9c7c2;
-      line-height: 1.55;
+      line-height: 1.58;
       margin-bottom: 22px;
     }
 
@@ -404,39 +409,44 @@
       border: none;
       padding: 10px 18px;
       border-radius: 6px;
-      font-size: 0.86rem;
+      font-size: 0.88rem;
       font-weight: 600;
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      cursor: pointer;
       transition: all 0.2s ease;
       align-self: flex-start;
     }
 
-    /* Hover effect for Software card */
     .portal-card-software:hover {
       transform: translateY(-6px);
       border-color: var(--ubuntu-orange);
-      box-shadow: 0 16px 40px rgba(233, 84, 32, 0.3);
+      box-shadow: 0 16px 40px rgba(233, 84, 32, 0.35);
+    }
+
+    .portal-card-software:hover .btn-portal-software {
+      background: #ff6832;
+      transform: translateX(3px);
     }
 
     /* Portal Card 2: Pac-Man Arcade Cabinet (Graphics & VFX) */
     .portal-card-graphics {
-      background: #000000;
+      background: #03030e;
       border: 2px solid var(--pacman-blue);
       border-radius: 10px;
       overflow: hidden;
       cursor: pointer;
       transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
       position: relative;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), 0 0 15px rgba(33, 33, 255, 0.2);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 15px rgba(33, 33, 255, 0.25);
       display: flex;
       flex-direction: column;
+      text-decoration: none;
+      color: inherit;
     }
 
     .arcade-card-header {
-      background: #060614;
+      background: #060616;
       border-bottom: 2px solid var(--pacman-blue);
       padding: 10px 16px;
       display: flex;
@@ -453,7 +463,7 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      background: radial-gradient(circle at center, rgba(33, 33, 255, 0.08) 0%, transparent 80%);
+      background: radial-gradient(circle at center, rgba(33, 33, 255, 0.1) 0%, transparent 80%);
     }
 
     .arcade-hud-mini {
@@ -477,9 +487,9 @@
     }
 
     .portal-graphics-desc {
-      font-size: 0.92rem;
+      font-size: 0.93rem;
       color: #cbd5e1;
-      line-height: 1.55;
+      line-height: 1.58;
       margin-bottom: 22px;
     }
 
@@ -510,198 +520,30 @@
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      cursor: pointer;
       transition: all 0.2s ease;
       align-self: flex-start;
       box-shadow: 3px 3px 0px var(--pacman-blue);
     }
 
-    /* Hover effect for Graphics card */
     .portal-card-graphics:hover {
       transform: translateY(-6px);
       border-color: var(--pacman-yellow);
-      box-shadow: 0 16px 40px rgba(33, 33, 255, 0.4), 0 0 20px rgba(255, 255, 0, 0.3);
+      box-shadow: 0 16px 40px rgba(33, 33, 255, 0.45), 0 0 25px rgba(255, 255, 0, 0.35);
     }
 
-    .btn-portal-graphics:hover {
+    .portal-card-graphics:hover .btn-portal-graphics {
       background: #ffff66;
       transform: translate(2px, 2px);
       box-shadow: 1px 1px 0px var(--pacman-blue);
     }
 
-    /* Project Detail Sections */
-    .section-block {
-      padding: 60px 0;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .section-head {
-      margin-bottom: 30px;
-    }
-
-    .section-label {
-      font-family: var(--font-mono);
-      font-size: 0.8rem;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      margin-bottom: 4px;
-      display: block;
-    }
-
-    .section-heading {
-      font-size: 1.45rem;
-      font-weight: 700;
-      letter-spacing: -0.3px;
-      color: var(--text);
-    }
-
-    /* Cards inside Sections */
-    .project-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 28px;
-      margin-bottom: 24px;
-      transition: border-color 0.2s ease;
-    }
-
-    .project-card:hover {
-      border-color: #8b949e;
-    }
-
-    .project-card.arcade-styled {
-      background: #000000;
-      border: 2px solid var(--pacman-blue);
-      box-shadow: 0 0 16px rgba(33, 33, 255, 0.2);
-    }
-
-    .project-card.arcade-styled:hover {
-      border-color: var(--pacman-yellow);
-      box-shadow: 0 0 20px rgba(255, 255, 0, 0.3);
-    }
-
-    .project-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      margin-bottom: 12px;
-      gap: 16px;
-    }
-
-    .project-title {
-      font-size: 1.2rem;
-      font-weight: 600;
-      color: var(--text);
-    }
-
-    .project-meta {
-      font-family: var(--font-mono);
-      font-size: 0.78rem;
-      color: var(--text-muted);
-      white-space: nowrap;
-    }
-
-    .project-desc {
-      font-size: 0.92rem;
-      color: var(--text-muted);
-      margin-bottom: 18px;
-      line-height: 1.6;
-    }
-
-    /* Technical Specs / Dossier Details */
-    .tech-dossier {
-      background: rgba(0, 0, 0, 0.4);
-      border: 1px solid rgba(255, 255, 255, 0.06);
-      border-radius: 6px;
-      padding: 16px;
-      margin-bottom: 18px;
-    }
-
-    .tech-dossier-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 14px;
-    }
-
-    .dossier-item h4 {
-      font-family: var(--font-mono);
-      font-size: 0.75rem;
-      color: var(--accent);
-      text-transform: uppercase;
-      margin-bottom: 3px;
-    }
-
-    .dossier-item p {
-      font-size: 0.84rem;
-      color: #c9d1d9;
-      line-height: 1.45;
-    }
-
-    .tag-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-    }
-
-    .tag {
-      font-family: var(--font-mono);
-      font-size: 0.75rem;
-      padding: 3px 8px;
-      background: rgba(110, 118, 129, 0.1);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 4px;
-      color: #8b949e;
-    }
-
-    /* Skills Stack */
-    .skills-block {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-      gap: 20px;
-    }
-
-    .skill-group {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 20px;
-    }
-
-    .skill-group h4 {
-      font-family: var(--font-mono);
-      font-size: 0.8rem;
-      color: var(--text);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      margin-bottom: 10px;
-    }
-
-    .skill-items {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-
-    .skill-item {
-      font-size: 0.85rem;
-      color: var(--text-muted);
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .skill-item::before {
-      content: "›";
-      color: var(--accent);
-      font-weight: bold;
-    }
-
     /* Footer */
     footer {
-      padding: 40px 0 60px;
+      border-top: 1px solid var(--border);
+      padding: 35px 0;
       font-size: 0.85rem;
       color: var(--text-muted);
+      margin-top: auto;
     }
 
     .footer-content {
@@ -757,7 +599,7 @@
   <!-- Sticky Top Navigation -->
   <nav>
     <div class="container nav-inner">
-      <a href="#" class="nav-brand">
+      <a href="./index.html" class="nav-brand">
         <span class="brand-tag">PORTFOLIO</span>
         <span>Iván Alejos</span>
       </a>
@@ -765,13 +607,13 @@
       <div class="nav-actions">
         <ul class="nav-tabs">
           <li>
-            <a href="#software-section" class="nav-tab-link" id="tab-software" onclick="highlightBranch('software')">
+            <a href="./software.html" class="nav-tab-link btn-soft" id="tab-software">
               <i class="fa-solid fa-terminal" style="color: var(--ubuntu-orange);"></i>
               <span data-i18n="nav_software">Software & Sistemas</span>
             </a>
           </li>
           <li>
-            <a href="#graphics-section" class="nav-tab-link" id="tab-graphics" onclick="highlightBranch('graphics')">
+            <a href="./graphics.html" class="nav-tab-link btn-graph" id="tab-graphics">
               <span style="color: var(--pacman-yellow); font-family: var(--font-pixel); font-size: 0.65rem;">ᗧ</span>
               <span data-i18n="nav_graphics">Gráficos & VFX</span>
             </a>
@@ -828,7 +670,7 @@
       <div class="portal-grid">
         
         <!-- CARD 1: UBUNTU / LINUX SOFTWARE & SYSTEMS -->
-        <div class="portal-card-software" id="card-software" onclick="scrollToSection('software-section')">
+        <a href="./software.html" class="portal-card-software" id="card-software">
           <div class="ubuntu-window-bar">
             <div class="ubuntu-buttons">
               <span class="ubuntu-btn ubuntu-close"></span>
@@ -860,15 +702,15 @@
               </div>
             </div>
 
-            <button class="btn-portal-software">
-              <span data-i18n="btn_explore_software">Explorar Software & Sistemas</span>
+            <div class="btn-portal-software">
+              <span data-i18n="btn_explore_software">Abrir Software & Sistemas</span>
               <i class="fa-solid fa-arrow-right"></i>
-            </button>
+            </div>
           </div>
-        </div>
+        </a>
 
         <!-- CARD 2: PAC-MAN ARCADE COMPUTER GRAPHICS & SIMULATION -->
-        <div class="portal-card-graphics" id="card-graphics" onclick="scrollToSection('graphics-section')">
+        <a href="./graphics.html" class="portal-card-graphics" id="card-graphics">
           <div class="arcade-card-header">
             <span>ᗧ PAC-MAN ARCADE</span>
             <span>1UP 1999</span>
@@ -896,207 +738,16 @@
               </div>
             </div>
 
-            <button class="btn-portal-graphics">
-              <span data-i18n="btn_explore_graphics">Explorar Gráficos & VFX</span>
+            <div class="btn-portal-graphics">
+              <span data-i18n="btn_explore_graphics">Abrir Gráficos & VFX</span>
               <i class="fa-solid fa-play"></i>
-            </button>
+            </div>
           </div>
-        </div>
+        </a>
 
       </div>
     </div>
   </section>
-
-  <main class="container">
-
-    <!-- SECTION 1: SOFTWARE & SYSTEMS (UBUNTU / ENTERPRISE THEME) -->
-    <section class="section-block" id="software-section">
-      <div class="section-head" style="border-left: 4px solid var(--ubuntu-orange); padding-left: 14px;">
-        <span class="section-label" style="color: var(--ubuntu-orange);" data-i18n="section_software_label">01. Software Empresarial & Sistemas</span>
-        <h2 class="section-heading" data-i18n="section_software_heading">Sistemas Industriales, Backend & Automatización</h2>
-      </div>
-
-      <!-- Project 1: SCADA / Odoo -->
-      <article class="project-card">
-        <div class="project-header">
-          <div>
-            <h3 class="project-title" data-i18n="scada_title">Plataforma SCADA, Integración ERP Odoo y Analítica de Vídeo</h3>
-            <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 2px;" data-i18n="scada_context">Diseño e Innovación Técnica SL</div>
-          </div>
-          <span class="project-meta">2021 - 2024</span>
-        </div>
-
-        <p class="project-desc" data-i18n="scada_desc">
-          Desarrollo de módulos para supervisión de procesos industriales en tiempo real utilizando Ignition SCADA y sincronización con el ERP empresarial Odoo. Implementación de servicios de fondo en Python para la ingesta de telemetría, gestión de bases de datos SQL y almacenamiento automático de flujos de vídeo de cámaras industriales.
-        </p>
-
-        <div class="tag-list">
-          <span class="tag">Ignition SCADA</span>
-          <span class="tag">Odoo ERP</span>
-          <span class="tag">Python</span>
-          <span class="tag">SQL Server</span>
-          <span class="tag">PostgreSQL</span>
-          <span class="tag">CCTV IP Protocols</span>
-        </div>
-      </article>
-
-      <!-- Project 2: Computer Vision (TFG) -->
-      <article class="project-card">
-        <div class="project-header">
-          <div>
-            <h3 class="project-title" data-i18n="cv_title">Sistema de Visión Artificial y Tracking en Tiempo Real para Cámaras Industriales</h3>
-            <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 2px;" data-i18n="cv_context">Trabajo de Fin de Grado (TFG) · Universitat de València</div>
-          </div>
-          <span class="project-meta">2021 - 2022</span>
-        </div>
-
-        <p class="project-desc" data-i18n="cv_desc">
-          Diseño e implementación de un algoritmo de localización espacial y seguimiento cinemático de geometrías industriales en transmisiones de vídeo en vivo. Construcción de la interfaz gráfica y optimización del pipeline de captura para garantizar latencia mínima en entornos de inspección continua.
-        </p>
-
-        <div class="tag-list">
-          <span class="tag">OpenCV</span>
-          <span class="tag">Python</span>
-          <span class="tag">C++</span>
-          <span class="tag">Image Processing</span>
-          <span class="tag">Hardware Integration</span>
-        </div>
-      </article>
-
-      <!-- Project 3: SIMODAR Simulation Systems -->
-      <article class="project-card">
-        <div class="project-header">
-          <div>
-            <h3 class="project-title" data-i18n="sim_title">Integración de Hardware de Simulación y Soporte de Software en Planta</h3>
-            <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 2px;" data-i18n="sim_context">SIMODAR Training Solutions SL</div>
-          </div>
-          <span class="project-meta">2024 - 2026</span>
-        </div>
-
-        <p class="project-desc" data-i18n="sim_desc">
-          Arquitectura de comunicación y enlace entre simuladores de formación física, instrumentación de hardware y servidores en red. Diagnóstico N2/N3 de incidencias operativas, automatización de rutinas de verificación de sensores y despliegue in situ de sistemas de entrenamiento técnico.
-        </p>
-
-        <div class="tag-list">
-          <span class="tag">C++</span>
-          <span class="tag">Linux / Windows Server</span>
-          <span class="tag">TCP/IP</span>
-          <span class="tag">Hardware Interfacing</span>
-          <span class="tag">Tier-3 Diagnostics</span>
-        </div>
-      </article>
-    </section>
-
-    <!-- SECTION 2: GRAPHICS & SIMULATION (PAC-MAN / ARCADE THEME) -->
-    <section class="section-block" id="graphics-section">
-      <div class="section-head" style="border-left: 4px solid var(--pacman-blue); padding-left: 14px;">
-        <span class="section-label" style="color: var(--pacman-yellow); font-family: var(--font-pixel); font-size: 0.65rem;" data-i18n="section_graphics_label">02. Computación Gráfica & Simulación</span>
-        <h2 class="section-heading" data-i18n="section_graphics_heading">Efectos Visuales & Dinámicas Físicas</h2>
-      </div>
-
-      <!-- TFM Case Study Card with subtle arcade flair -->
-      <article class="project-card arcade-styled">
-        <div class="project-header">
-          <div>
-            <h3 class="project-title" style="color: var(--pacman-yellow);" data-i18n="tfm_title">Simulación de Fluidos en Houdini mediante Métodos Híbridos (PIC / FLIP)</h3>
-            <div style="font-size: 0.8rem; color: #38bdf8; margin-top: 2px;" data-i18n="tfm_context">Trabajo de Fin de Máster (TFM) · Universidad Rey Juan Carlos</div>
-          </div>
-          <span class="project-meta" style="color: var(--pacman-yellow); font-family: var(--font-pixel); font-size: 0.65rem;">2023 - 2025</span>
-        </div>
-
-        <p class="project-desc" style="color: #cbd5e1;" data-i18n="tfm_desc">
-          Investigación e implementación de un solver numérico para la simulación de fluidos multifásicos incompresibles basado en las ecuaciones de Navier-Stokes. El proyecto aborda la transición entre la perspectiva Lagrangiana (partículas) y Euleriana (rejilla espacial), minimizando la pérdida de energía y la disipación artificial de volumen en escenas complejas de efectos visuales.
-        </p>
-
-        <!-- Engineering Dossier Details -->
-        <div class="tech-dossier" style="border-color: rgba(33, 33, 255, 0.4);">
-          <div class="tech-dossier-grid">
-            <div class="dossier-item">
-              <h4 style="color: #ffb8ff;" data-i18n="dossier_solver_h">Formulación Matemática</h4>
-              <p data-i18n="dossier_solver_p">Solver PIC/FLIP con interpolación ponderada para el equilibrio entre conservación energética y amortiguación de ruido numérico.</p>
-            </div>
-            <div class="dossier-item">
-              <h4 style="color: #ffb8ff;" data-i18n="dossier_vex_h">Implementación VEX / Python</h4>
-              <p data-i18n="dossier_vex_p">Cálculo procedural de proyección de presiones y advección de velocidades mediante operadores vectorizados en Houdini.</p>
-            </div>
-            <div class="dossier-item">
-              <h4 style="color: #ffb8ff;" data-i18n="dossier_perf_h">Optimización de Memoria</h4>
-              <p data-i18n="dossier_perf_p">Estructuración en mallas volumétricas OpenVDB para el cálculo eficiente de dominios a gran escala (+2M de partículas).</p>
-            </div>
-            <div class="dossier-item">
-              <h4 style="color: #ffb8ff;" data-i18n="dossier_pipe_h">Enfoque de Pipeline</h4>
-              <p data-i18n="dossier_pipe_p">Diseñado como módulo exportable para producción cinematográfica y renderizado fotorealista en Karma / Mantra.</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="tag-list">
-          <span class="tag" style="border-color: var(--pacman-blue); color: #38bdf8;">Houdini FX</span>
-          <span class="tag" style="border-color: var(--pacman-blue); color: #38bdf8;">VEX</span>
-          <span class="tag" style="border-color: var(--pacman-blue); color: #38bdf8;">Python</span>
-          <span class="tag" style="border-color: var(--pacman-blue); color: #38bdf8;">Navier-Stokes</span>
-          <span class="tag" style="border-color: var(--pacman-blue); color: #38bdf8;">PIC / FLIP</span>
-          <span class="tag" style="border-color: var(--pacman-blue); color: #38bdf8;">OpenVDB</span>
-          <span class="tag" style="border-color: var(--pacman-blue); color: #38bdf8;">C++ Architecture</span>
-        </div>
-      </article>
-    </section>
-
-    <!-- SECTION 3: TECHNICAL STACK -->
-    <section class="section-block" id="stack-section">
-      <div class="section-head">
-        <span class="section-label" data-i18n="section_stack_label">03. Capacidades Técnicas</span>
-        <h2 class="section-heading" data-i18n="section_stack_heading">Stack & Entornos</h2>
-      </div>
-
-      <div class="skills-block">
-        <div class="skill-group">
-          <h4 data-i18n="stack_g1">Pipeline & Gráficos</h4>
-          <div class="skill-items">
-            <span class="skill-item">Houdini & VEX</span>
-            <span class="skill-item">Python Scripting</span>
-            <span class="skill-item">Unity 3D / C#</span>
-            <span class="skill-item">OpenGL & Shaders</span>
-            <span class="skill-item">Conceptos USD / Alembic</span>
-          </div>
-        </div>
-
-        <div class="skill-group">
-          <h4 data-i18n="stack_g2">Desarrollo & Backend</h4>
-          <div class="skill-items">
-            <span class="skill-item">C++ (OOP & Concurrencia)</span>
-            <span class="skill-item">Python (Modular / APIs)</span>
-            <span class="skill-item">C# (.NET / Webservices)</span>
-            <span class="skill-item">SQL (PostgreSQL / Server)</span>
-            <span class="skill-item">APIs RESTful</span>
-          </div>
-        </div>
-
-        <div class="skill-group">
-          <h4 data-i18n="stack_g3">Sistemas & DevOps</h4>
-          <div class="skill-items">
-            <span class="skill-item">Linux (Ubuntu/Debian)</span>
-            <span class="skill-item">Windows Server</span>
-            <span class="skill-item">Git & GitLab Workflows</span>
-            <span class="skill-item">Bash / Scripting</span>
-            <span class="skill-item">Soporte N1 - N3</span>
-          </div>
-        </div>
-
-        <div class="skill-group">
-          <h4 data-i18n="stack_g4">Software Industrial</h4>
-          <div class="skill-items">
-            <span class="skill-item">Ignition SCADA</span>
-            <span class="skill-item">ERP Odoo</span>
-            <span class="skill-item">OpenCV</span>
-            <span class="skill-item">CCTV & Telemetría</span>
-            <span class="skill-item">Control de Hardware</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-  </main>
 
   <!-- Footer -->
   <footer>
@@ -1104,7 +755,7 @@
       <div>
         <span>© 2026 Iván Alejos Gómez</span>
         <span style="margin: 0 8px; color: var(--border);">·</span>
-        <span data-i18n="footer_location">Torrent, Valencia (España)</span>
+        <span data-i18n="footer_location">Valencia, España</span>
       </div>
 
       <div class="footer-links">
@@ -1139,27 +790,6 @@
       body.classList.remove('hover-graphics');
     });
 
-    function scrollToSection(id) {
-      const el = document.getElementById(id);
-      if (el) {
-        el.scrollIntoView({ behavior: 'smooth' });
-      }
-    }
-
-    function highlightBranch(type) {
-      const tabSoft = document.getElementById('tab-software');
-      const tabGraph = document.getElementById('tab-graphics');
-
-      tabSoft.classList.remove('active-software');
-      tabGraph.classList.remove('active-graphics');
-
-      if (type === 'software') {
-        tabSoft.classList.add('active-software');
-      } else if (type === 'graphics') {
-        tabGraph.classList.add('active-graphics');
-      }
-    }
-
     // i18n Dictionary
     const i18n = {
       es: {
@@ -1173,41 +803,11 @@
         portal_title: "Dos vertientes de ingeniería",
         card_software_title: "Software Empresarial & Sistemas",
         card_software_desc: "Enfoque en desarrollo backend, arquitecturas escalables, automatización industrial con Ignition SCADA, integración ERP Odoo, procesamiento de visión artificial y gestión de bases de datos relacionales.",
-        btn_explore_software: "Explorar Software & Sistemas",
+        btn_explore_software: "Abrir Software & Sistemas",
         card_graphics_title: "Gráficos & Simulación 3D",
         card_graphics_desc: "Investigación en computación gráfica, simulación avanzada de fluidos en Houdini (solver híbrido PIC/FLIP), modelado numérico de Navier-Stokes, programación procedural en VEX y optimización para VFX.",
-        btn_explore_graphics: "Explorar Gráficos & VFX",
-        section_software_label: "01. Software Empresarial & Sistemas",
-        section_software_heading: "Sistemas Industriales, Backend & Automatización",
-        section_graphics_label: "02. Computación Gráfica & Simulación",
-        section_graphics_heading: "Efectos Visuales & Dinámicas Físicas",
-        tfm_title: "Simulación de Fluidos en Houdini mediante Métodos Híbridos (PIC / FLIP)",
-        tfm_context: "Trabajo de Fin de Máster (TFM) · Universidad Rey Juan Carlos",
-        tfm_desc: "Investigación e implementación de un solver numérico para la simulación de fluidos multifásicos incompresibles basado en las ecuaciones de Navier-Stokes. El proyecto aborda la transición entre la perspectiva Lagrangiana (partículas) y Euleriana (rejilla espacial), minimizando la pérdida de energía y la disipación artificial de volumen en escenas complejas de efectos visuales.",
-        dossier_solver_h: "Formulación Matemática",
-        dossier_solver_p: "Solver PIC/FLIP con interpolación ponderada para el equilibrio entre conservación energética y amortiguación de ruido numérico.",
-        dossier_vex_h: "Implementación VEX / Python",
-        dossier_vex_p: "Cálculo procedural de proyección de presiones y advección de velocidades mediante operadores vectorizados en Houdini.",
-        dossier_perf_h: "Optimización de Memoria",
-        dossier_perf_p: "Estructuración en mallas volumétricas OpenVDB para el cálculo eficiente de dominios a gran escala (+2M de partículas).",
-        dossier_pipe_h: "Enfoque de Pipeline",
-        dossier_pipe_p: "Diseñado como módulo exportable para producción cinematográfica y renderizado fotorealista en Karma / Mantra.",
-        scada_title: "Plataforma SCADA, Integración ERP Odoo y Analítica de Vídeo",
-        scada_context: "Diseño e Innovación Técnica SL",
-        scada_desc: "Desarrollo de módulos para supervisión de procesos industriales en tiempo real utilizando Ignition SCADA y sincronización con el ERP empresarial Odoo. Implementación de servicios de fondo en Python para la ingesta de telemetría, gestión de bases de datos SQL y almacenamiento automático de flujos de vídeo de cámaras industriales.",
-        cv_title: "Sistema de Visión Artificial y Tracking en Tiempo Real para Cámaras Industriales",
-        cv_context: "Trabajo de Fin de Grado (TFG) · Universitat de València",
-        cv_desc: "Diseño e implementación de un algoritmo de localización espacial y seguimiento cinemático de geometrías industriales en transmisiones de vídeo en vivo. Construcción de la interfaz gráfica y optimización del pipeline de captura para garantizar latencia mínima en entornos de inspección continua.",
-        sim_title: "Integración de Hardware de Simulación y Soporte de Software en Planta",
-        sim_context: "SIMODAR Training Solutions SL",
-        sim_desc: "Arquitectura de comunicación y enlace entre simuladores de formación física, instrumentación de hardware y servidores en red. Diagnóstico N2/N3 de incidencias operativas, automatización de rutinas de verificación de sensores y despliegue in situ de sistemas de entrenamiento técnico.",
-        section_stack_label: "03. Capacidades Técnicas",
-        section_stack_heading: "Stack & Entornos",
-        stack_g1: "Pipeline & Gráficos",
-        stack_g2: "Desarrollo & Backend",
-        stack_g3: "Sistemas & DevOps",
-        stack_g4: "Software Industrial",
-        footer_location: "Torrent, Valencia (España)"
+        btn_explore_graphics: "Abrir Gráficos & VFX",
+        footer_location: "Valencia, España"
       },
       en: {
         nav_software: "Software & Systems",
@@ -1220,40 +820,10 @@
         portal_title: "Two Engineering Disciplines",
         card_software_title: "Enterprise Software & Systems",
         card_software_desc: "Focused on backend engineering, scalable architectures, Ignition SCADA automation, Odoo ERP integration, computer vision processing, and relational database administration.",
-        btn_explore_software: "Explore Software & Systems",
+        btn_explore_software: "Open Software & Systems",
         card_graphics_title: "3D Graphics & Simulation",
         card_graphics_desc: "Computer graphics research, advanced fluid simulation in Houdini (hybrid PIC/FLIP solver), Navier-Stokes numerical modeling, procedural VEX programming, and VFX rendering optimization.",
-        btn_explore_graphics: "Explore Graphics & VFX",
-        section_software_label: "01. Enterprise Software & Systems",
-        section_software_heading: "Industrial Systems, Backend & Automation",
-        section_graphics_label: "02. Computer Graphics & Simulation",
-        section_graphics_heading: "Visual Effects & Numerical Dynamics",
-        tfm_title: "Fluid Simulation in Houdini using Hybrid Methods (PIC / FLIP)",
-        tfm_context: "Master's Thesis (MSc) · Universidad Rey Juan Carlos",
-        tfm_desc: "Research and implementation of a numerical solver for incompressible multiphase fluid simulation based on the Navier-Stokes equations. Addresses the transition between Lagrangian (particles) and Eulerian (grid) perspectives, minimizing artificial volume dissipation and energy loss in complex VFX scenes.",
-        dossier_solver_h: "Mathematical Formulation",
-        dossier_solver_p: "Hybrid PIC/FLIP solver with weighted interpolation balancing kinetic energy conservation against numerical noise.",
-        dossier_vex_h: "VEX / Python Implementation",
-        dossier_vex_p: "Procedural mathematical programming for pressure projection and velocity advection using vectorized Houdini operators.",
-        dossier_perf_h: "Memory Optimization",
-        dossier_perf_p: "Structured OpenVDB sparse volumetric grids for efficient domain processing at large scale (+2M particles).",
-        dossier_pipe_h: "Pipeline Approach",
-        dossier_pipe_p: "Engineered as an exportable asset module for film production and physically based rendering in Karma / Mantra.",
-        scada_title: "Industrial SCADA Platform, Odoo ERP Integration & Video Analytics",
-        scada_context: "Diseño e Innovación Técnica SL",
-        scada_desc: "Engineered real-time industrial supervision modules with Ignition SCADA and enterprise Odoo ERP synchronization. Developed Python background daemon services for telemetry ingestion, SQL database management, and automated IP camera video stream recording.",
-        cv_title: "Real-Time Computer Vision & Tracking System for Industrial Cameras",
-        cv_context: "Bachelor's Thesis (BSc) · Universitat de València",
-        cv_desc: "Engineered spatial object localization and kinematic tracking algorithms on live industrial camera video streams. Built the operator GUI and optimized the frame capture pipeline to ensure minimal latency in continuous automated inspection environments.",
-        sim_title: "Simulation Hardware Integration & Plant Software Support",
-        sim_context: "SIMODAR Training Solutions SL",
-        sim_desc: "Communication architecture linking physical training hardware, sensor instrumentation, and networked simulation servers. Handled Tier-2/3 technical troubleshooting, sensor health telemetry automation, and client on-site deployment.",
-        section_stack_label: "03. Technical Stack",
-        section_stack_heading: "Stack & Tooling",
-        stack_g1: "Pipeline & Graphics",
-        stack_g2: "Development & Backend",
-        stack_g3: "Systems & DevOps",
-        stack_g4: "Industrial Software",
+        btn_explore_graphics: "Open Graphics & VFX",
         footer_location: "Valencia, Spain"
       }
     };
