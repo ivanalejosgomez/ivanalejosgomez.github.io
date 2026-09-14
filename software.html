@@ -89,20 +89,13 @@
       text-shadow: 0 0 8px rgba(255, 255, 0, 0.7);
     }
 
-    .brand-portfolio {
+    .brand-pixel-title {
       font-family: var(--font-pixel);
-      font-size: 0.82rem;
+      font-size: 0.74rem;
       color: var(--pacman-yellow);
-      letter-spacing: 1.2px;
-      text-shadow: 2px 2px 0px #000, 0 0 10px rgba(255, 255, 0, 0.5);
-    }
-
-    .brand-name {
-      font-family: var(--font-mono);
-      font-size: 0.9rem;
-      font-weight: 600;
-      color: #e6edf3;
-      margin-left: 2px;
+      letter-spacing: 0.5px;
+      text-shadow: 2px 2px 0px #000, 0 0 8px rgba(255, 255, 0, 0.4);
+      line-height: 1.3;
     }
 
     .nav-actions {
@@ -519,6 +512,9 @@
         height: auto;
         padding: 12px 0;
       }
+      .brand-pixel-title {
+        font-size: 0.62rem;
+      }
       .footer-content {
         flex-direction: column;
         text-align: center;
@@ -533,8 +529,7 @@
     <div class="container nav-inner">
       <a href="./index.html" class="nav-brand">
         <span class="pacman-char">ᗧ</span>
-        <span class="brand-portfolio">PORTFOLIO</span>
-        <span class="brand-name">Iván Alejos</span>
+        <span class="brand-pixel-title" data-i18n="brand_title">Portfolio de Iván Alejos</span>
       </a>
 
       <div class="nav-actions">
@@ -809,6 +804,7 @@
     // Bilingual Dictionary
     const i18n = {
       es: {
+        brand_title: "Portfolio de Iván Alejos",
         nav_home: "Inicio",
         nav_software: "Software & Sistemas",
         nav_graphics: "Gráficos & VFX",
@@ -853,6 +849,7 @@
         footer_location: "Valencia, España"
       },
       en: {
+        brand_title: "Portfolio - Iván Alejos",
         nav_home: "Home",
         nav_software: "Software & Systems",
         nav_graphics: "Graphics & VFX",

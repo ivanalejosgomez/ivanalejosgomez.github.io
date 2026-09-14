@@ -117,20 +117,13 @@
       text-shadow: 0 0 8px rgba(255, 255, 0, 0.7);
     }
 
-    .brand-portfolio {
+    .brand-pixel-title {
       font-family: var(--font-pixel);
-      font-size: 0.82rem;
+      font-size: 0.74rem;
       color: var(--pacman-yellow);
-      letter-spacing: 1.2px;
-      text-shadow: 2px 2px 0px #000, 0 0 10px rgba(255, 255, 0, 0.5);
-    }
-
-    .brand-name {
-      font-family: var(--font-mono);
-      font-size: 0.9rem;
-      font-weight: 600;
-      color: #e6edf3;
-      margin-left: 2px;
+      letter-spacing: 0.5px;
+      text-shadow: 2px 2px 0px #000, 0 0 8px rgba(255, 255, 0, 0.4);
+      line-height: 1.3;
     }
 
     .nav-actions {
@@ -568,6 +561,9 @@
         padding: 12px 0;
         gap: 10px;
       }
+      .brand-pixel-title {
+        font-size: 0.62rem;
+      }
       .footer-content {
         flex-direction: column;
         text-align: center;
@@ -577,40 +573,12 @@
 </head>
 <body>
 
-  <!-- Retro Arcade Top HUD -->
-  <div class="arcade-hud-top">
-    <div class="container hud-inner">
-      <div class="hud-item">
-        <span class="hud-label">1UP</span>
-        <span class="hud-val">1999</span>
-      </div>
-      <div class="hud-item">
-        <span class="hud-label">HIGH SCORE</span>
-        <span class="hud-val">202600</span>
-      </div>
-      <div class="hud-item">
-        <span class="hud-label">STAGE</span>
-        <span class="hud-val">01 VFX</span>
-      </div>
-      <div class="hud-item">
-        <span class="hud-label">CREDIT</span>
-        <span class="hud-val">02</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- Interactive Pac-Man Canvas Banner -->
-  <div class="pacman-canvas-container">
-    <canvas id="pacmanCanvas"></canvas>
-  </div>
-
-  <!-- Sticky Top Navigation (Consistent across all pages) -->
+  <!-- Sticky Top Navigation (At the very top) -->
   <nav>
     <div class="container nav-inner">
       <a href="./index.html" class="nav-brand">
         <span class="pacman-char">ᗧ</span>
-        <span class="brand-portfolio">PORTFOLIO</span>
-        <span class="brand-name">Iván Alejos</span>
+        <span class="brand-pixel-title" data-i18n="brand_title">Portfolio de Iván Alejos</span>
       </a>
 
       <div class="nav-actions">
@@ -643,6 +611,33 @@
       </div>
     </div>
   </nav>
+
+  <!-- Retro Arcade Top HUD (Below Navigation) -->
+  <div class="arcade-hud-top">
+    <div class="container hud-inner">
+      <div class="hud-item">
+        <span class="hud-label">1UP</span>
+        <span class="hud-val">1999</span>
+      </div>
+      <div class="hud-item">
+        <span class="hud-label">HIGH SCORE</span>
+        <span class="hud-val">202600</span>
+      </div>
+      <div class="hud-item">
+        <span class="hud-label">STAGE</span>
+        <span class="hud-val">01 VFX</span>
+      </div>
+      <div class="hud-item">
+        <span class="hud-label">CREDIT</span>
+        <span class="hud-val">02</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Interactive Pac-Man Canvas Banner (Below Navigation) -->
+  <div class="pacman-canvas-container">
+    <canvas id="pacmanCanvas"></canvas>
+  </div>
 
   <!-- Arcade Hero Header (Focused on Graphics Track - No personal photo or general bio) -->
   <header class="hero">
@@ -981,6 +976,7 @@
     // Bilingual Dictionary
     const i18n = {
       es: {
+        brand_title: "Portfolio de Iván Alejos",
         nav_home: "Inicio",
         nav_software: "Software & Sistemas",
         nav_graphics: "Gráficos & VFX",
@@ -1019,6 +1015,7 @@
         footer_loc: "Valencia, España"
       },
       en: {
+        brand_title: "Portfolio - Iván Alejos",
         nav_home: "Home",
         nav_software: "Software & Systems",
         nav_graphics: "Graphics & VFX",
