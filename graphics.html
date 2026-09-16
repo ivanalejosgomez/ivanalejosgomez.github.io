@@ -805,8 +805,8 @@
     }
 
     .benchmark-card:hover {
-      border-color: var(--border-hover);
-      box-shadow: 0 8px 24px rgba(234, 88, 12, 0.12);
+      border-color: rgba(2, 132, 199, 0.45);
+      box-shadow: 0 8px 24px rgba(2, 132, 199, 0.14);
       transform: translateY(-2px);
     }
 
@@ -1577,10 +1577,10 @@
                 <i class="fa-solid fa-atom"></i> <span data-i18n="part1_badge">PARTE I · INVESTIGACIÓN FÍSICA & MÉTODOS NUMÉRICOS</span>
               </span>
               <h3 class="module-title" data-i18n="part1_title">
-                Investigación de Fluidos, Solvers Avanzados (APIC/IPIC) & Benchmarks de Colisión
+                Investigación Teórica, Formulación Matemática & Análisis de Superficie
               </h3>
               <p class="module-subtitle" data-i18n="part1_summary">
-                Formulación matemática comparativa de PIC, FLIP, APIC e IPIC, pruebas de estrés de impacto contra geometría compleja (Dinosaurio a Frame 250/500) y análisis morfológico de superficie Level-Set con OpenVDB.
+                Estudio analítico de los fundamentos de Navier-Stokes, formulación comparativa de PIC, FLIP, APIC e IPIC, ciclo de transferencia partícula-rejilla y análisis morfológico de superficie libre.
               </p>
             </div>
             <div class="accordion-cta">
@@ -1667,72 +1667,34 @@
               </div>
             </div>
 
-            <!-- 1.2 Benchmark Dinosaurio -->
+            <!-- 1.2 Ciclo Algorítmico: Transferencia y Advección -->
             <h4 class="tfm-subheading subheading-part1">
-              <i class="fa-solid fa-dragon"></i>
-              <span data-i18n="sec2_title">2. Benchmark de Impacto y Salpicadura: Colisión contra Geometría Compleja (Dinosaurio)</span>
+              <i class="fa-solid fa-arrows-split-up-and-left"></i>
+              <span data-i18n="part1_cycle_title">2. Ciclo Algorítmico: Transferencia de Velocidad y Actualización de Partículas</span>
             </h4>
-            <p class="tfm-section-desc" data-i18n="sec2_desc">
-              Prueba de estrés computacional con una columna masiva de fluido impactando a alta velocidad sobre un modelo anatómico de dinosaurio con cavidades y bordes afilados. Comparativa directa a resolución completa entre el solver APIC e IPIC en los instantes clave de dispersión y turbulencia:
+            <p class="tfm-section-desc" data-i18n="part1_cycle_desc">
+              Arquitectura del bucle de simulación desacoplado: proyección de velocidades a la grilla Euleriana y posterior actualización de estados Lagrangianos.
             </p>
 
-            <div class="benchmark-strip">
-              <!-- Frame 250 -->
-              <div class="benchmark-grid">
-                <div class="benchmark-card">
-                  <div class="benchmark-img-wrap" onclick="openLightbox('img/tfm/dinoAPIC250.png', 'APIC - Frame 250: Colisión inicial y expansión sobre el obstáculo')">
-                    <span class="benchmark-tag">APIC · Frame 250</span>
-                    <img src="img/tfm/dinoAPIC250.png" alt="dino APIC Frame 250" class="benchmark-img">
-                  </div>
-                  <div class="benchmark-content">
-                    <div class="benchmark-title" data-i18n="bench_apic250_title">APIC: Expansión y Flujo Adherente</div>
-                    <p class="benchmark-caption" data-i18n="bench_apic250_desc">
-                      El fluido envuelve suavemente las protuberancias de la geometría. La matriz afín preserva el momento angular del choque, evitando pérdidas numéricas y manteniendo un frente de onda homogéneo sin dispersión espuria.
-                    </p>
-                  </div>
+            <div class="cycle-grid">
+              <div class="cycle-card">
+                <h5><i class="fa-solid fa-arrow-right-arrow-left"></i> <span data-i18n="cycle_c1_h">Transferencia de Velocidades (P2G & G2P)</span></h5>
+                <div class="cycle-img-wrap" onclick="openLightbox('img/tfm/VelocityTransfer.png', 'Transferencia de velocidad entre partículas y celdas MAC')">
+                  <img src="img/tfm/VelocityTransfer.png" alt="Velocity Transfer" class="cycle-img">
                 </div>
-
-                <div class="benchmark-card">
-                  <div class="benchmark-img-wrap" onclick="openLightbox('img/tfm/dinoIPIC250.png', 'IPIC - Frame 250: Formación de láminas líquidas ultrafinas')">
-                    <span class="benchmark-tag tag-ipic">IPIC · Frame 250</span>
-                    <img src="img/tfm/dinoIPIC250.png" alt="dino IPIC Frame 250" class="benchmark-img">
-                  </div>
-                  <div class="benchmark-content">
-                    <div class="benchmark-title" data-i18n="bench_ipic250_title">IPIC: Láminas Líquidas Ultrafinas (Thin Sheets)</div>
-                    <p class="benchmark-caption" data-i18n="bench_ipic250_desc">
-                      Gracias a la formulación por impulso libre de disipación, las láminas de fluido que se desprenden de la cabeza y lomo se mantienen tensas y cohesionadas en el aire durante mucho más tiempo antes de granularse.
-                    </p>
-                  </div>
-                </div>
+                <p class="cycle-desc" data-i18n="cycle_c1_p">
+                  Interpolación ponderada por funciones B-Spline cuadráticas para transferir el momento desde las partículas hacia las caras de la grilla cartesiana MAC y retro-interpolación sin artefactos.
+                </p>
               </div>
 
-              <!-- Frame 500 -->
-              <div class="benchmark-grid">
-                <div class="benchmark-card">
-                  <div class="benchmark-img-wrap" onclick="openLightbox('img/tfm/dinoAPIC500.png', 'APIC - Frame 500: Reagrupación en el lecho inferior y estabilidad continua')">
-                    <span class="benchmark-tag">APIC · Frame 500</span>
-                    <img src="img/tfm/dinoAPIC500.png" alt="dino APIC Frame 500" class="benchmark-img">
-                  </div>
-                  <div class="benchmark-content">
-                    <div class="benchmark-title" data-i18n="bench_apic500_title">APIC: Reagrupación Estable y Ondas de Fondo</div>
-                    <p class="benchmark-caption" data-i18n="bench_apic500_desc">
-                      El fluido sedimenta en la base del dominio formando ondas concéntricas sin presentar el efecto hervidero (boiling) característico de FLIP. Excelente estabilidad para tomas de producción VFX continuadas.
-                    </p>
-                  </div>
+              <div class="cycle-card">
+                <h5><i class="fa-solid fa-rotate"></i> <span data-i18n="cycle_c2_h">Actualización y Advección de Partículas</span></h5>
+                <div class="cycle-img-wrap" onclick="openLightbox('img/tfm/ParticleUpdates.png', 'Ciclo de actualización de partículas y corrección de deformación')">
+                  <img src="img/tfm/ParticleUpdates.png" alt="Particle Updates" class="cycle-img">
                 </div>
-
-                <div class="benchmark-card">
-                  <div class="benchmark-img-wrap" onclick="openLightbox('img/tfm/dinoIPIC500.png', 'IPIC - Frame 500: Alta energía residual y conservación de vórtices')">
-                    <span class="benchmark-tag tag-ipic">IPIC · Frame 500</span>
-                    <img src="img/tfm/dinoIPIC500.png" alt="dino IPIC Frame 500" class="benchmark-img">
-                  </div>
-                  <div class="benchmark-content">
-                    <div class="benchmark-title" data-i18n="bench_ipic500_title">IPIC: Vórtices Persistentes y Energía Cinética</div>
-                    <p class="benchmark-caption" data-i18n="bench_ipic500_desc">
-                      Muestra una dinámica mucho más viva y turbulenta a largo plazo: los remolinos y las microestructuras vorticiales desprendidas durante el impacto siguen rotando activamente tras 500 frames sin decaimiento numérico artificial.
-                    </p>
-                  </div>
-                </div>
+                <p class="cycle-desc" data-i18n="cycle_c2_p">
+                  Actualización de tensores afines Bp y corrección de advección temporal de segundo orden (RK2/RK4) para garantizar la integridad posicional bajo gradientes extremos de velocidad.
+                </p>
               </div>
             </div>
 
@@ -1782,37 +1744,6 @@
                 </div>
               </div>
             </div>
-
-            <!-- 1.4 Diagramas de Transferencia -->
-            <h4 class="tfm-subheading subheading-part1">
-              <i class="fa-solid fa-arrows-split-up-and-left"></i>
-              <span data-i18n="part1_cycle_title">4. Ciclo Algorítmico: Transferencia de Velocidad y Actualización de Partículas</span>
-            </h4>
-            <p class="tfm-section-desc" data-i18n="part1_cycle_desc">
-              Arquitectura del bucle de simulación desacoplado: proyección de velocidades a la grilla Euleriana y posterior actualización de estados Lagrangianos.
-            </p>
-
-            <div class="cycle-grid">
-              <div class="cycle-card">
-                <h5><i class="fa-solid fa-arrow-right-arrow-left"></i> <span data-i18n="cycle_c1_h">Transferencia de Velocidades (P2G & G2P)</span></h5>
-                <div class="cycle-img-wrap" onclick="openLightbox('img/tfm/VelocityTransfer.png', 'Transferencia de velocidad entre partículas y celdas MAC')">
-                  <img src="img/tfm/VelocityTransfer.png" alt="Velocity Transfer" class="cycle-img">
-                </div>
-                <p class="cycle-desc" data-i18n="cycle_c1_p">
-                  Interpolación ponderada por funciones B-Spline cuadráticas para transferir el momento desde las partículas hacia las caras de la grilla cartesiana MAC y retro-interpolación sin artefactos.
-                </p>
-              </div>
-
-              <div class="cycle-card">
-                <h5><i class="fa-solid fa-rotate"></i> <span data-i18n="cycle_c2_h">Actualización y Advección de Partículas</span></h5>
-                <div class="cycle-img-wrap" onclick="openLightbox('img/tfm/ParticleUpdates.png', 'Ciclo de actualización de partículas y corrección de deformación')">
-                  <img src="img/tfm/ParticleUpdates.png" alt="Particle Updates" class="cycle-img">
-                </div>
-                <p class="cycle-desc" data-i18n="cycle_c2_p">
-                  Actualización de tensores afines Bp y corrección de advección temporal de segundo orden (RK2/RK4) para garantizar la integridad posicional bajo gradientes extremos de velocidad.
-                </p>
-              </div>
-            </div>
           </div>
         </div>
 
@@ -1826,10 +1757,10 @@
                 <i class="fa-solid fa-cubes"></i> <span data-i18n="part2_badge">PARTE II · PLUGIN DE SIDEFX HOUDINI & PIPELINE VFX</span>
               </span>
               <h3 class="module-title" data-i18n="part2_title">
-                Desarrollo del Plugin, Nodo Solver Customizado y Pruebas en Pipeline
+                Desarrollo del Plugin en C++ (HDK) & Pruebas de Simulación en Houdini
               </h3>
               <p class="module-subtitle" data-i18n="part2_summary">
-                Implementación nativa en C++ mediante el HDK de SideFX Houdini, panel interactivo de parámetros para artistas técnicos, arquitectura de grafo DOP y pruebas de estrés de simulación.
+                Implementación nativa del nodo solver mediante la API HDK de SideFX Houdini, panel interactivo de parámetros, integración en DOPs y pruebas de estrés de simulación (Benchmark del Dinosaurio a Frame 250/500).
               </p>
             </div>
             <div class="accordion-cta">
@@ -1880,10 +1811,79 @@
               </div>
             </div>
 
-            <!-- 2.2 Pruebas de Estrés y Rendimiento -->
+            <!-- 2.2 Benchmark Dinosaurio (PRUEBAS DEL PLUGIN EN HOUDINI) -->
+            <h4 class="tfm-subheading subheading-part2">
+              <i class="fa-solid fa-dragon"></i>
+              <span data-i18n="sec2_title">2. Pruebas del Plugin en Houdini: Benchmark de Colisión contra Dinosaurio</span>
+            </h4>
+            <p class="tfm-section-desc" data-i18n="sec2_desc">
+              Validación práctica del plugin desarrollado en SideFX Houdini bajo una prueba de estrés computacional: columna masiva de fluido impactando a alta velocidad sobre un dinosaurio con cavidades y bordes afilados. Comparativa directa entre los solvers APIC e IPIC ejecutados dentro de Houdini:
+            </p>
+
+            <div class="benchmark-strip">
+              <!-- Frame 250 -->
+              <div class="benchmark-grid">
+                <div class="benchmark-card">
+                  <div class="benchmark-img-wrap" onclick="openLightbox('img/tfm/dinoAPIC250.png', 'Plugin Houdini (APIC) - Frame 250: Colisión inicial y expansión sobre el obstáculo')">
+                    <span class="benchmark-tag">Houdini APIC · F250</span>
+                    <img src="img/tfm/dinoAPIC250.png" alt="dino APIC Frame 250" class="benchmark-img">
+                  </div>
+                  <div class="benchmark-content">
+                    <div class="benchmark-title" data-i18n="bench_apic250_title">APIC: Expansión y Flujo Adherente</div>
+                    <p class="benchmark-caption" data-i18n="bench_apic250_desc">
+                      El fluido envuelve suavemente las protuberancias de la geometría. La matriz afín preserva el momento angular del choque, evitando pérdidas numéricas y manteniendo un frente de onda homogéneo sin dispersión espuria.
+                    </p>
+                  </div>
+                </div>
+
+                <div class="benchmark-card">
+                  <div class="benchmark-img-wrap" onclick="openLightbox('img/tfm/dinoIPIC250.png', 'Plugin Houdini (IPIC) - Frame 250: Formación de láminas líquidas ultrafinas')">
+                    <span class="benchmark-tag tag-ipic">Houdini IPIC · F250</span>
+                    <img src="img/tfm/dinoIPIC250.png" alt="dino IPIC Frame 250" class="benchmark-img">
+                  </div>
+                  <div class="benchmark-content">
+                    <div class="benchmark-title" data-i18n="bench_ipic250_title">IPIC: Láminas Líquidas Ultrafinas (Thin Sheets)</div>
+                    <p class="benchmark-caption" data-i18n="bench_ipic250_desc">
+                      Gracias a la formulación por impulso libre de disipación, las láminas de fluido que se desprenden de la cabeza y lomo se mantienen tensas y cohesionadas en el aire durante mucho más tiempo antes de granularse.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Frame 500 -->
+              <div class="benchmark-grid">
+                <div class="benchmark-card">
+                  <div class="benchmark-img-wrap" onclick="openLightbox('img/tfm/dinoAPIC500.png', 'Plugin Houdini (APIC) - Frame 500: Reagrupación en el lecho inferior y estabilidad continua')">
+                    <span class="benchmark-tag">Houdini APIC · F500</span>
+                    <img src="img/tfm/dinoAPIC500.png" alt="dino APIC Frame 500" class="benchmark-img">
+                  </div>
+                  <div class="benchmark-content">
+                    <div class="benchmark-title" data-i18n="bench_apic500_title">APIC: Reagrupación Estable y Ondas de Fondo</div>
+                    <p class="benchmark-caption" data-i18n="bench_apic500_desc">
+                      El fluido sedimenta en la base del dominio formando ondas concéntricas sin presentar el efecto hervidero (boiling) característico de FLIP. Excelente estabilidad para tomas de producción VFX continuadas.
+                    </p>
+                  </div>
+                </div>
+
+                <div class="benchmark-card">
+                  <div class="benchmark-img-wrap" onclick="openLightbox('img/tfm/dinoIPIC500.png', 'Plugin Houdini (IPIC) - Frame 500: Alta energía residual y conservación de vórtices')">
+                    <span class="benchmark-tag tag-ipic">Houdini IPIC · F500</span>
+                    <img src="img/tfm/dinoIPIC500.png" alt="dino IPIC Frame 500" class="benchmark-img">
+                  </div>
+                  <div class="benchmark-content">
+                    <div class="benchmark-title" data-i18n="bench_ipic500_title">IPIC: Vórtices Persistentes y Energía Cinética</div>
+                    <p class="benchmark-caption" data-i18n="bench_ipic500_desc">
+                      Muestra una dinámica mucho más viva y turbulenta a largo plazo: los remolinos y las microestructuras vorticiales desprendidas durante el impacto siguen rotando activamente tras 500 frames sin decaimiento numérico artificial.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 2.3 Pruebas de Estrés y Rendimiento -->
             <h4 class="tfm-subheading subheading-part2">
               <i class="fa-solid fa-gauge-high"></i>
-              <span data-i18n="hdk_tests_title">2. Pruebas de Estrés y Rendimiento del Plugin en Producción</span>
+              <span data-i18n="hdk_tests_title">3. Pruebas de Estrés y Rendimiento del Plugin en Producción</span>
             </h4>
             <p class="tfm-section-desc" data-i18n="hdk_tests_desc">
               Validación computacional del plugin con cargas de trabajo de 2.4 a 5 millones de partículas y uso eficiente de memoria RAM mediante grillas OpenVDB jerárquicas:
@@ -2247,8 +2247,8 @@
         tfm_expand_all: "Desplegar Todo",
         tfm_collapse_all: "Comprimir Todo",
         part1_badge: "PARTE I · INVESTIGACIÓN FÍSICA & MÉTODOS NUMÉRICOS",
-        part1_title: "Investigación de Fluidos, Solvers Avanzados (APIC/IPIC) & Benchmarks de Colisión",
-        part1_summary: "Formulación matemática comparativa de PIC, FLIP, APIC e IPIC, pruebas de estrés de impacto contra geometría compleja (Dinosaurio a Frame 250/500) y análisis morfológico de superficie Level-Set con OpenVDB.",
+        part1_title: "Investigación Teórica, Formulación Matemática & Análisis de Superficie",
+        part1_summary: "Estudio analítico de los fundamentos de Navier-Stokes, formulación comparativa de PIC, FLIP, APIC e IPIC, ciclo de transferencia partícula-rejilla y análisis morfológico de superficie libre.",
         part1_btn_expand: "Desplegar Investigación",
         part1_btn_collapse: "Comprimir Sección",
         sec1_title: "1. Marco Teórico y Arquitectura de los 4 Solvers Estudiados",
@@ -2259,30 +2259,20 @@
         flip_desc: "Transfiere únicamente los cambios (&Delta;<strong>u</strong>) de velocidad calculados en la rejilla hacia las partículas. Preserva con gran viveza la energía cinética y las salpicaduras, pero sufre de inestabilidad intrínseca, ruidos parásitos de rejilla y formación descontrolada de agregados.",
         apic_desc: "Almacena en cada partícula un tensor de velocidad afín Bp que representa localmente la rotación, cizalladura y deformación. Garantiza la conservación exacta del momento angular y la vorticidad entre partícula y rejilla sin añadir disipación artificial ni generar ruido numérico.",
         ipic_desc: "Sustituye la velocidad por la variable de impulso <strong>m</strong> conectada con potenciales de Clebsch y mapas de flujo inversos. Al proyectar el impulso sin tocar la vorticidad intrínseca, logra mantener láminas de fluido hiperdelgadas (thin sheets) y vórtices a escala sub-rejilla que ningún otro solver puede retener.",
-        sec2_title: "2. Benchmark de Impacto y Salpicadura: Colisión contra Geometría Compleja (Dinosaurio)",
-        sec2_desc: "Prueba de estrés computacional con una columna masiva de fluido impactando a alta velocidad sobre un modelo anatómico de dinosaurio con cavidades y bordes afilados. Comparativa directa a resolución completa entre el solver APIC e IPIC en los instantes clave de dispersión y turbulencia:",
-        bench_apic250_title: "APIC: Expansión y Flujo Adherente",
-        bench_apic250_desc: "El fluido envuelve suavemente las protuberancias de la geometría. La matriz afín preserva el momento angular del choque, evitando pérdidas numéricas y manteniendo un frente de onda homogéneo sin dispersión espuria.",
-        bench_ipic250_title: "IPIC: Láminas Líquidas Ultrafinas (Thin Sheets)",
-        bench_ipic250_desc: "Gracias a la formulación por impulso libre de disipación, las láminas de fluido que se desprenden de la cabeza y lomo se mantienen tensas y cohesionadas en el aire durante mucho más tiempo antes de granularse.",
-        bench_apic500_title: "APIC: Reagrupación Estable y Ondas de Fondo",
-        bench_apic500_desc: "El fluido sedimenta en la base del dominio formando ondas concéntricas sin presentar el efecto hervidero (boiling) característico de FLIP. Excelente estabilidad para tomas de producción VFX continuadas.",
-        bench_ipic500_title: "IPIC: Vórtices Persistentes y Energía Cinética",
-        bench_ipic500_desc: "Muestra una dinámica mucho más viva y turbulenta a largo plazo: los remolinos y las microestructuras vorticiales desprendidas durante el impacto siguen rotando activamente tras 500 frames sin decaimiento numérico artificial.",
-        sec3_title: "3. Comparativa de Reconstrucción de Superficie y Ruido Numérico",
-        sec3_desc: "Evaluación morfológica de la superficie libre reconstruida (Level-Set con OpenVDB) a frame 500 bajo idénticas condiciones iniciales y mismo conteo de partículas entre los solvers evaluados:",
-        surf_flip_desc: "Genera una alta dispersión caótica de gotas aisladas y un oleaje rugoso con artefactos de rejilla visibles en la superficie del líquido.",
-        surf_apic_desc: "Superficie perfectamente limpia y continua. Las gotas se mantienen unidas por tensión sin ruido numérico y el oleaje fluye armónicamente.",
-        surf_ipic_desc: "Retiene crestas afiladas, filamentos finos y un mapa de salpicaduras tridimensional hiperdetallado, ideal para tomas cinematográficas épicas.",
-        part1_cycle_title: "4. Ciclo Algorítmico: Transferencia de Velocidad y Actualización de Partículas",
+        part1_cycle_title: "2. Ciclo Algorítmico: Transferencia de Velocidad y Actualización de Partículas",
         part1_cycle_desc: "Arquitectura del bucle de simulación desacoplado: proyección de velocidades a la grilla Euleriana y posterior actualización de estados Lagrangianos.",
         cycle_c1_h: "Transferencia de Velocidades (P2G & G2P)",
         cycle_c1_p: "Interpolación ponderada por funciones B-Spline cuadráticas para transferir el momento desde las partículas hacia las caras de la grilla cartesiana MAC y retro-interpolación sin artefactos.",
         cycle_c2_h: "Actualización y Advección de Partículas",
         cycle_c2_p: "Actualización de tensores afines Bp y corrección de advección temporal de segundo orden (RK2/RK4) para garantizar la integridad posicional bajo gradientes extremos de velocidad.",
+        sec3_title: "3. Comparativa de Reconstrucción de Superficie y Ruido Numérico",
+        sec3_desc: "Evaluación morfológica de la superficie libre reconstruida (Level-Set con OpenVDB) a frame 500 bajo idénticas condiciones iniciales y mismo conteo de partículas entre los solvers evaluados:",
+        surf_flip_desc: "Genera una alta dispersión caótica de gotas aisladas y un oleaje rugoso con artefactos de rejilla visibles en la superficie del líquido.",
+        surf_apic_desc: "Superficie perfectamente limpia y continua. Las gotas se mantienen unidas por tensión sin ruido numérico y el oleaje fluye armónicamente.",
+        surf_ipic_desc: "Retiene crestas afiladas, filamentos finos y un mapa de salpicaduras tridimensional hiperdetallado, ideal para tomas cinematográficas épicas.",
         part2_badge: "PARTE II · PLUGIN DE SIDEFX HOUDINI & PIPELINE VFX",
-        part2_title: "Desarrollo del Plugin, Nodo Solver Customizado y Pruebas en Pipeline",
-        part2_summary: "Implementación nativa en C++ mediante el HDK de SideFX Houdini, panel interactivo de parámetros para artistas técnicos, arquitectura de grafo DOP y pruebas de estrés de simulación.",
+        part2_title: "Desarrollo del Plugin en C++ (HDK) & Pruebas de Simulación en Houdini",
+        part2_summary: "Implementación nativa del nodo solver mediante la API HDK de SideFX Houdini, panel interactivo de parámetros, integración en DOPs y pruebas de estrés de simulación (Benchmark del Dinosaurio a Frame 250/500).",
         part2_btn_expand: "Desplegar Plugin & Pruebas",
         part2_btn_collapse: "Comprimir Sección",
         sec4_title: "1. Arquitectura del Plugin en SideFX Houdini & Controles HDK",
@@ -2291,7 +2281,17 @@
         hdk_params_desc: "Interfaz procedural para artistas técnicos que permite conmutar en tiempo real entre los solvers PIC, FLIP, APIC e IPIC, configurar el orden del integrador temporal Runge-Kutta (RK2/RK4), limitar la condición CFL y modular el factor de mezcla afín.",
         hdk_tree_title: "Arquitectura de Nodos y Estructura DOP",
         hdk_tree_desc: "Inyección modular dentro de la subred del solver de fluidos, conectando las etapas de transferencia de momento (Particle-to-Grid), resolución de Poisson de presión con fronteras cerradas y actualización de posiciones (Grid-to-Particle).",
-        hdk_tests_title: "2. Pruebas de Estrés y Rendimiento del Plugin en Producción",
+        sec2_title: "2. Pruebas del Plugin en Houdini: Benchmark de Colisión contra Dinosaurio",
+        sec2_desc: "Validación práctica del plugin desarrollado en SideFX Houdini bajo una prueba de estrés computacional: columna masiva de fluido impactando a alta velocidad sobre un dinosaurio con cavidades y bordes afilados. Comparativa directa entre los solvers APIC e IPIC ejecutados dentro de Houdini:",
+        bench_apic250_title: "APIC: Expansión y Flujo Adherente",
+        bench_apic250_desc: "El fluido envuelve suavemente las protuberancias de la geometría. La matriz afín preserva el momento angular del choque, evitando pérdidas numéricas y manteniendo un frente de onda homogéneo sin dispersión espuria.",
+        bench_ipic250_title: "IPIC: Láminas Líquidas Ultrafinas (Thin Sheets)",
+        bench_ipic250_desc: "Gracias a la formulación por impulso libre de disipación, las láminas de fluido que se desprenden de la cabeza y lomo se mantienen tensas y cohesionadas en el aire durante mucho más tiempo antes de granularse.",
+        bench_apic500_title: "APIC: Reagrupación Estable y Ondas de Fondo",
+        bench_apic500_desc: "El fluido sedimenta en la base del dominio formando ondas concéntricas sin presentar el efecto hervidero (boiling) característico de FLIP. Excelente estabilidad para tomas de producción VFX continuadas.",
+        bench_ipic500_title: "IPIC: Vórtices Persistentes y Energía Cinética",
+        bench_ipic500_desc: "Muestra una dinámica mucho más viva y turbulenta a largo plazo: los remolinos y las microestructuras vorticiales desprendidas durante el impacto siguen rotando activamente tras 500 frames sin decaimiento numérico artificial.",
+        hdk_tests_title: "3. Pruebas de Estrés y Rendimiento del Plugin en Producción",
         hdk_tests_desc: "Validación computacional del plugin con cargas de trabajo de 2.4 a 5 millones de partículas y uso eficiente de memoria RAM mediante grillas OpenVDB jerárquicas:",
         hdk_test1_h: "Pruebas de Estabilidad CFL & Substepping",
         hdk_test1_p: "Verificación de la condición Courant-Friedrichs-Lewy adaptativa para evitar explosiones numéricas en impactos violentos manteniendo pasos de tiempo RK4 estables y controlando el presupuesto por frame.",
@@ -2349,8 +2349,8 @@
         tfm_expand_all: "Expand All",
         tfm_collapse_all: "Collapse All",
         part1_badge: "PART I · FLUID DYNAMICS & NUMERICAL SOLVERS",
-        part1_title: "Fluid Research, Advanced Solvers (APIC/IPIC) & Collision Benchmarks",
-        part1_summary: "Comparative mathematical formulation of PIC, FLIP, APIC, and IPIC solvers, high-speed collision stress tests against dinosaur geometry (Frame 250/500), and OpenVDB Level-Set surface reconstruction analysis.",
+        part1_title: "Theoretical Research, Mathematical Formulation & Surface Analysis",
+        part1_summary: "Analytical study of Navier-Stokes foundations, comparative formulation of PIC, FLIP, APIC, and IPIC solvers, particle-grid transfer cycle, and free surface morphology analysis.",
         part1_btn_expand: "Expand Research",
         part1_btn_collapse: "Collapse Section",
         sec1_title: "1. Theoretical Framework & Architecture of the 4 Evaluated Solvers",
@@ -2361,30 +2361,20 @@
         flip_desc: "Transfers only velocity increments (&Delta;<strong>u</strong>) computed on the grid back to particles. Strongly preserves kinetic energy and splashes, but suffers from intrinsic particle chaos, grid artifact noise, and uncontrolled clumping.",
         apic_desc: "Stores an affine velocity tensor Bp on each particle representing local rotation, shear, and deformation. Guarantees exact conservation of angular momentum and vorticity between particles and grid without numerical damping or noise.",
         ipic_desc: "Replaces velocity with the impulse variable <strong>m</strong> tied to Clebsch potentials and backward flow maps. By projecting impulse without altering intrinsic vorticity, it preserves ultra-thin fluid sheets and sub-grid vortex filaments beyond other solvers.",
-        sec2_title: "2. Impact & Splashing Benchmark: High-Deformation Collision against Dinosaur Geometry",
-        sec2_desc: "Computational stress test with a massive liquid column impacting at high velocity onto an anatomical dinosaur model featuring sharp ridges and cavities. Side-by-side full-resolution comparison between APIC and IPIC across critical dispersion frames:",
-        bench_apic250_title: "APIC: Smooth Expansion & Clinging Flow",
-        bench_apic250_desc: "The fluid smoothly drapes over complex geometry features. The affine matrix preserves impact angular momentum, preventing numerical dissipation and maintaining a clean, cohesive wavefront without spurious spray.",
-        bench_ipic250_title: "IPIC: Ultra-thin Liquid Sheets (Thin Sheets)",
-        bench_ipic250_desc: "Thanks to dissipation-free impulse advection, fluid sheets shedding from the head and back stay continuous and tensile in mid-air significantly longer before breaking into droplets.",
-        bench_apic500_title: "APIC: Stable Pool Settlement & Gentle Waves",
-        bench_apic500_desc: "The liquid settles into the base domain forming clean concentric ripples without the boiling noise common in FLIP. Exceptional numerical stability for sustained VFX production shots.",
-        bench_ipic500_title: "IPIC: Persistent Vortices & Kinetic Energy",
-        bench_ipic500_desc: "Exhibits significantly livelier long-term turbulence: eddies and detached vortex microstructures continue rotating actively after 500 frames without artificial numerical decay.",
-        sec3_title: "3. Surface Reconstruction & Numerical Noise Comparison",
-        sec3_desc: "Morphological evaluation of the reconstructed free surface (OpenVDB Level-Set) at frame 500 under identical initial conditions and particle counts across the evaluated solvers:",
-        surf_flip_desc: "Produces high chaotic spray of isolated droplets and noisy, turbulent surface ripples with visible grid artifacts.",
-        surf_apic_desc: "Clean, continuous surface. Droplets remain cohesive under surface tension without numerical noise, producing harmonious wave propagation.",
-        surf_ipic_desc: "Preserves sharp crests, fine filaments, and a richly detailed 3D splash structure, ideal for high-end cinematic VFX shots.",
-        part1_cycle_title: "4. Algorithmic Cycle: Velocity Transfer & Particle Updates",
+        part1_cycle_title: "2. Algorithmic Cycle: Velocity Transfer & Particle Updates",
         part1_cycle_desc: "Decoupled simulation loop architecture: velocity splatting to Eulerian grid and subsequent Lagrangian state updates.",
         cycle_c1_h: "Velocity Transfer (P2G & G2P)",
         cycle_c1_p: "Quadratic B-Spline kernel weighting to transfer momentum from particles to MAC grid cell faces, with smooth back-interpolation free of grid-crossing errors.",
         cycle_c2_h: "Particle Updates & Advection",
         cycle_c2_p: "Affine Bp tensor updates and second-order time advection (RK2/RK4) ensuring positional integrity under extreme spatial velocity gradients.",
+        sec3_title: "3. Surface Reconstruction & Numerical Noise Comparison",
+        sec3_desc: "Morphological evaluation of the reconstructed free surface (OpenVDB Level-Set) at frame 500 under identical initial conditions and particle counts across the evaluated solvers:",
+        surf_flip_desc: "Produces high chaotic spray of isolated droplets and noisy, turbulent surface ripples with visible grid artifacts.",
+        surf_apic_desc: "Clean, continuous surface. Droplets remain cohesive under surface tension without numerical noise, producing harmonious wave propagation.",
+        surf_ipic_desc: "Preserves sharp crests, fine filaments, and a richly detailed 3D splash structure, ideal for high-end cinematic VFX shots.",
         part2_badge: "PARTE II · SIDEFX HOUDINI PLUGIN & VFX PIPELINE",
-        part2_title: "Plugin Engineering, Custom HDK Solver Node & VFX Pipeline Validation",
-        part2_summary: "Native C++ implementation on the SideFX Houdini HDK API, procedural artist parameter UI, DOP network coupling, and simulation stress testing.",
+        part2_title: "C++ Plugin Development (HDK) & Simulation Tests in Houdini",
+        part2_summary: "Native solver node implementation via SideFX Houdini HDK API, interactive parameter UI, DOP network coupling, and simulation stress testing (Dinosaur Benchmark at Frame 250/500).",
         part2_btn_expand: "Expand Plugin & Tests",
         part2_btn_collapse: "Collapse Section",
         sec4_title: "1. SideFX Houdini Plugin Architecture & HDK Controls",
@@ -2393,7 +2383,17 @@
         hdk_params_desc: "Procedural artist interface allowing real-time switching between PIC, FLIP, APIC, and IPIC solvers, setting Runge-Kutta time integration order (RK2/RK4), enforcing CFL limits, and tuning affine blending ratios.",
         hdk_tree_title: "Node Architecture & DOP Structure",
         hdk_tree_desc: "Modular integration within the fluid solver network, linking particle-to-grid momentum splatting, closed-boundary Poisson pressure projection, and grid-to-particle advective updates.",
-        hdk_tests_title: "2. Plugin Stress Testing & Production Performance",
+        sec2_title: "2. Houdini Plugin Tests: Collision & Splashing Benchmark (Dinosaur)",
+        sec2_desc: "Practical validation of the custom solver plugin developed in SideFX Houdini under computational stress: massive liquid column impacting at high velocity on an anatomical dinosaur model. Side-by-side full-resolution comparison between APIC and IPIC executed within Houdini:",
+        bench_apic250_title: "APIC: Smooth Expansion & Clinging Flow",
+        bench_apic250_desc: "The fluid smoothly drapes over complex geometry features. The affine matrix preserves impact angular momentum, preventing numerical dissipation and maintaining a clean, cohesive wavefront without spurious spray.",
+        bench_ipic250_title: "IPIC: Ultra-thin Liquid Sheets (Thin Sheets)",
+        bench_ipic250_desc: "Thanks to dissipation-free impulse advection, fluid sheets shedding from the head and back stay continuous and tensile in mid-air significantly longer before breaking into droplets.",
+        bench_apic500_title: "APIC: Stable Pool Settlement & Gentle Waves",
+        bench_apic500_desc: "The liquid settles into the base domain forming clean concentric ripples without the boiling noise common in FLIP. Exceptional numerical stability for sustained VFX production shots.",
+        bench_ipic500_title: "IPIC: Persistent Vortices & Kinetic Energy",
+        bench_ipic500_desc: "Exhibits significantly livelier long-term turbulence: eddies and detached vortex microstructures continue rotating actively after 500 frames without artificial numerical decay.",
+        hdk_tests_title: "3. Plugin Stress Testing & Production Performance",
         hdk_tests_desc: "Computational validation of the plugin under 2.4 to 5 million particle workloads and efficient RAM usage via hierarchical OpenVDB sparse grids:",
         hdk_test1_h: "CFL Stability & Substepping Tests",
         hdk_test1_p: "Verification of adaptive Courant-Friedrichs-Lewy condition to prevent numerical blowups in violent impacts while preserving stable RK4 time integration and per-frame budgets.",
