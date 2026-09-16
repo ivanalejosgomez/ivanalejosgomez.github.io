@@ -277,80 +277,6 @@
       background: #fffbf7;
     }
 
-    /* Interactive Viscous Fluid Canvas Banner */
-    .fluid-canvas-wrapper {
-      margin: 10px 0 36px;
-      border-radius: 12px;
-      overflow: hidden;
-      border: 1px solid var(--border);
-      background: #ffffff;
-      box-shadow: 0 10px 30px rgba(80, 55, 35, 0.06);
-      position: relative;
-    }
-
-    .fluid-canvas-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 10px 18px;
-      background: var(--surface-warm);
-      border-bottom: 1px solid var(--border);
-      font-family: var(--font-mono);
-      font-size: 0.72rem;
-      color: var(--text-muted);
-    }
-
-    .fluid-status-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      color: var(--fluid-orange-dark);
-      font-weight: 600;
-    }
-
-    .status-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: var(--fluid-orange);
-      box-shadow: 0 0 6px var(--fluid-orange);
-      animation: pulse-dot 2s infinite ease-in-out;
-    }
-
-    @keyframes pulse-dot {
-      0%, 100% { opacity: 0.6; transform: scale(0.9); }
-      50% { opacity: 1; transform: scale(1.15); }
-    }
-
-    .fluid-canvas-container {
-      width: 100%;
-      height: 190px;
-      position: relative;
-      background: radial-gradient(ellipse at 50% 50%, #fffdfa 0%, #f9f4ea 100%);
-      cursor: crosshair;
-      overflow: hidden;
-    }
-
-    #fluidCanvas {
-      width: 100%;
-      height: 100%;
-      display: block;
-    }
-
-    .canvas-hint {
-      position: absolute;
-      bottom: 10px;
-      right: 14px;
-      font-family: var(--font-mono);
-      font-size: 0.68rem;
-      color: var(--text-subtle);
-      pointer-events: none;
-      background: rgba(255, 255, 255, 0.85);
-      padding: 3px 8px;
-      border-radius: 4px;
-      border: 1px solid var(--border);
-    }
-
     /* PESTAÑAS (TABS UI) */
     .tabs-section {
       margin-bottom: 30px;
@@ -904,7 +830,7 @@
   <nav>
     <div class="container nav-inner">
       <a href="./index.html" class="nav-brand">
-        <span class="fluid-drop-icon"><i class="fa-solid fa-droplet"></i></span>
+        <span class="fluid-drop-icon"><i class="fa-solid fa-cube"></i></span>
         <span class="brand-title-fluid" data-i18n="brand_title">Portfolio de Iván Alejos</span>
       </a>
 
@@ -924,8 +850,14 @@
           </li>
           <li>
             <a href="./graphics.html" class="nav-link active" id="nav-graphics">
-              <i class="fa-solid fa-droplet" style="color: var(--fluid-orange);"></i>
+              <i class="fa-solid fa-cube" style="color: var(--fluid-orange);"></i>
               <span data-i18n="nav_graphics">Simulación & Gráficos</span>
+            </a>
+          </li>
+          <li>
+            <a href="./contact.html" class="nav-link" id="nav-contact">
+              <i class="fa-regular fa-envelope"></i>
+              <span data-i18n="nav_contact">Contacto</span>
             </a>
           </li>
         </ul>
@@ -958,39 +890,8 @@
       <p class="hero-bio" data-i18n="hero_bio">
         Especialización técnica en dinámica de fluidos incompresible basada en las ecuaciones de Navier-Stokes, acoplamiento Lagrangiano-Euleriano con solvers híbridos (PIC/FLIP), programación vectorial en VEX, computación gráfica en C++ y desarrollo de herramientas de pipeline para producción visual y simuladores interactivos.
       </p>
-
-      <div class="hero-actions">
-        <a href="mailto:ivanalejosgomez99@gmail.com" class="btn btn-primary">
-          <i class="fa-regular fa-envelope"></i>
-          <span data-i18n="btn_contact">Contactar</span>
-        </a>
-        <a href="./cv_ivan_alejos.pdf" target="_blank" class="btn btn-outline">
-          <i class="fa-regular fa-file-pdf"></i>
-          <span data-i18n="btn_cv">CV Especializado (PDF)</span>
-        </a>
-      </div>
     </div>
   </section>
-
-  <!-- Interactive Viscous Liquid Simulation Canvas -->
-  <div class="container">
-    <div class="fluid-canvas-wrapper">
-      <div class="fluid-canvas-header">
-        <div class="fluid-status-badge">
-          <span class="status-dot"></span>
-          <span data-i18n="canvas_status">SIMULACIÓN INTERACTIVA DE FLUIDO VISCOSO (NAVIER-STOKES PIC/FLIP)</span>
-        </div>
-        <div data-i18n="canvas_params">VISCOSITY: 2.15 Pa·s // SOLVER: ADAPTIVE BLEND // SURFACE TENSION: ON</div>
-      </div>
-
-      <div class="fluid-canvas-container" id="canvasContainer">
-        <canvas id="fluidCanvas"></canvas>
-        <div class="canvas-hint" data-i18n="canvas_hint">
-          <i class="fa-solid fa-arrow-pointer"></i> Pasa el cursor para agitar el fluido viscoso
-        </div>
-      </div>
-    </div>
-  </div>
 
   <!-- PESTAÑAS INTERACTIVAS: PROYECTOS / EXPERIENCIA LABORAL -->
   <section class="tabs-section">
@@ -1340,200 +1241,6 @@
       if (activePane) activePane.classList.add('active');
     }
 
-    // VISCOUS ORANGE FLUID CANVAS SIMULATION
-    const canvas = document.getElementById('fluidCanvas');
-    const ctx = canvas.getContext('2d');
-    let width, height;
-    let particles = [];
-    const NUM_PARTICLES = 50;
-
-    let mouse = {
-      x: -1000,
-      y: -1000,
-      vx: 0,
-      vy: 0,
-      lastX: -1000,
-      lastY: -1000,
-      isOver: false
-    };
-
-    function resizeCanvas() {
-      const container = canvas.parentElement;
-      width = container.clientWidth;
-      height = container.clientHeight;
-      canvas.width = width * window.devicePixelRatio;
-      canvas.height = height * window.devicePixelRatio;
-      ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
-    }
-
-    class FluidDrop {
-      constructor() {
-        this.reset(true);
-      }
-
-      reset(init = false) {
-        this.x = init ? Math.random() * (width || 800) : (Math.random() > 0.5 ? -20 : (width || 800) + 20);
-        this.y = (height || 180) * (0.3 + Math.random() * 0.5);
-        this.targetY = this.y;
-        this.vx = (Math.random() - 0.5) * 0.8;
-        this.vy = (Math.random() - 0.5) * 0.5;
-        this.baseRadius = 14 + Math.random() * 22;
-        this.radius = this.baseRadius;
-        this.viscosity = 0.93; // High viscous damping
-        this.colorHue = 24 + Math.random() * 8; // Rich warm orange-amber
-        this.alpha = 0.85 + Math.random() * 0.15;
-      }
-
-      update() {
-        // Ambient flow & laminar drift
-        this.x += this.vx;
-        this.y += this.vy;
-
-        // Gentle spring returning to target vertical band
-        this.vy += (this.targetY - this.y) * 0.008;
-
-        // Mouse interaction: viscous drag and attraction/repulsion
-        if (mouse.isOver) {
-          const dx = mouse.x - this.x;
-          const dy = mouse.y - this.y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-          const maxDist = 140;
-
-          if (dist < maxDist && dist > 1) {
-            // Viscous fluid stirring: particles swirl with mouse motion
-            const force = (1 - dist / maxDist);
-            const swirlAngle = Math.atan2(dy, dx) + Math.PI * 0.35;
-            
-            this.vx += (Math.cos(swirlAngle) * force * 1.5 + mouse.vx * 0.08);
-            this.vy += (Math.sin(swirlAngle) * force * 1.5 + mouse.vy * 0.08);
-
-            // Compress/expand radius with shear strain
-            this.radius = this.baseRadius * (1 + force * 0.35);
-          }
-        }
-
-        // Viscous damping
-        this.vx *= this.viscosity;
-        this.vy *= this.viscosity;
-        this.radius += (this.baseRadius - this.radius) * 0.1;
-
-        // Boundary wrapping
-        if (this.x < -60) this.x = width + 50;
-        if (this.x > width + 60) this.x = -50;
-        if (this.y < 15) this.vy += 0.8;
-        if (this.y > height - 15) this.vy -= 0.8;
-      }
-
-      draw() {
-        // Viscous droplet with glossy amber/orange gradient and specular highlight
-        const grad = ctx.createRadialGradient(
-          this.x - this.radius * 0.3,
-          this.y - this.radius * 0.35,
-          this.radius * 0.1,
-          this.x,
-          this.y,
-          this.radius
-        );
-
-        grad.addColorStop(0, '#fff4e6'); // Specular highlight
-        grad.addColorStop(0.25, '#fb923c'); // Bright warm orange
-        grad.addColorStop(0.65, '#ea580c'); // Viscous core orange
-        grad.addColorStop(0.95, '#c2410c'); // Dense amber rim
-        grad.addColorStop(1, 'rgba(194, 65, 12, 0)');
-
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-        ctx.fillStyle = grad;
-        ctx.shadowColor = 'rgba(234, 88, 12, 0.28)';
-        ctx.shadowBlur = 10;
-        ctx.fill();
-        ctx.shadowBlur = 0;
-
-        // Secondary specular glint
-        ctx.beginPath();
-        ctx.ellipse(
-          this.x - this.radius * 0.32,
-          this.y - this.radius * 0.36,
-          this.radius * 0.26,
-          this.radius * 0.15,
-          -Math.PI / 4,
-          0,
-          Math.PI * 2
-        );
-        ctx.fillStyle = 'rgba(255, 255, 255, 0.65)';
-        ctx.fill();
-      }
-    }
-
-    function initFluid() {
-      resizeCanvas();
-      particles = [];
-      for (let i = 0; i < NUM_PARTICLES; i++) {
-        particles.push(new FluidDrop());
-      }
-    }
-
-    function animateFluid() {
-      ctx.clearRect(0, 0, width, height);
-
-      // Subtle connected viscous bridges between near drops
-      for (let i = 0; i < particles.length; i++) {
-        for (let j = i + 1; j < particles.length; j++) {
-          const p1 = particles[i];
-          const p2 = particles[j];
-          const dx = p2.x - p1.x;
-          const dy = p2.y - p1.y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-          const maxBridge = (p1.radius + p2.radius) * 1.35;
-
-          if (dist < maxBridge && dist > 1) {
-            const bridgeAlpha = (1 - dist / maxBridge) * 0.35;
-            ctx.beginPath();
-            ctx.moveTo(p1.x, p1.y);
-            ctx.lineTo(p2.x, p2.y);
-            ctx.lineWidth = (p1.radius + p2.radius) * 0.35 * (1 - dist / maxBridge);
-            ctx.strokeStyle = `rgba(234, 88, 12, ${bridgeAlpha})`;
-            ctx.lineCap = 'round';
-            ctx.stroke();
-          }
-        }
-      }
-
-      // Update and draw drops
-      particles.forEach(p => {
-        p.update();
-        p.draw();
-      });
-
-      requestAnimationFrame(animateFluid);
-    }
-
-    window.addEventListener('resize', resizeCanvas);
-
-    const canvasContainer = document.getElementById('canvasContainer');
-    canvasContainer.addEventListener('mousemove', (e) => {
-      const rect = canvas.getBoundingClientRect();
-      const newX = e.clientX - rect.left;
-      const newY = e.clientY - rect.top;
-
-      mouse.vx = newX - mouse.lastX;
-      mouse.vy = newY - mouse.lastY;
-      mouse.lastX = newX;
-      mouse.lastY = newY;
-      mouse.x = newX;
-      mouse.y = newY;
-      mouse.isOver = true;
-    });
-
-    canvasContainer.addEventListener('mouseleave', () => {
-      mouse.isOver = false;
-      mouse.vx = 0;
-      mouse.vy = 0;
-    });
-
-    initFluid();
-    animateFluid();
-
     // BILINGUAL DICTIONARY (ES / EN)
     const i18n = {
       es: {
@@ -1541,6 +1248,7 @@
         nav_home: "Inicio",
         nav_software: "Software & Sistemas",
         nav_graphics: "Simulación & Gráficos",
+        nav_contact: "Contacto",
         track_tag: "Simulación Numérica & Computación Gráfica",
         hero_title: "Simulación de Fluidos, Física Numérica & Pipeline Gráfico",
         hero_subtitle: "SideFX Houdini · Solvers Híbridos PIC/FLIP · Programación en VEX · OpenVDB · C++ / OpenGL",
@@ -1602,6 +1310,7 @@
         nav_home: "Home",
         nav_software: "Software & Systems",
         nav_graphics: "Simulation & Graphics",
+        nav_contact: "Contact",
         track_tag: "Numerical Simulation & Computer Graphics",
         hero_title: "Fluid Simulation, Numerical Physics & Graphics Pipeline",
         hero_subtitle: "SideFX Houdini · Hybrid PIC/FLIP Solvers · VEX Programming · OpenVDB · C++ / OpenGL",
