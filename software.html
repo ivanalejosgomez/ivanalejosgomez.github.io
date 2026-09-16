@@ -37,7 +37,7 @@
       --terminal-green: #10b981;
 
       --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      --font-mono: 'JetBrains Mono', 'Consolas', monospace;
+      --font-mono: 'JetBrains Mono', monospace;
     }
 
     * {
@@ -64,40 +64,6 @@
       width: 100%;
     }
 
-    /* TOP POSTGRESQL BANNER BAR */
-    .pg-top-bar {
-      background: var(--pg-blue-dark);
-      color: #ffffff;
-      font-size: 0.78rem;
-      padding: 6px 0;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    .pg-top-bar-inner {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .pg-top-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      font-family: var(--font-mono);
-      font-size: 0.74rem;
-      color: #bfdbfe;
-    }
-
-    .pg-top-badge i {
-      color: #60a5fa;
-    }
-
-    .pg-top-version {
-      font-family: var(--font-mono);
-      color: #93c5fd;
-      font-size: 0.72rem;
-    }
-
     /* Sticky Top Navigation Bar (Identical layout across portfolio) */
     nav {
       position: sticky;
@@ -115,32 +81,37 @@
       height: 64px;
     }
 
-    /* Brand with PowerShell/Programming font as requested */
+    /* Brand with Software / Database Badge */
     .nav-brand {
       display: flex;
       align-items: center;
-      gap: 9px;
+      gap: 10px;
       text-decoration: none;
     }
 
-    .powershell-prompt {
-      font-family: 'Consolas', 'Cascadia Code', 'Lucida Console', monospace !important;
-      font-size: 0.95rem;
-      font-weight: 700;
-      color: var(--pg-blue-primary);
-      letter-spacing: 0.5px;
+    .pg-brand-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      background: var(--pg-blue-primary);
+      color: #ffffff;
+      font-size: 0.82rem;
+      box-shadow: 0 2px 8px rgba(51, 103, 145, 0.25);
     }
 
-    .brand-title-code {
-      font-family: 'Consolas', 'Cascadia Code', 'Lucida Console', monospace !important;
+    .brand-title-software {
+      font-family: var(--font-sans);
       font-size: 0.95rem;
-      font-weight: 600;
+      font-weight: 700;
       color: var(--text-main);
-      letter-spacing: 0px;
+      letter-spacing: -0.2px;
       transition: color 0.2s ease;
     }
 
-    .nav-brand:hover .brand-title-code {
+    .nav-brand:hover .brand-title-software {
       color: var(--pg-blue-primary);
     }
 
@@ -217,7 +188,7 @@
       color: #ffffff;
     }
 
-    /* HERO HEADER: PostgreSQL Documentation / Enterprise Portal Look */
+    /* HERO HEADER */
     .hero {
       background: linear-gradient(180deg, #ffffff 0%, var(--bg-page) 100%);
       border-bottom: 1px solid var(--border-color);
@@ -256,28 +227,6 @@
       border-radius: 4px;
     }
 
-    .hero-sql-banner {
-      font-family: var(--font-mono);
-      font-size: 0.8rem;
-      background: var(--terminal-bg);
-      color: #e2e8f0;
-      padding: 6px 14px;
-      border-radius: 6px;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .hero-sql-banner .pg-prompt {
-      color: #60a5fa;
-      font-weight: bold;
-    }
-
-    .hero-sql-banner .pg-kw {
-      color: #f472b6;
-      font-weight: bold;
-    }
-
     .hero-title {
       font-size: 2rem;
       font-weight: 800;
@@ -300,7 +249,7 @@
       line-height: 1.65;
     }
 
-    /* MAIN POSTGRESQL TWO-COLUMN LAYOUT WITH LEFT SIDEBAR */
+    /* MAIN TWO-COLUMN LAYOUT WITH LEFT SIDEBAR */
     .pg-layout {
       display: grid;
       grid-template-columns: 290px 1fr;
@@ -309,7 +258,7 @@
       align-items: start;
     }
 
-    /* LEFT SIDEBAR (Postgres style docs list) */
+    /* LEFT SIDEBAR (Postgres docs style menu) */
     .pg-sidebar {
       position: sticky;
       top: 96px;
@@ -487,7 +436,7 @@
       color: var(--text-muted);
     }
 
-    /* CARDS: PostgreSQL Doc / Enterprise Schema Style */
+    /* CARDS */
     .pg-card {
       background: var(--surface-card);
       border: 1px solid var(--border-color);
@@ -555,7 +504,7 @@
       margin-bottom: 18px;
     }
 
-    /* Technical Dossier Grid (Light & Clean) */
+    /* Technical Dossier Grid */
     .pg-dossier {
       background: var(--bg-page);
       border: 1px solid var(--border-color);
@@ -863,25 +812,12 @@
 </head>
 <body>
 
-  <!-- Top PostgreSQL Themed Info Bar -->
-  <div class="pg-top-bar">
-    <div class="container pg-top-bar-inner">
-      <div class="pg-top-badge">
-        <i class="fa-solid fa-database"></i>
-        <span>PostgreSQL & Enterprise Backend Architecture</span>
-      </div>
-      <div class="pg-top-version">
-        <span>psql v16.x · Industrial Systems</span>
-      </div>
-    </div>
-  </div>
-
   <!-- Sticky Top Navigation Bar -->
   <nav>
     <div class="container nav-inner">
       <a href="./index.html" class="nav-brand">
-        <span class="powershell-prompt">PS&gt;</span>
-        <span class="brand-title-code" data-i18n="brand_title">Portfolio de Iván Alejos</span>
+        <span class="pg-brand-icon"><i class="fa-solid fa-database"></i></span>
+        <span class="brand-title-software" data-i18n="brand_title">Portfolio de Iván Alejos</span>
       </a>
 
       <div class="nav-actions">
@@ -921,27 +857,19 @@
     </div>
   </nav>
 
-  <!-- Hero / PostgreSQL Documentation Portal Header -->
+  <!-- Hero Header -->
   <header class="hero">
     <div class="container">
       <div class="hero-box">
         <div class="hero-meta-strip">
           <div class="hero-tag">
             <i class="fa-solid fa-database"></i>
-            <span data-i18n="hero_badge">RELATIONAL DATABASES & ENTERPRISE SYSTEMS</span>
-          </div>
-
-          <div class="hero-sql-banner">
-            <span class="pg-prompt">postgres=#</span>
-            <span class="pg-kw">SELECT</span>
-            <span>*</span>
-            <span class="pg-kw">FROM</span>
-            <span>software_architecture;</span>
+            <span data-i18n="hero_badge">SOFTWARE INDUSTRIAL & ARQUITECTURA BACKEND</span>
           </div>
         </div>
 
         <h1 class="hero-title" data-i18n="track_title">Software Empresarial, Sistemas & Bases de Datos</h1>
-        <div class="hero-subtitle" data-i18n="track_subtitle">Arquitecturas Backend · SCADA & Automatización Industrial · Modelado Relacional (PostgreSQL)</div>
+        <div class="hero-subtitle" data-i18n="track_subtitle">Arquitecturas Backend · SCADA & Automatización Industrial · Bases de Datos Relacionales</div>
         <p class="hero-desc" data-i18n="track_desc">
           Especialización en desarrollo de servicios backend en Python y C# (.NET), automatización y supervisión en tiempo real con Ignition SCADA, integración con ERP Odoo, analítica de vídeo y modelado de datos de alta concurrencia sobre PostgreSQL y SQL Server en entornos Linux y Windows.
         </p>
@@ -953,7 +881,7 @@
   <main class="container">
     <div class="pg-layout">
 
-      <!-- LEFT SIDEBAR: POSTGRESQL DOCS / SCHEMA NAVIGATOR -->
+      <!-- LEFT SIDEBAR: DOCS / SCHEMA NAVIGATOR -->
       <aside class="pg-sidebar">
         <div class="pg-sidebar-header">
           <span><i class="fa-solid fa-server"></i> &nbsp;EXPLORADOR DE SISTEMAS</span>
@@ -1307,9 +1235,9 @@
         nav_software: "Software & Sistemas",
         nav_graphics: "Simulación & Gráficos",
         nav_contact: "Contacto",
-        hero_badge: "BASES DE DATOS RELACIONALES & ARQUITECTURAS ENTERPRISE",
+        hero_badge: "SOFTWARE INDUSTRIAL & ARQUITECTURA BACKEND",
         track_title: "Software Empresarial, Sistemas & Bases de Datos",
-        track_subtitle: "Arquitecturas Backend · SCADA & Automatización Industrial · Modelado Relacional (PostgreSQL)",
+        track_subtitle: "Arquitecturas Backend · SCADA & Automatización Industrial · Bases de Datos Relacionales",
         track_desc: "Especialización en desarrollo de servicios backend en Python y C# (.NET), automatización y supervisión en tiempo real con Ignition SCADA, integración con ERP Odoo, analítica de vídeo y modelado de datos de alta concurrencia sobre PostgreSQL y SQL Server en entornos Linux y Windows.",
         
         sidebar_projects: "01. Proyectos de Software",
@@ -1402,9 +1330,9 @@
         nav_software: "Software & Systems",
         nav_graphics: "Simulation & Graphics",
         nav_contact: "Contact",
-        hero_badge: "RELATIONAL DATABASES & ENTERPRISE ARCHITECTURES",
+        hero_badge: "INDUSTRIAL SOFTWARE & BACKEND ARCHITECTURES",
         track_title: "Enterprise Software, Systems & Databases",
-        track_subtitle: "Backend Architectures · Industrial SCADA Automation · Relational Modeling (PostgreSQL)",
+        track_subtitle: "Backend Architectures · Industrial SCADA Automation · Relational Databases",
         track_desc: "Specialized in backend service engineering in Python and C# (.NET), real-time supervision with Ignition SCADA, Odoo ERP integration, video stream analytics, and high-concurrency relational data modeling over PostgreSQL and SQL Server across Linux and Windows environments.",
         
         sidebar_projects: "01. Software Projects",
