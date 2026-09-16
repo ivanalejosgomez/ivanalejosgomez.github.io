@@ -11,16 +11,28 @@
 
   <style>
     :root {
-      --bg: #0c0f17;
-      --surface: #141923;
-      --surface-card: #19202e;
-      --surface-hover: #1f2738;
-      --border: #272f3d;
-      --border-hover: #58a6ff;
-      --text: #e6edf3;
-      --text-muted: #8b949e;
-      --accent: #58a6ff;
-      --accent-glow: rgba(88, 166, 255, 0.2);
+      --bg-page: #f8fafc;
+      --surface: #ffffff;
+      --surface-subtle: #f1f5f9;
+      --border: #e2e8f0;
+      --border-hover: #cbd5e1;
+      
+      --text-main: #0f172a;
+      --text-body: #334155;
+      --text-muted: #64748b;
+      --text-subtle: #94a3b8;
+
+      --accent-blue: #2563eb;
+      --accent-blue-hover: #1d4ed8;
+      --accent-blue-light: #eff6ff;
+
+      --pg-blue: #336791;
+      --fluid-orange: #ea580c;
+
+      --pdf-red: #dc2626;
+      --pdf-red-bg: #fef2f2;
+      --pdf-red-border: #fecaca;
+
       --font-mono: 'JetBrains Mono', Consolas, monospace;
       --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     }
@@ -33,15 +45,10 @@
 
     body {
       font-family: var(--font-sans);
-      background-color: var(--bg);
-      color: var(--text);
+      background-color: var(--bg-page);
+      color: var(--text-body);
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
-      background-image: 
-        radial-gradient(circle at 20% 20%, rgba(88, 166, 255, 0.08) 0%, transparent 40%),
-        radial-gradient(circle at 80% 80%, rgba(234, 88, 12, 0.06) 0%, transparent 45%),
-        linear-gradient(180deg, #0c0f17 0%, #080a10 100%);
-      background-attachment: fixed;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
@@ -59,9 +66,10 @@
       position: sticky;
       top: 0;
       z-index: 100;
-      background: rgba(12, 15, 23, 0.94);
-      backdrop-filter: blur(14px);
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--border);
+      box-shadow: 0 2px 10px rgba(15, 23, 42, 0.04);
     }
 
     .nav-inner {
@@ -84,12 +92,12 @@
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.8px;
-      color: #ffffff;
+      color: var(--text-main);
       transition: color 0.2s ease;
     }
 
     .nav-brand:hover .brand-title-neutral {
-      color: var(--accent);
+      color: var(--accent-blue);
     }
 
     .nav-actions {
@@ -116,36 +124,37 @@
       align-items: center;
       gap: 7px;
       border: 1px solid var(--border);
-      background: var(--surface);
+      background: #ffffff;
     }
 
     .nav-link:hover {
-      color: var(--text);
-      background: rgba(255, 255, 255, 0.08);
-      border-color: #58a6ff;
+      color: var(--text-main);
+      background: var(--surface-subtle);
+      border-color: var(--border-hover);
     }
 
     .nav-link.active {
       color: #ffffff;
-      background: rgba(88, 166, 255, 0.15);
-      border-color: #58a6ff;
-      box-shadow: 0 0 12px rgba(88, 166, 255, 0.2);
+      background: var(--text-main);
+      border-color: var(--text-main);
+      box-shadow: 0 2px 8px rgba(15, 23, 42, 0.15);
+      font-weight: 600;
     }
 
     .nav-link.nav-link-soft:hover {
-      border-color: #336791;
-      color: #93c5fd;
+      border-color: var(--pg-blue);
+      color: var(--pg-blue);
     }
 
     .nav-link.nav-link-graph:hover {
-      border-color: #ea580c;
-      color: #ea580c;
+      border-color: var(--fluid-orange);
+      color: var(--fluid-orange);
     }
 
-    /* Minimal Language Toggle */
+    /* Language Switcher */
     .lang-toggle {
       display: inline-flex;
-      background: var(--surface);
+      background: #ffffff;
       border: 1px solid var(--border);
       border-radius: 6px;
       padding: 2px;
@@ -165,7 +174,7 @@
     }
 
     .lang-btn.active {
-      background: var(--accent);
+      background: var(--text-main);
       color: #ffffff;
     }
 
@@ -184,10 +193,10 @@
       font-weight: 600;
       letter-spacing: 0.8px;
       text-transform: uppercase;
-      color: var(--accent);
-      background: rgba(88, 166, 255, 0.1);
-      border: 1px solid rgba(88, 166, 255, 0.25);
-      padding: 4px 14px;
+      color: var(--accent-blue);
+      background: var(--accent-blue-light);
+      border: 1px solid rgba(37, 99, 235, 0.2);
+      padding: 5px 14px;
       border-radius: 20px;
       margin-bottom: 16px;
     }
@@ -197,15 +206,16 @@
       font-weight: 800;
       letter-spacing: -0.6px;
       line-height: 1.25;
-      color: #ffffff;
+      color: var(--text-main);
       margin-bottom: 12px;
     }
 
     .contact-subtitle {
       color: var(--text-muted);
       font-size: 1.05rem;
-      max-width: 650px;
+      max-width: 680px;
       margin: 0 auto 10px;
+      line-height: 1.6;
     }
 
     /* Cards Grid */
@@ -217,11 +227,11 @@
     }
 
     .card-box {
-      background: var(--surface);
+      background: #ffffff;
       border: 1px solid var(--border);
       border-radius: 12px;
       padding: 32px;
-      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+      box-shadow: 0 4px 20px rgba(15, 23, 42, 0.04);
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -230,71 +240,142 @@
 
     .card-box:hover {
       border-color: var(--border-hover);
-      box-shadow: 0 12px 40px rgba(88, 166, 255, 0.12);
+      box-shadow: 0 8px 30px rgba(15, 23, 42, 0.08);
       transform: translateY(-2px);
     }
 
+    .card-top-strip {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 18px;
+    }
+
     .card-header-icon {
-      width: 48px;
-      height: 48px;
+      width: 46px;
+      height: 46px;
       border-radius: 10px;
-      background: rgba(88, 166, 255, 0.12);
-      border: 1px solid rgba(88, 166, 255, 0.25);
-      color: var(--accent);
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 1.35rem;
-      margin-bottom: 18px;
+    }
+
+    .icon-pdf {
+      background: var(--pdf-red-bg);
+      border: 1px solid var(--pdf-red-border);
+      color: var(--pdf-red);
+    }
+
+    .icon-chat {
+      background: var(--accent-blue-light);
+      border: 1px solid rgba(37, 99, 235, 0.25);
+      color: var(--accent-blue);
+    }
+
+    .card-badge-pill {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      background: var(--surface-subtle);
+      border: 1px solid var(--border);
+      padding: 4px 10px;
+      border-radius: 20px;
     }
 
     .card-box h3 {
-      font-size: 1.3rem;
+      font-size: 1.35rem;
       font-weight: 700;
-      color: #ffffff;
+      color: var(--text-main);
       margin-bottom: 8px;
     }
 
     .card-box p {
-      font-size: 0.92rem;
-      color: var(--text-muted);
+      color: var(--text-body);
+      font-size: 0.93rem;
       line-height: 1.6;
-      margin-bottom: 24px;
+      margin-bottom: 22px;
     }
 
-    /* Contact Details List */
+    /* Contact & CV Item List */
     .contact-items {
       list-style: none;
       display: flex;
       flex-direction: column;
-      gap: 14px;
-      margin-bottom: 24px;
+      gap: 12px;
+      margin-bottom: 28px;
     }
 
     .contact-item {
       display: flex;
       align-items: center;
-      gap: 12px;
-      font-size: 0.93rem;
-      color: var(--text);
+      justify-content: space-between;
+      font-size: 0.9rem;
+      color: var(--text-body);
+      background: var(--bg-page);
+      border: 1px solid var(--border);
+      padding: 10px 14px;
+      border-radius: 8px;
+      transition: all 0.15s ease;
     }
 
-    .contact-item i {
-      color: var(--accent);
+    .contact-item:hover {
+      background: #ffffff;
+      border-color: var(--border-hover);
+    }
+
+    .contact-item-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .contact-item-left i {
+      color: var(--text-muted);
       width: 18px;
       text-align: center;
       font-size: 1rem;
     }
 
     .contact-item a {
-      color: var(--text);
+      color: var(--text-main);
+      font-weight: 600;
       text-decoration: none;
       transition: color 0.15s ease;
     }
 
     .contact-item a:hover {
-      color: var(--accent);
-      text-decoration: underline;
+      color: var(--accent-blue);
+    }
+
+    /* Copy Button Tool */
+    .btn-copy {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 4px 8px;
+      font-size: 0.72rem;
+      font-family: var(--font-mono);
+      font-weight: 600;
+      color: var(--text-muted);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.15s ease;
+    }
+
+    .btn-copy:hover {
+      color: var(--text-main);
+      border-color: var(--text-muted);
+      background: var(--surface-subtle);
+    }
+
+    .btn-copy.copied {
+      background: #ecfdf5;
+      color: #059669;
+      border-color: #a7f3d0;
     }
 
     /* Button styles */
@@ -318,35 +399,35 @@
     }
 
     .btn-primary {
-      background: var(--accent);
+      background: var(--text-main);
       color: #ffffff;
-      border: 1px solid #388bfd;
-      box-shadow: 0 4px 14px rgba(88, 166, 255, 0.3);
+      border: 1px solid var(--text-main);
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.12);
     }
 
     .btn-primary:hover {
-      background: #388bfd;
+      background: #1e293b;
       transform: translateY(-1px);
-      box-shadow: 0 6px 18px rgba(88, 166, 255, 0.45);
+      box-shadow: 0 6px 18px rgba(15, 23, 42, 0.2);
     }
 
     .btn-outline {
-      background: var(--surface-card);
-      color: var(--text);
+      background: #ffffff;
+      color: var(--text-main);
       border: 1px solid var(--border);
     }
 
     .btn-outline:hover {
-      background: var(--surface-hover);
-      border-color: var(--accent);
-      color: var(--accent);
+      background: var(--surface-subtle);
+      border-color: var(--border-hover);
     }
 
     /* Social Links Box */
     .social-strip {
       display: flex;
-      gap: 12px;
-      margin-top: 10px;
+      gap: 10px;
+      margin-top: 6px;
+      flex-wrap: wrap;
     }
 
     .social-btn {
@@ -355,18 +436,20 @@
       gap: 8px;
       padding: 8px 14px;
       border-radius: 6px;
-      background: var(--surface-card);
+      background: var(--bg-page);
       border: 1px solid var(--border);
-      color: var(--text-muted);
-      font-size: 0.85rem;
+      color: var(--text-main);
+      font-size: 0.84rem;
+      font-weight: 600;
       text-decoration: none;
       transition: all 0.15s ease;
     }
 
     .social-btn:hover {
-      color: #ffffff;
-      border-color: var(--accent);
-      background: var(--surface-hover);
+      background: #ffffff;
+      border-color: var(--border-hover);
+      color: var(--accent-blue);
+      box-shadow: 0 2px 8px rgba(15, 23, 42, 0.05);
     }
 
     /* Footer */
@@ -376,6 +459,7 @@
       font-size: 0.85rem;
       color: var(--text-muted);
       margin-top: auto;
+      background: #ffffff;
     }
 
     .footer-content {
@@ -398,7 +482,7 @@
     }
 
     .footer-links a:hover {
-      color: var(--accent);
+      color: var(--text-main);
     }
 
     @media (max-width: 768px) {
@@ -489,8 +573,11 @@
       <!-- CARD 1: CURRÍCULUM VITAE -->
       <article class="card-box">
         <div>
-          <div class="card-header-icon">
-            <i class="fa-regular fa-file-pdf"></i>
+          <div class="card-top-strip">
+            <div class="card-header-icon icon-pdf">
+              <i class="fa-regular fa-file-pdf"></i>
+            </div>
+            <span class="card-badge-pill" data-i18n="cv_badge">PDF · 2026</span>
           </div>
 
           <h3 data-i18n="cv_card_title">Currículum Vitae (PDF)</h3>
@@ -500,16 +587,22 @@
 
           <ul class="contact-items">
             <li class="contact-item">
-              <i class="fa-solid fa-check"></i>
-              <span data-i18n="cv_item1">Formato PDF estructurado y optimizado</span>
+              <div class="contact-item-left">
+                <i class="fa-solid fa-circle-check" style="color: #10b981;"></i>
+                <span data-i18n="cv_item1">Formato PDF estructurado y optimizado</span>
+              </div>
             </li>
             <li class="contact-item">
-              <i class="fa-solid fa-check"></i>
-              <span data-i18n="cv_item2">Detalle de proyectos industriales y simulación</span>
+              <div class="contact-item-left">
+                <i class="fa-solid fa-circle-check" style="color: #10b981;"></i>
+                <span data-i18n="cv_item2">Detalle de proyectos industriales y simulación</span>
+              </div>
             </li>
             <li class="contact-item">
-              <i class="fa-solid fa-check"></i>
-              <span data-i18n="cv_item3">Actualizado a Septiembre 2026</span>
+              <div class="contact-item-left">
+                <i class="fa-solid fa-circle-check" style="color: #10b981;"></i>
+                <span data-i18n="cv_item3">Actualizado a Septiembre 2026</span>
+              </div>
             </li>
           </ul>
         </div>
@@ -529,8 +622,11 @@
       <!-- CARD 2: CONTACTO DIRECTO -->
       <article class="card-box">
         <div>
-          <div class="card-header-icon">
-            <i class="fa-regular fa-comments"></i>
+          <div class="card-top-strip">
+            <div class="card-header-icon icon-chat">
+              <i class="fa-regular fa-comments"></i>
+            </div>
+            <span class="card-badge-pill" data-i18n="direct_badge">Respuesta Rápida</span>
           </div>
 
           <h3 data-i18n="direct_card_title">Canales de Contacto</h3>
@@ -539,25 +635,44 @@
           </p>
 
           <ul class="contact-items">
+            <!-- Email -->
             <li class="contact-item">
-              <i class="fa-regular fa-envelope"></i>
-              <div>
-                <span style="color: var(--text-muted); font-size: 0.8rem; display: block;" data-i18n="lbl_email">Correo Electrónico:</span>
-                <a href="mailto:ivanalejosgomez99@gmail.com">ivanalejosgomez99@gmail.com</a>
+              <div class="contact-item-left">
+                <i class="fa-regular fa-envelope"></i>
+                <div>
+                  <span style="color: var(--text-muted); font-size: 0.76rem; display: block;" data-i18n="lbl_email">Correo Electrónico:</span>
+                  <a href="mailto:ivanalejosgomez99@gmail.com" id="text-email">ivanalejosgomez99@gmail.com</a>
+                </div>
               </div>
+              <button class="btn-copy" onclick="copyToClipboard('ivanalejosgomez99@gmail.com', this)">
+                <i class="fa-regular fa-copy"></i>
+                <span>Copiar</span>
+              </button>
             </li>
+
+            <!-- Phone -->
             <li class="contact-item">
-              <i class="fa-solid fa-phone"></i>
-              <div>
-                <span style="color: var(--text-muted); font-size: 0.8rem; display: block;" data-i18n="lbl_phone">Teléfono / WhatsApp:</span>
-                <a href="tel:+34671184864">+34 671 18 48 64</a>
+              <div class="contact-item-left">
+                <i class="fa-solid fa-phone"></i>
+                <div>
+                  <span style="color: var(--text-muted); font-size: 0.76rem; display: block;" data-i18n="lbl_phone">Teléfono / WhatsApp:</span>
+                  <a href="tel:+34671184864" id="text-phone">+34 671 18 48 64</a>
+                </div>
               </div>
+              <button class="btn-copy" onclick="copyToClipboard('+34671184864', this)">
+                <i class="fa-regular fa-copy"></i>
+                <span>Copiar</span>
+              </button>
             </li>
+
+            <!-- Location -->
             <li class="contact-item">
-              <i class="fa-solid fa-location-dot"></i>
-              <div>
-                <span style="color: var(--text-muted); font-size: 0.8rem; display: block;" data-i18n="lbl_location">Ubicación:</span>
-                <span>Valencia (Torrent), España</span>
+              <div class="contact-item-left">
+                <i class="fa-solid fa-location-dot"></i>
+                <div>
+                  <span style="color: var(--text-muted); font-size: 0.76rem; display: block;" data-i18n="lbl_location">Ubicación:</span>
+                  <span style="font-weight: 600;">Valencia, España · Disponibilidad inmediata</span>
+                </div>
               </div>
             </li>
           </ul>
@@ -585,7 +700,7 @@
   <footer>
     <div class="container footer-content">
       <div>
-        <strong style="color: #ffffff;">Iván Alejos Gómez</strong> — 
+        <strong style="color: var(--text-main);">Iván Alejos Gómez</strong> — 
         <span data-i18n="footer_role">Ingeniero Multimedia & Desarrollador de Software</span> · 
         <span data-i18n="footer_location">Valencia, España</span>
       </div>
@@ -599,6 +714,20 @@
   </footer>
 
   <script>
+    // Copy to clipboard helper
+    function copyToClipboard(text, btn) {
+      navigator.clipboard.writeText(text).then(() => {
+        const span = btn.querySelector('span');
+        const original = span.innerText;
+        span.innerText = document.documentElement.lang === 'en' ? 'Copied!' : '¡Copiado!';
+        btn.classList.add('copied');
+        setTimeout(() => {
+          span.innerText = original;
+          btn.classList.remove('copied');
+        }, 2000);
+      }).catch(err => console.error(err));
+    }
+
     // i18n Dictionary
     const i18n = {
       es: {
@@ -610,6 +739,7 @@
         tag_contact: "Contacto Directo & Documentación",
         title_contact: "Contacto & Currículum Vitae",
         subtitle_contact: "Disponible para nuevas oportunidades profesionales en ingeniería de software backend, arquitectura de pipeline y simulación gráfica.",
+        cv_badge: "PDF · 2026",
         cv_card_title: "Currículum Vitae (PDF)",
         cv_card_desc: "Descarga o consulta en línea el currículum vitae completo y actualizado, con desglose de formación académica, experiencia técnica en empresas y competencias en programación.",
         cv_item1: "Formato PDF estructurado y optimizado",
@@ -617,6 +747,7 @@
         cv_item3: "Actualizado a Septiembre 2026",
         btn_download_cv: "Descargar CV",
         btn_view_cv: "Ver en el navegador",
+        direct_badge: "Respuesta Rápida",
         direct_card_title: "Canales de Contacto",
         direct_card_desc: "Puedes ponerte en contacto conmigo directamente por correo electrónico o por teléfono para cualquier consulta profesional, colaboración o propuesta laboral.",
         lbl_email: "Correo Electrónico:",
@@ -635,6 +766,7 @@
         tag_contact: "Direct Contact & Documents",
         title_contact: "Contact & Resume (CV)",
         subtitle_contact: "Available for new professional opportunities in backend software engineering, pipeline architecture, and graphics simulation.",
+        cv_badge: "PDF · 2026",
         cv_card_title: "Curriculum Vitae (PDF)",
         cv_card_desc: "Download or inspect online the complete up-to-date resume, detailing academic background, production engineering experience, and technical stack skills.",
         cv_item1: "Optimized and clean PDF format",
@@ -642,6 +774,7 @@
         cv_item3: "Updated to September 2026",
         btn_download_cv: "Download CV",
         btn_view_cv: "View in browser",
+        direct_badge: "Quick Response",
         direct_card_title: "Contact Channels",
         direct_card_desc: "You can reach out directly via email or telephone for inquiries, technical collaboration, or job opportunities.",
         lbl_email: "Email:",

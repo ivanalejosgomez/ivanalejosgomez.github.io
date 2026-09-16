@@ -6,30 +6,39 @@
   <title>Iván Alejos Gómez | Portfolio</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
   <style>
     :root {
-      --bg-base: #0c0f17;
-      --surface: #141923;
-      --border: #272f3d;
-      --text: #e6edf3;
-      --text-muted: #8b949e;
-      --accent: #58a6ff;
-      --font-mono: 'JetBrains Mono', monospace;
-      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      --bg-base: #f8fafc;
+      --surface: #ffffff;
+      --surface-subtle: #f1f5f9;
+      --border: #e2e8f0;
+      --border-hover: #cbd5e1;
+      
+      --text-main: #0f172a;
+      --text-body: #334155;
+      --text-muted: #64748b;
+      --text-subtle: #94a3b8;
 
-      /* Ubuntu Palette */
-      --ubuntu-aubergine: #300a24;
-      --ubuntu-dark-aubergine: #190413;
-      --ubuntu-orange: #e95420;
-      --ubuntu-glow: rgba(233, 84, 32, 0.35);
+      --accent-blue: #2563eb;
+      --accent-blue-hover: #1d4ed8;
 
-      /* Fluid Dynamics Palette */
+      /* Software / PostgreSQL Blue */
+      --pg-blue: #336791;
+      --pg-blue-dark: #204565;
+      --pg-blue-light: #f0f5fa;
+      --pg-blue-border: #cee0ee;
+
+      /* Graphics / Fluid Dynamics Orange */
       --fluid-orange: #ea580c;
       --fluid-orange-light: #f97316;
-      --fluid-glow: rgba(234, 88, 12, 0.35);
+      --fluid-orange-bg: #fffaf5;
+      --fluid-orange-border: #fed7aa;
+
+      --font-mono: 'JetBrains Mono', monospace;
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     }
 
     * {
@@ -41,29 +50,29 @@
     body {
       font-family: var(--font-sans);
       background-color: var(--bg-base);
-      color: var(--text);
+      color: var(--text-body);
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
-      transition: background 0.45s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.45s ease;
+      transition: background 0.4s cubic-bezier(0.4, 0, 0.2, 1);
       min-height: 100vh;
       display: flex;
       flex-direction: column;
       position: relative;
     }
 
-    /* Dynamic Full-Page Theme Backgrounds on Hover */
+    /* Dynamic Full-Page Theme Backgrounds on Hover in Light Mode */
     body.hover-software {
       background: 
-        radial-gradient(circle at 25% 35%, rgba(51, 103, 145, 0.35) 0%, transparent 55%),
-        radial-gradient(circle at 35% 55%, rgba(32, 69, 101, 0.45) 0%, transparent 65%),
-        linear-gradient(135deg, #0d1a26 0%, #081017 80%);
+        radial-gradient(circle at 25% 45%, rgba(51, 103, 145, 0.08) 0%, transparent 60%),
+        radial-gradient(circle at 35% 65%, rgba(32, 69, 101, 0.04) 0%, transparent 70%),
+        #f8fafc;
     }
 
     body.hover-graphics {
       background: 
-        radial-gradient(circle at 75% 35%, rgba(234, 88, 12, 0.22) 0%, transparent 55%),
-        radial-gradient(circle at 65% 55%, rgba(245, 238, 227, 0.12) 0%, transparent 60%),
-        linear-gradient(135deg, #181411 0%, #0c0a09 85%);
+        radial-gradient(circle at 75% 45%, rgba(234, 88, 12, 0.08) 0%, transparent 60%),
+        radial-gradient(circle at 65% 65%, rgba(249, 115, 22, 0.04) 0%, transparent 70%),
+        #f8fafc;
     }
 
     .container {
@@ -78,9 +87,10 @@
       position: sticky;
       top: 0;
       z-index: 100;
-      background: rgba(12, 15, 23, 0.94);
-      backdrop-filter: blur(14px);
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--border);
+      box-shadow: 0 2px 10px rgba(15, 23, 42, 0.04);
       transition: all 0.3s ease;
     }
 
@@ -91,7 +101,6 @@
       height: 64px;
     }
 
-    /* Neutral Page Brand: Button font in Uppercase and Bold */
     .nav-brand {
       display: flex;
       align-items: center;
@@ -105,12 +114,12 @@
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.8px;
-      color: #ffffff;
+      color: var(--text-main);
       transition: color 0.2s ease;
     }
 
     .nav-brand:hover .brand-title-neutral {
-      color: var(--accent);
+      color: var(--accent-blue);
     }
 
     .nav-actions {
@@ -137,35 +146,37 @@
       align-items: center;
       gap: 7px;
       border: 1px solid var(--border);
-      background: var(--surface);
+      background: #ffffff;
     }
 
     .nav-link:hover {
-      color: var(--text);
-      background: rgba(255, 255, 255, 0.08);
-      border-color: #58a6ff;
+      color: var(--text-main);
+      background: var(--surface-subtle);
+      border-color: var(--border-hover);
     }
 
     .nav-link.active {
       color: #ffffff;
-      background: rgba(88, 166, 255, 0.15);
-      border-color: #58a6ff;
+      background: var(--text-main);
+      border-color: var(--text-main);
+      box-shadow: 0 2px 8px rgba(15, 23, 42, 0.15);
+      font-weight: 600;
     }
 
     .nav-link.nav-link-soft:hover {
-      border-color: #336791;
-      color: #93c5fd;
+      border-color: var(--pg-blue);
+      color: var(--pg-blue);
     }
 
     .nav-link.nav-link-graph:hover {
       border-color: var(--fluid-orange);
-      color: var(--fluid-orange-light);
+      color: var(--fluid-orange);
     }
 
     /* Minimal Language Toggle */
     .lang-toggle {
       display: inline-flex;
-      background: var(--surface);
+      background: #ffffff;
       border: 1px solid var(--border);
       border-radius: 6px;
       padding: 2px;
@@ -185,55 +196,83 @@
     }
 
     .lang-btn.active {
-      background: var(--border);
-      color: var(--text);
+      background: var(--text-main);
+      color: #ffffff;
     }
 
-    /* Neutral Hero Section (Photo + Description only on Main Portal) */
+    /* Hero Section (Photo + Bio on Landing Page) */
     .hero {
-      padding: 48px 0 32px;
+      padding: 50px 0 38px;
       border-bottom: 1px solid var(--border);
+      background: linear-gradient(180deg, #ffffff 0%, var(--bg-base) 100%);
     }
 
     .hero-layout {
       display: flex;
-      gap: 32px;
+      gap: 36px;
       align-items: center;
     }
 
-    .hero-photo {
-      width: 110px;
-      height: 110px;
-      border-radius: 12px;
-      border: 1px solid var(--border);
-      object-fit: cover;
+    .hero-photo-wrapper {
+      position: relative;
       flex-shrink: 0;
+    }
+
+    .hero-photo {
+      width: 120px;
+      height: 120px;
+      border-radius: 16px;
+      border: 3px solid #ffffff;
+      object-fit: cover;
       background: var(--surface);
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+      display: block;
+    }
+
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-family: var(--font-mono);
+      font-size: 0.74rem;
+      font-weight: 600;
+      color: #047857;
+      background: #ecfdf5;
+      border: 1px solid #a7f3d0;
+      padding: 4px 12px;
+      border-radius: 20px;
+      margin-bottom: 12px;
+    }
+
+    .status-dot-pulse {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #10b981;
+      box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.25);
     }
 
     .hero-text h1 {
-      font-size: 2.1rem;
-      font-weight: 700;
-      letter-spacing: -0.5px;
-      color: var(--text);
+      font-size: 2.35rem;
+      font-weight: 800;
+      letter-spacing: -0.6px;
+      color: var(--text-main);
       line-height: 1.2;
       margin-bottom: 6px;
     }
 
     .hero-subtitle {
-      font-family: var(--font-mono);
-      font-size: 0.94rem;
-      color: var(--accent);
-      margin-bottom: 12px;
-      font-weight: 500;
+      font-size: 1.05rem;
+      color: var(--accent-blue);
+      margin-bottom: 14px;
+      font-weight: 600;
     }
 
     .hero-bio {
-      font-size: 0.98rem;
-      color: var(--text-muted);
-      max-width: 720px;
-      line-height: 1.6;
+      font-size: 0.96rem;
+      color: var(--text-body);
+      max-width: 760px;
+      line-height: 1.65;
       margin-bottom: 20px;
     }
 
@@ -247,39 +286,31 @@
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      padding: 8px 16px;
+      padding: 9px 18px;
       border-radius: 6px;
-      font-size: 0.85rem;
-      font-weight: 500;
+      font-size: 0.86rem;
+      font-weight: 600;
       text-decoration: none;
       cursor: pointer;
-      transition: all 0.15s ease;
+      transition: all 0.2s ease;
     }
 
     .btn-primary {
-      background: var(--surface);
+      background: #ffffff;
       border: 1px solid var(--border);
-      color: var(--text);
+      color: var(--text-main);
+      box-shadow: 0 2px 6px rgba(15, 23, 42, 0.04);
     }
 
     .btn-primary:hover {
-      background: #222938;
-      border-color: #8b949e;
-    }
-
-    .btn-accent {
-      background: #1f6feb;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      color: #ffffff;
-    }
-
-    .btn-accent:hover {
-      background: #388bfd;
+      background: var(--surface-subtle);
+      border-color: var(--border-hover);
+      color: var(--accent-blue);
     }
 
     /* THE TWO INTERACTIVE PORTAL CARDS */
     .portal-section {
-      padding: 48px 0 55px;
+      padding: 48px 0 65px;
       flex-grow: 1;
     }
 
@@ -290,19 +321,20 @@
 
     .portal-tag {
       font-family: var(--font-mono);
-      font-size: 0.82rem;
-      color: var(--accent);
+      font-size: 0.78rem;
+      color: var(--accent-blue);
       text-transform: uppercase;
       letter-spacing: 1px;
       margin-bottom: 6px;
       display: block;
+      font-weight: 600;
     }
 
     .portal-title {
-      font-size: 1.7rem;
-      font-weight: 700;
-      color: #ffffff;
-      letter-spacing: -0.3px;
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: var(--text-main);
+      letter-spacing: -0.4px;
     }
 
     .portal-grid {
@@ -311,51 +343,33 @@
       gap: 30px;
     }
 
-    /* Portal Card 1: PostgreSQL & Enterprise Backend (Software) */
+    /* Portal Card 1: Software & Systems (PostgreSQL Style) */
     .portal-card-software {
-      background: #0f1c29;
-      border: 1px solid rgba(51, 103, 145, 0.45);
-      border-radius: 10px;
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 12px;
       overflow: hidden;
       cursor: pointer;
-      transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       position: relative;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+      box-shadow: 0 4px 20px rgba(15, 23, 42, 0.04);
       display: flex;
       flex-direction: column;
       text-decoration: none;
       color: inherit;
     }
 
-    .pg-window-bar {
-      background: #193147;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-      padding: 10px 16px;
+    .card-top-bar-software {
+      background: var(--pg-blue-light);
+      border-bottom: 1px solid var(--pg-blue-border);
+      padding: 12px 18px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-    }
-
-    .pg-buttons {
-      display: flex;
-      gap: 8px;
-    }
-
-    .pg-dot-btn {
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-    }
-
-    .pg-btn-1 { background: #336791; }
-    .pg-btn-2 { background: #4580b0; }
-    .pg-btn-3 { background: #60a5fa; }
-
-    .pg-title-text {
       font-family: var(--font-mono);
       font-size: 0.76rem;
-      color: #bfdbfe;
-      letter-spacing: 0.3px;
+      font-weight: 600;
+      color: var(--pg-blue);
     }
 
     .portal-software-body {
@@ -366,28 +380,18 @@
       justify-content: space-between;
     }
 
-    .terminal-prompt {
-      font-family: var(--font-mono);
-      font-size: 0.82rem;
-      color: #93c5fd;
-      margin-bottom: 14px;
-    }
-
-    .terminal-prompt span.user { color: #60a5fa; font-weight: 600; }
-    .terminal-prompt span.cmd { color: #ffffff; }
-
     .portal-software-title {
       font-size: 1.35rem;
       font-weight: 700;
-      color: #ffffff;
+      color: var(--text-main);
       margin-bottom: 10px;
       line-height: 1.3;
     }
 
     .portal-software-desc {
-      font-size: 0.93rem;
-      color: #cbd5e1;
-      line-height: 1.58;
+      font-size: 0.92rem;
+      color: var(--text-body);
+      line-height: 1.6;
       margin-bottom: 22px;
     }
 
@@ -401,17 +405,18 @@
     .software-tag {
       font-family: var(--font-mono);
       font-size: 0.72rem;
+      font-weight: 500;
       padding: 4px 8px;
-      background: rgba(51, 103, 145, 0.18);
-      border: 1px solid rgba(51, 103, 145, 0.45);
+      background: var(--pg-blue-light);
+      border: 1px solid var(--pg-blue-border);
       border-radius: 4px;
-      color: #93c5fd;
+      color: var(--pg-blue);
     }
 
     .btn-portal-software {
-      background: #336791;
+      background: var(--pg-blue);
       color: #ffffff;
-      border: 1px solid #4580b0;
+      border: none;
       padding: 10px 18px;
       border-radius: 6px;
       font-size: 0.88rem;
@@ -421,48 +426,47 @@
       gap: 8px;
       transition: all 0.2s ease;
       align-self: flex-start;
-      box-shadow: 0 4px 14px rgba(51, 103, 145, 0.3);
+      box-shadow: 0 4px 12px rgba(51, 103, 145, 0.25);
     }
 
     .portal-card-software:hover {
-      transform: translateY(-6px);
-      border-color: #60a5fa;
-      box-shadow: 0 16px 40px rgba(51, 103, 145, 0.35);
+      transform: translateY(-4px);
+      border-color: var(--pg-blue);
+      box-shadow: 0 12px 30px rgba(51, 103, 145, 0.12);
     }
 
     .portal-card-software:hover .btn-portal-software {
-      background: #2b5b84;
+      background: var(--pg-blue-dark);
       transform: translateX(3px);
     }
 
-    /* Portal Card 2: Fluid Simulation & Visual Computing */
+    /* Portal Card 2: Simulation & Graphics */
     .portal-card-graphics {
-      background: #14110e;
-      border: 1px solid rgba(234, 88, 12, 0.35);
-      border-radius: 10px;
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 12px;
       overflow: hidden;
       cursor: pointer;
-      transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       position: relative;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 15px rgba(234, 88, 12, 0.12);
+      box-shadow: 0 4px 20px rgba(15, 23, 42, 0.04);
       display: flex;
       flex-direction: column;
       text-decoration: none;
       color: inherit;
     }
 
-    .fluid-card-header {
-      background: #1f1914;
-      border-bottom: 1px solid rgba(234, 88, 12, 0.25);
-      padding: 10px 16px;
+    .card-top-bar-graphics {
+      background: var(--fluid-orange-bg);
+      border-bottom: 1px solid var(--fluid-orange-border);
+      padding: 12px 18px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       font-family: var(--font-mono);
-      font-size: 0.72rem;
+      font-size: 0.76rem;
       font-weight: 600;
-      letter-spacing: 0.5px;
-      color: #ea580c;
+      color: var(--fluid-orange);
     }
 
     .portal-graphics-body {
@@ -471,32 +475,20 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      background: radial-gradient(circle at center, rgba(234, 88, 12, 0.08) 0%, transparent 80%);
     }
-
-    .fluid-hud-mini {
-      display: flex;
-      gap: 12px;
-      font-family: var(--font-mono);
-      font-size: 0.7rem;
-      margin-bottom: 14px;
-    }
-
-    .fluid-hud-mini span.label { color: #f97316; font-weight: 600; }
-    .fluid-hud-mini span.val { color: #ffffff; }
 
     .portal-graphics-title {
-      font-size: 1.3rem;
+      font-size: 1.35rem;
       font-weight: 700;
-      color: #ffffff;
-      margin-bottom: 12px;
+      color: var(--text-main);
+      margin-bottom: 10px;
       line-height: 1.3;
     }
 
     .portal-graphics-desc {
-      font-size: 0.93rem;
-      color: #d6d3d1;
-      line-height: 1.58;
+      font-size: 0.92rem;
+      color: var(--text-body);
+      line-height: 1.6;
       margin-bottom: 22px;
     }
 
@@ -510,37 +502,38 @@
     .graphics-tag {
       font-family: var(--font-mono);
       font-size: 0.72rem;
-      padding: 3px 9px;
+      font-weight: 500;
+      padding: 4px 8px;
       border-radius: 4px;
-      background: rgba(234, 88, 12, 0.12);
-      border: 1px solid rgba(234, 88, 12, 0.3);
-      color: #ffedd5;
+      background: var(--fluid-orange-bg);
+      border: 1px solid var(--fluid-orange-border);
+      color: var(--fluid-orange);
     }
 
     .btn-portal-graphics {
-      background: #ea580c;
+      background: var(--fluid-orange);
       color: #ffffff;
-      border: 1px solid #c2410c;
-      padding: 9px 18px;
+      border: none;
+      padding: 10px 18px;
       border-radius: 6px;
-      font-size: 0.85rem;
+      font-size: 0.88rem;
       font-weight: 600;
       display: inline-flex;
       align-items: center;
       gap: 8px;
       transition: all 0.2s ease;
       align-self: flex-start;
-      box-shadow: 0 4px 14px rgba(234, 88, 12, 0.3);
+      box-shadow: 0 4px 12px rgba(234, 88, 12, 0.25);
     }
 
     .portal-card-graphics:hover {
-      transform: translateY(-6px);
-      border-color: #f97316;
-      box-shadow: 0 16px 40px rgba(234, 88, 12, 0.35), 0 0 25px rgba(234, 88, 12, 0.25);
+      transform: translateY(-4px);
+      border-color: var(--fluid-orange);
+      box-shadow: 0 12px 30px rgba(234, 88, 12, 0.12);
     }
 
     .portal-card-graphics:hover .btn-portal-graphics {
-      background: #d9480f;
+      background: #c2410c;
       transform: translateX(3px);
     }
 
@@ -551,6 +544,7 @@
       font-size: 0.85rem;
       color: var(--text-muted);
       margin-top: auto;
+      background: #ffffff;
     }
 
     .footer-content {
@@ -573,7 +567,7 @@
     }
 
     .footer-links a:hover {
-      color: var(--accent);
+      color: var(--text-main);
     }
 
     @media (max-width: 768px) {
@@ -606,7 +600,7 @@
 </head>
 <body>
 
-  <!-- Sticky Top Navigation with Unified Brand and Buttons -->
+  <!-- Sticky Top Navigation -->
   <nav>
     <div class="container nav-inner">
       <a href="./index.html" class="nav-brand">
@@ -654,9 +648,16 @@
   <header class="hero">
     <div class="container">
       <div class="hero-layout">
-        <img src="./FotoPasaporte_small.jpg" alt="Iván Alejos Gómez" class="hero-photo" onerror="this.style.display='none'">
+        <div class="hero-photo-wrapper">
+          <img src="./FotoPasaporte_small.jpg" alt="Iván Alejos Gómez" class="hero-photo" onerror="this.style.display='none'">
+        </div>
         
         <div class="hero-text">
+          <div class="status-badge">
+            <span class="status-dot-pulse"></span>
+            <span data-i18n="status_available">Disponible para proyectos & oportunidades</span>
+          </div>
+
           <h1>Iván Alejos Gómez</h1>
           <div class="hero-subtitle" data-i18n="hero_role">Ingeniero Multimedia & Desarrollador de Software</div>
           
@@ -668,13 +669,16 @@
             <a href="https://github.com/ivanalejosgomez" target="_blank" class="btn btn-primary">
               <i class="fa-brands fa-github"></i> GitHub
             </a>
+            <a href="./contact.html" class="btn btn-primary">
+              <i class="fa-regular fa-envelope"></i> <span data-i18n="nav_contact">Contacto</span>
+            </a>
           </div>
         </div>
       </div>
     </div>
   </header>
 
-  <!-- TWO INTERACTIVE GATEWAY PORTAL CARDS WITH FULL-PAGE HOVER TRANSFORMATION -->
+  <!-- TWO INTERACTIVE GATEWAY PORTAL CARDS -->
   <section class="portal-section">
     <div class="container">
       <div class="portal-header">
@@ -684,23 +688,15 @@
 
       <div class="portal-grid">
         
-        <!-- CARD 1: POSTGRESQL / ENTERPRISE SOFTWARE & SYSTEMS -->
+        <!-- CARD 1: SOFTWARE & ENTERPRISE SYSTEMS -->
         <a href="./software.html" class="portal-card-software" id="card-software">
-          <div class="pg-window-bar">
-            <div class="pg-buttons">
-              <span class="pg-dot-btn pg-btn-1"></span>
-              <span class="pg-dot-btn pg-btn-2"></span>
-              <span class="pg-dot-btn pg-btn-3"></span>
-            </div>
-            <span class="pg-title-text">postgres=# \c enterprise_systems</span>
-            <span style="color: #60a5fa; font-size: 0.78rem;"><i class="fa-solid fa-database"></i></span>
+          <div class="card-top-bar-software">
+            <span><i class="fa-solid fa-database"></i> &nbsp;SOFTWARE INDUSTRIAL // BACKEND</span>
+            <span>POSTGRESQL · SCADA</span>
           </div>
 
           <div class="portal-software-body">
             <div>
-              <div class="terminal-prompt">
-                <span class="user">postgres=#</span> <span class="cmd">SELECT * FROM software_portfolio;</span>
-              </div>
               <h3 class="portal-software-title" data-i18n="card_software_title">Software Empresarial & Sistemas</h3>
               <p class="portal-software-desc" data-i18n="card_software_desc">
                 Enfoque en desarrollo backend, arquitecturas escalables, automatización industrial con Ignition SCADA, integración ERP Odoo, procesamiento de visión artificial y modelado de bases de datos relacionales (PostgreSQL, SQL Server).
@@ -726,18 +722,13 @@
 
         <!-- CARD 2: FLUID SIMULATION & COMPUTER GRAPHICS -->
         <a href="./graphics.html" class="portal-card-graphics" id="card-graphics">
-          <div class="fluid-card-header">
-            <span><i class="fa-solid fa-cube"></i> FLUID DYNAMICS // PIC-FLIP</span>
-            <span>NAVIER-STOKES</span>
+          <div class="card-top-bar-graphics">
+            <span><i class="fa-solid fa-cube"></i> &nbsp;SIMULACIÓN DE FLUIDOS // 3D</span>
+            <span>HOUDINI · FLIP</span>
           </div>
 
           <div class="portal-graphics-body">
             <div>
-              <div class="fluid-hud-mini">
-                <span><span class="label">ÁREA</span> <span class="val">02 SIMULACIÓN</span></span>
-                <span><span class="label">SOLVER</span> <span class="val">HOUDINI TFM</span></span>
-              </div>
-
               <h3 class="portal-graphics-title" data-i18n="card_graphics_title">Simulación de Fluidos & Gráficos 3D</h3>
               <p class="portal-graphics-desc" data-i18n="card_graphics_desc">
                 Investigación en física computacional, simulación avanzada de fluidos en Houdini (solver híbrido PIC/FLIP), modelado numérico de Navier-Stokes, programación procedural en VEX y pipelines de producción visual.
@@ -768,8 +759,8 @@
   <footer>
     <div class="container footer-content">
       <div>
-        <span>© 2026 Iván Alejos Gómez</span>
-        <span style="margin: 0 8px; color: var(--border);">·</span>
+        <strong style="color: var(--text-main);">Iván Alejos Gómez</strong> — 
+        <span data-i18n="hero_role">Ingeniero Multimedia & Desarrollador de Software</span> · 
         <span data-i18n="footer_location">Valencia, España</span>
       </div>
 
@@ -782,7 +773,7 @@
   </footer>
 
   <script>
-    // FULL-PAGE HOVER TRANSFORMATION INTERACTION (BACKGROUND PREVIEW ONLY)
+    // FULL-PAGE HOVER TRANSFORMATION INTERACTION (LIGHT AMBIENT SHIFTS)
     const body = document.body;
     const cardSoftware = document.getElementById('card-software');
     const cardGraphics = document.getElementById('card-graphics');
@@ -809,7 +800,6 @@
       cardGraphics.addEventListener('click', resetNeutralState);
     }
 
-    // Always ensure neutral theme when navigating back (including browser bfcache)
     window.addEventListener('pageshow', resetNeutralState);
     window.addEventListener('blur', resetNeutralState);
     document.addEventListener('visibilitychange', () => {
@@ -824,14 +814,13 @@
         nav_software: "Software & Sistemas",
         nav_graphics: "Simulación & Gráficos",
         nav_contact: "Contacto",
+        status_available: "Disponible para proyectos & oportunidades",
         hero_role: "Ingeniero Multimedia & Desarrollador de Software",
         hero_bio: "Desarrollador con doble perfil técnico: arquitectura de software backend, automatización industrial y bases de datos por un lado, e informática gráfica, simulación física procedural y herramientas de pipeline por el otro.",
-        btn_contact: "Contactar",
-        btn_cv: "Currículum Vitae (PDF)",
         portal_tag: "Selecciona un área para explorar",
         portal_title: "Dos vertientes de ingeniería",
         card_software_title: "Software Empresarial & Sistemas",
-        card_software_desc: "Enfoque en desarrollo backend, arquitecturas escalables, automatización industrial con Ignition SCADA, integración ERP Odoo, procesamiento de visión artificial y gestión de bases de datos relacionales.",
+        card_software_desc: "Enfoque en desarrollo backend, arquitecturas escalables, automatización industrial con Ignition SCADA, integración ERP Odoo, procesamiento de visión artificial y modelado de bases de datos relacionales (PostgreSQL, SQL Server).",
         btn_explore_software: "Abrir Software & Sistemas",
         card_graphics_title: "Simulación de Fluidos & Gráficos 3D",
         card_graphics_desc: "Investigación en física computacional, simulación avanzada de fluidos en Houdini (solver híbrido PIC/FLIP), modelado numérico de Navier-Stokes, programación procedural en VEX y pipelines de producción visual.",
@@ -844,14 +833,13 @@
         nav_software: "Software & Systems",
         nav_graphics: "Simulation & Graphics",
         nav_contact: "Contact",
+        status_available: "Available for engineering projects & roles",
         hero_role: "Multimedia Engineer & Software Developer",
         hero_bio: "Dual-track technical engineer: backend software architecture, industrial automation, and databases on one side, and computer graphics, procedural simulation, and pipeline tooling on the other.",
-        btn_contact: "Contact",
-        btn_cv: "Resume (PDF)",
         portal_tag: "Select an area to explore",
         portal_title: "Two Engineering Disciplines",
         card_software_title: "Enterprise Software & Systems",
-        card_software_desc: "Focused on backend engineering, scalable architectures, Ignition SCADA automation, Odoo ERP integration, computer vision processing, and relational database administration.",
+        card_software_desc: "Focused on backend engineering, scalable architectures, Ignition SCADA automation, Odoo ERP integration, computer vision processing, and relational database modeling (PostgreSQL, SQL Server).",
         btn_explore_software: "Open Software & Systems",
         card_graphics_title: "Fluid Simulation & 3D Graphics",
         card_graphics_desc: "Computer graphics and physics research, advanced fluid simulation in Houdini (hybrid PIC/FLIP solver), Navier-Stokes numerical modeling, procedural VEX programming, and visual production pipelines.",
