@@ -22,11 +22,18 @@
       --text: #1d1916;
       --text-muted: #665e56;
       --text-subtle: #8c8278;
+      
+      /* Part 1 theme: Warm Fluid Orange */
       --fluid-orange: #ea580c;
       --fluid-orange-light: #f97316;
       --fluid-orange-dark: #c2410c;
-      --fluid-amber: #d97706;
       --fluid-glow: rgba(234, 88, 12, 0.16);
+
+      /* Part 2 theme: Tech SideFX Slate Blue */
+      --houdini-blue: #0284c7;
+      --houdini-blue-dark: #0369a1;
+      --houdini-glow: rgba(2, 132, 199, 0.16);
+
       --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       --font-mono: 'JetBrains Mono', Consolas, monospace;
     }
@@ -318,14 +325,14 @@
       letter-spacing: -0.3px;
     }
 
-    /* Master TFM Dossier Document */
-    .tfm-container {
+    /* Master TFM Overview Container */
+    .tfm-overview-card {
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: 14px;
-      padding: 36px;
+      padding: 32px;
       box-shadow: 0 8px 32px rgba(70, 50, 30, 0.05);
-      margin-bottom: 36px;
+      margin-bottom: 28px;
     }
 
     .tfm-meta-banner {
@@ -339,7 +346,7 @@
       justify-content: space-between;
       align-items: center;
       gap: 16px;
-      margin-bottom: 26px;
+      margin-bottom: 22px;
     }
 
     .tfm-meta-left {
@@ -391,8 +398,14 @@
       border-color: rgba(46, 125, 50, 0.3);
     }
 
+    .badge-capsule.houdini {
+      background: rgba(2, 132, 199, 0.1);
+      color: var(--houdini-blue-dark);
+      border-color: rgba(2, 132, 199, 0.3);
+    }
+
     .tfm-title {
-      font-size: 1.65rem;
+      font-size: 1.55rem;
       font-weight: 800;
       color: var(--text);
       line-height: 1.3;
@@ -401,17 +414,17 @@
     }
 
     .tfm-intro {
-      font-size: 0.98rem;
+      font-size: 0.96rem;
       color: var(--text-muted);
-      line-height: 1.7;
-      margin-bottom: 24px;
+      line-height: 1.65;
+      margin-bottom: 20px;
     }
 
     .tech-badges {
       display: flex;
       flex-wrap: wrap;
       gap: 7px;
-      margin-bottom: 30px;
+      margin-bottom: 20px;
     }
 
     .tech-badge {
@@ -432,12 +445,229 @@
       font-weight: 600;
     }
 
-    /* Subsections within TFM */
+    .tech-badge.highlight-blue {
+      background: rgba(2, 132, 199, 0.1);
+      color: var(--houdini-blue-dark);
+      border-color: rgba(2, 132, 199, 0.3);
+      font-weight: 600;
+    }
+
+    /* Master Toolbar: Expand / Collapse All */
+    .master-expand-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      padding: 14px 20px;
+      background: var(--surface-warm);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      margin-bottom: 24px;
+    }
+
+    .master-expand-info {
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .master-expand-info i {
+      color: var(--fluid-orange);
+    }
+
+    .btn-toggle-all {
+      font-family: var(--font-sans);
+      font-size: 0.82rem;
+      font-weight: 600;
+      padding: 7px 14px;
+      border-radius: 6px;
+      background: #ffffff;
+      color: var(--text);
+      border: 1px solid var(--border);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+    }
+
+    .btn-toggle-all:hover {
+      border-color: var(--fluid-orange);
+      color: var(--fluid-orange);
+      box-shadow: 0 2px 8px rgba(234, 88, 12, 0.12);
+    }
+
+    /* COLLAPSIBLE MODULE CARDS (ACCORDIONS) */
+    .accordion-module {
+      background: var(--surface);
+      border: 2px solid var(--border);
+      border-radius: 14px;
+      margin-bottom: 24px;
+      overflow: hidden;
+      transition: border-color 0.25s ease, box-shadow 0.25s ease;
+      box-shadow: 0 4px 18px rgba(70, 50, 30, 0.04);
+    }
+
+    .accordion-module.module-part1 {
+      border-left: 6px solid var(--fluid-orange);
+    }
+
+    .accordion-module.module-part2 {
+      border-left: 6px solid var(--houdini-blue);
+    }
+
+    .accordion-module:hover {
+      box-shadow: 0 8px 28px rgba(70, 50, 30, 0.08);
+    }
+
+    .accordion-module.is-open {
+      border-color: var(--border-hover);
+      box-shadow: 0 10px 36px rgba(70, 50, 30, 0.09);
+    }
+
+    .accordion-module.module-part2.is-open {
+      border-color: rgba(2, 132, 199, 0.45);
+      box-shadow: 0 10px 36px rgba(2, 132, 199, 0.1);
+    }
+
+    /* Accordion Header (Trigger) */
+    .accordion-header {
+      padding: 24px 28px;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      background: var(--surface);
+      user-select: none;
+      transition: background-color 0.2s ease;
+    }
+
+    .accordion-header:hover {
+      background: var(--surface-card);
+    }
+
+    .accordion-title-block {
+      flex: 1;
+    }
+
+    .module-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 20px;
+      margin-bottom: 8px;
+    }
+
+    .badge-part1 {
+      background: rgba(234, 88, 12, 0.1);
+      color: var(--fluid-orange-dark);
+      border: 1px solid rgba(234, 88, 12, 0.25);
+    }
+
+    .badge-part2 {
+      background: rgba(2, 132, 199, 0.1);
+      color: var(--houdini-blue-dark);
+      border: 1px solid rgba(2, 132, 199, 0.25);
+    }
+
+    .module-title {
+      font-size: 1.32rem;
+      font-weight: 800;
+      color: var(--text);
+      line-height: 1.3;
+      margin-bottom: 6px;
+    }
+
+    .module-subtitle {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    .accordion-cta {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+
+    .accordion-state-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 14px;
+      border-radius: 20px;
+      font-family: var(--font-sans);
+      font-size: 0.82rem;
+      font-weight: 700;
+      transition: all 0.2s ease;
+    }
+
+    .state-pill-part1 {
+      background: rgba(234, 88, 12, 0.1);
+      color: var(--fluid-orange-dark);
+      border: 1px solid rgba(234, 88, 12, 0.25);
+    }
+
+    .accordion-module.module-part1:hover .state-pill-part1,
+    .accordion-module.module-part1.is-open .state-pill-part1 {
+      background: var(--fluid-orange);
+      color: #ffffff;
+      border-color: var(--fluid-orange);
+    }
+
+    .state-pill-part2 {
+      background: rgba(2, 132, 199, 0.1);
+      color: var(--houdini-blue-dark);
+      border: 1px solid rgba(2, 132, 199, 0.25);
+    }
+
+    .accordion-module.module-part2:hover .state-pill-part2,
+    .accordion-module.module-part2.is-open .state-pill-part2 {
+      background: var(--houdini-blue);
+      color: #ffffff;
+      border-color: var(--houdini-blue);
+    }
+
+    .chevron-icon {
+      transition: transform 0.25s ease;
+    }
+
+    .accordion-module.is-open .chevron-icon {
+      transform: rotate(180deg);
+    }
+
+    /* Accordion Body (Collapsible Content) */
+    .accordion-body {
+      display: none;
+      padding: 0 28px 32px;
+      border-top: 1px solid var(--border);
+      background: #ffffff;
+      animation: fadeIn 0.25s ease-out;
+    }
+
+    .accordion-module.is-open .accordion-body {
+      display: block;
+    }
+
+    /* Subheadings inside Accordion */
     .tfm-subheading {
-      font-size: 1.25rem;
+      font-size: 1.22rem;
       font-weight: 700;
       color: var(--text);
-      margin: 36px 0 16px;
+      margin: 32px 0 14px;
       padding-bottom: 8px;
       border-bottom: 1px solid var(--border);
       display: flex;
@@ -445,8 +675,13 @@
       gap: 10px;
     }
 
-    .tfm-subheading i {
+    .subheading-part1 i {
       color: var(--fluid-orange);
+      font-size: 1.1rem;
+    }
+
+    .subheading-part2 i {
+      color: var(--houdini-blue);
       font-size: 1.1rem;
     }
 
@@ -686,6 +921,67 @@
       line-height: 1.45;
     }
 
+    /* 2-column Cycle Diagrams Grid */
+    .cycle-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      margin-bottom: 24px;
+    }
+
+    .cycle-card {
+      background: var(--surface-card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 18px;
+      transition: all 0.2s ease;
+    }
+
+    .cycle-card:hover {
+      background: #ffffff;
+      border-color: var(--border-hover);
+      box-shadow: 0 6px 20px rgba(234, 88, 12, 0.08);
+    }
+
+    .cycle-card h5 {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .cycle-card h5 i {
+      color: var(--fluid-orange);
+      font-size: 0.85rem;
+    }
+
+    .cycle-img-wrap {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: zoom-in;
+      margin-bottom: 10px;
+    }
+
+    .cycle-img {
+      max-width: 100%;
+      height: 140px;
+      object-fit: contain;
+    }
+
+    .cycle-desc {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
     /* Houdini & Pipeline Integration Layout */
     .houdini-grid {
       display: grid;
@@ -698,14 +994,14 @@
       background: var(--surface-card);
       border: 1px solid var(--border);
       border-radius: 10px;
-      padding: 18px;
+      padding: 20px;
       transition: all 0.2s ease;
     }
 
     .houdini-card:hover {
       background: #ffffff;
-      border-color: var(--border-hover);
-      box-shadow: 0 6px 20px rgba(234, 88, 12, 0.08);
+      border-color: rgba(2, 132, 199, 0.45);
+      box-shadow: 0 6px 20px rgba(2, 132, 199, 0.09);
     }
 
     .houdini-card-header {
@@ -716,12 +1012,12 @@
     }
 
     .houdini-card-header i {
-      color: var(--fluid-orange);
-      font-size: 1rem;
+      color: var(--houdini-blue);
+      font-size: 1.05rem;
     }
 
     .houdini-card-header h4 {
-      font-size: 0.95rem;
+      font-size: 0.98rem;
       font-weight: 700;
       color: var(--text);
     }
@@ -739,11 +1035,50 @@
 
     .houdini-img {
       max-width: 100%;
-      height: 160px;
+      height: 165px;
       object-fit: contain;
     }
 
     .houdini-desc {
+      font-size: 0.84rem;
+      color: var(--text-muted);
+      line-height: 1.55;
+    }
+
+    /* Houdini Stress Testing Pillars */
+    .tests-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .test-box {
+      background: var(--surface-warm);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px 18px;
+    }
+
+    .test-box-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .test-box-header i {
+      color: var(--houdini-blue);
+      font-size: 0.95rem;
+    }
+
+    .test-box-header h5 {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .test-box p {
       font-size: 0.83rem;
       color: var(--text-muted);
       line-height: 1.5;
@@ -758,7 +1093,7 @@
       background: var(--surface-warm);
       border: 1px solid var(--border);
       border-radius: 8px;
-      margin-top: 26px;
+      margin-top: 22px;
     }
 
     .spec-box {
@@ -1015,19 +1350,21 @@
     }
 
     @media (max-width: 820px) {
-      .tfm-container {
-        padding: 24px;
+      .tfm-overview-card {
+        padding: 22px;
       }
-      .solver-grid {
-        grid-template-columns: 1fr;
+      .accordion-header {
+        padding: 18px 20px;
+        flex-direction: column;
+        align-items: flex-start;
       }
-      .benchmark-grid {
-        grid-template-columns: 1fr;
+      .accordion-cta {
+        align-items: flex-start;
       }
-      .surface-grid {
-        grid-template-columns: 1fr;
+      .accordion-body {
+        padding: 0 20px 24px;
       }
-      .houdini-grid {
+      .solver-grid, .benchmark-grid, .surface-grid, .cycle-grid, .houdini-grid, .tests-grid {
         grid-template-columns: 1fr;
       }
       .specs-strip {
@@ -1150,15 +1487,15 @@
         </button>
       </div>
 
-      <!-- PESTAÑA 1: PROYECTOS (EXCLUSIVAMENTE EL TFM) -->
+      <!-- PESTAÑA 1: PROYECTOS (EXCLUSIVAMENTE EL TFM DESPLEGABLE) -->
       <div class="tab-pane active" id="pane-projects">
         <div class="section-header-compact">
           <div class="section-label" data-i18n="label_tfm">TRABAJO DE FIN DE MÁSTER (MSc) · PROYECTO PRINCIPAL</div>
           <h2 class="section-heading" data-i18n="heading_tfm">Implementación de Métodos Particle In Cell Avanzados para Simulación de Fluidos en VFX</h2>
         </div>
 
-        <!-- TFM Complete Technical Dossier -->
-        <article class="tfm-container">
+        <!-- TFM Overview Header Card -->
+        <article class="tfm-overview-card">
           <!-- Institutional Metadata Banner -->
           <div class="tfm-meta-banner">
             <div class="tfm-meta-left">
@@ -1168,7 +1505,7 @@
             </div>
             <div class="tfm-meta-badges">
               <span class="badge-capsule success" data-i18n="tfm_badge_grade">Calificación Sobresaliente</span>
-              <span class="badge-capsule" data-i18n="tfm_badge_hdk">Houdini HDK / VEX</span>
+              <span class="badge-capsule houdini" data-i18n="tfm_badge_hdk">Houdini HDK / VEX</span>
             </div>
           </div>
 
@@ -1182,7 +1519,7 @@
 
           <div class="tech-badges">
             <span class="tech-badge highlight">SideFX Houdini</span>
-            <span class="tech-badge highlight">Houdini HDK (C++)</span>
+            <span class="tech-badge highlight-blue">Houdini HDK (C++)</span>
             <span class="tech-badge highlight">VEX Vectorizado</span>
             <span class="tech-badge highlight">APIC & IPIC Solvers</span>
             <span class="tech-badge">Ecuaciones Navier-Stokes</span>
@@ -1191,234 +1528,6 @@
             <span class="tech-badge">OpenVDB Sparse Grids</span>
             <span class="tech-badge">Solaris / Karma PBR</span>
             <span class="tech-badge">Simulación Multimillón</span>
-          </div>
-
-          <!-- SECTION 1: COMPARATIVA DE SOLVERS -->
-          <h4 class="tfm-subheading">
-            <i class="fa-solid fa-code-compare"></i>
-            <span data-i18n="sec1_title">1. Marco Teórico y Arquitectura de los 4 Solvers Estudiados</span>
-          </h4>
-          <p class="tfm-section-desc" data-i18n="sec1_desc">
-            El flujo de trabajo acopla partículas Lagrangianas libres (que transportan masa y momento con conservación estricta) con una grilla cartesiana Euleriana escalonada (MAC grid) donde se proyecta la presión incompresible libre de divergencia (&nabla; &middot; <strong>u</strong> = 0).
-          </p>
-
-          <div class="solver-grid">
-            <!-- PIC -->
-            <div class="solver-card">
-              <div>
-                <div class="solver-card-header">
-                  <span class="solver-name">PIC (Particle-In-Cell)</span>
-                  <span class="solver-pill pill-classic" data-i18n="pill_classic">Clásico (1955)</span>
-                </div>
-                <p class="solver-desc" data-i18n="pic_desc">
-                  Interpola directamente las velocidades de la rejilla a las partículas tras cada paso de presión. Extremadamente estable y libre de ruido caótico, pero introduce una excesiva difusión numérica que actúa como una viscosidad artificial brutal, disipando rápidamente vórtices y turbulencias.
-                </p>
-              </div>
-              <div class="solver-diagram-wrap" onclick="openLightbox('img/tfm/pic-diagram.png', 'Esquema de transferencia PIC clásico')">
-                <img src="img/tfm/pic-diagram.png" alt="PIC Diagram" class="solver-diagram-img">
-              </div>
-            </div>
-
-            <!-- FLIP -->
-            <div class="solver-card">
-              <div>
-                <div class="solver-card-header">
-                  <span class="solver-name">FLIP (Fluid-Implicit Particle)</span>
-                  <span class="solver-pill pill-classic" data-i18n="pill_classic">Clásico (1986)</span>
-                </div>
-                <p class="solver-desc" data-i18n="flip_desc">
-                  Transfiere únicamente los cambios (&Delta;<strong>u</strong>) de velocidad calculados en la rejilla hacia las partículas. Preserva con gran viveza la energía cinética y las salpicaduras, pero sufre de inestabilidad intrínseca, ruidos parásitos de rejilla y formación descontrolada de agregados.
-                </p>
-              </div>
-              <div class="solver-diagram-wrap" onclick="openLightbox('img/tfm/flip-diagram.png', 'Esquema de transferencia de incrementos FLIP')">
-                <img src="img/tfm/flip-diagram.png" alt="FLIP Diagram" class="solver-diagram-img">
-              </div>
-            </div>
-
-            <!-- APIC -->
-            <div class="solver-card">
-              <div>
-                <div class="solver-card-header">
-                  <span class="solver-name">APIC (Affine PIC)</span>
-                  <span class="solver-pill pill-advanced" data-i18n="pill_advanced">Avanzado (Jiang et al.)</span>
-                </div>
-                <p class="solver-desc" data-i18n="apic_desc">
-                  Almacena en cada partícula un tensor de velocidad afín Bp que representa localmente la rotación, cizalladura y deformación. Garantiza la conservación exacta del momento angular y la vorticidad entre partícula y rejilla sin añadir disipación artificial ni generar ruido numérico.
-                </p>
-              </div>
-              <div class="solver-diagram-wrap" onclick="openLightbox('img/tfm/apic-diagram.png', 'Esquema de transferencia afín APIC')">
-                <img src="img/tfm/apic-diagram.png" alt="APIC Diagram" class="solver-diagram-img">
-              </div>
-            </div>
-
-            <!-- IPIC -->
-            <div class="solver-card">
-              <div>
-                <div class="solver-card-header">
-                  <span class="solver-name">IPIC (Impulse PIC)</span>
-                  <span class="solver-pill pill-advanced" data-i18n="pill_advanced">Vanguardia (Teshima et al.)</span>
-                </div>
-                <p class="solver-desc" data-i18n="ipic_desc">
-                  Sustituye la velocidad por la variable de impulso <strong>m</strong> conectada con potenciales de Clebsch y mapas de flujo inversos. Al proyectar el impulso sin tocar la vorticidad intrínseca, logra mantener láminas de fluido hiperdelgadas (thin sheets) y vórtices a escala sub-rejilla que ningún otro solver puede retener.
-                </p>
-              </div>
-              <div class="solver-diagram-wrap" onclick="openLightbox('img/tfm/ipic-diagram.png', 'Esquema de variable de impulso IPIC')">
-                <img src="img/tfm/ipic-diagram.png" alt="IPIC Diagram" class="solver-diagram-img">
-              </div>
-            </div>
-          </div>
-
-          <!-- SECTION 2: BENCHMARK VISUAL DINO COLLISION -->
-          <h4 class="tfm-subheading">
-            <i class="fa-solid fa-dragon"></i>
-            <span data-i18n="sec2_title">2. Benchmark de Impacto y Salpicadura: Colisión contra Geometría Compleja (Dinosaurio)</span>
-          </h4>
-          <p class="tfm-section-desc" data-i18n="sec2_desc">
-            Prueba de estrés computacional con una columna masiva de fluido impactando a alta velocidad sobre un modelo anatómico de dinosaurio con cavidades y bordes afilados. Comparativa directa a resolución completa entre el solver APIC e IPIC en los instantes clave de dispersión y turbulencia:
-          </p>
-
-          <div class="benchmark-strip">
-            <!-- Row 1: Frame 250 Impact -->
-            <div class="benchmark-grid">
-              <div class="benchmark-card">
-                <div class="benchmark-img-wrap" onclick="openLightbox('img/tfm/dinoAPIC250.png', 'APIC - Frame 250: Colisión inicial y expansión sobre el obstáculo')">
-                  <span class="benchmark-tag">APIC · Frame 250</span>
-                  <img src="img/tfm/dinoAPIC250.png" alt="dino APIC Frame 250" class="benchmark-img">
-                </div>
-                <div class="benchmark-content">
-                  <div class="benchmark-title" data-i18n="bench_apic250_title">APIC: Expansión y Flujo Adherente</div>
-                  <p class="benchmark-caption" data-i18n="bench_apic250_desc">
-                    El fluido envuelve suavemente las protuberancias de la geometría. La matriz afín preserva el momento angular del choque, evitando pérdidas numéricas y manteniendo un frente de onda homogéneo sin dispersión espuria.
-                  </p>
-                </div>
-              </div>
-
-              <div class="benchmark-card">
-                <div class="benchmark-img-wrap" onclick="openLightbox('img/tfm/dinoIPIC250.png', 'IPIC - Frame 250: Formación de láminas líquidas ultrafinas')">
-                  <span class="benchmark-tag tag-ipic">IPIC · Frame 250</span>
-                  <img src="img/tfm/dinoIPIC250.png" alt="dino IPIC Frame 250" class="benchmark-img">
-                </div>
-                <div class="benchmark-content">
-                  <div class="benchmark-title" data-i18n="bench_ipic250_title">IPIC: Láminas Líquidas Ultrafinas (Thin Sheets)</div>
-                  <p class="benchmark-caption" data-i18n="bench_ipic250_desc">
-                    Gracias a la formulación por impulso libre de disipación, las láminas de fluido que se desprenden de la cabeza y lomo se mantienen tensas y cohesionadas en el aire durante mucho más tiempo antes de granularse.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <!-- Row 2: Frame 500 Turbulence -->
-            <div class="benchmark-grid">
-              <div class="benchmark-card">
-                <div class="benchmark-img-wrap" onclick="openLightbox('img/tfm/dinoAPIC500.png', 'APIC - Frame 500: Reagrupación en el lecho inferior y estabilidad continua')">
-                  <span class="benchmark-tag">APIC · Frame 500</span>
-                  <img src="img/tfm/dinoAPIC500.png" alt="dino APIC Frame 500" class="benchmark-img">
-                </div>
-                <div class="benchmark-content">
-                  <div class="benchmark-title" data-i18n="bench_apic500_title">APIC: Reagrupación Estable y Ondas de Fondo</div>
-                  <p class="benchmark-caption" data-i18n="bench_apic500_desc">
-                    El fluido sedimenta en la base del dominio formando ondas concéntricas sin presentar el efecto hervidero (boiling) característico de FLIP. Excelente estabilidad para tomas de producción VFX continuadas.
-                  </p>
-                </div>
-              </div>
-
-              <div class="benchmark-card">
-                <div class="benchmark-img-wrap" onclick="openLightbox('img/tfm/dinoIPIC500.png', 'IPIC - Frame 500: Alta energía residual y conservación de vórtices')">
-                  <span class="benchmark-tag tag-ipic">IPIC · Frame 500</span>
-                  <img src="img/tfm/dinoIPIC500.png" alt="dino IPIC Frame 500" class="benchmark-img">
-                </div>
-                <div class="benchmark-content">
-                  <div class="benchmark-title" data-i18n="bench_ipic500_title">IPIC: Vórtices Persistentes y Energía Cinética</div>
-                  <p class="benchmark-caption" data-i18n="bench_ipic500_desc">
-                    Muestra una dinámica mucho más viva y turbulenta a largo plazo: los remolinos y las microestructuras vorticiales desprendidas durante el impacto siguen rotando activamente tras 500 frames sin decaimiento numérico artificial.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- SECTION 3: SUPERFICIE Y MALLADO DE FLUIDO -->
-          <h4 class="tfm-subheading">
-            <i class="fa-solid fa-water"></i>
-            <span data-i18n="sec3_title">3. Comparativa de Reconstrucción de Superficie y Ruido Numérico</span>
-          </h4>
-          <p class="tfm-section-desc" data-i18n="sec3_desc">
-            Evaluación morfológica de la superficie libre reconstruida (Level-Set con OpenVDB) a frame 500 bajo idénticas condiciones iniciales y mismo conteo de partículas entre los solvers evaluados:
-          </p>
-
-          <div class="surface-grid">
-            <div class="surface-card">
-              <div class="surface-img-wrap" onclick="openLightbox('img/tfm/FLIP99_sframe_0500.png', 'FLIP 99% - Frame 500: Fragmentación caótica y ruido')">
-                <img src="img/tfm/FLIP99_sframe_0500.png" alt="FLIP 99% Superficie" class="surface-img">
-              </div>
-              <div class="surface-card-body">
-                <div class="surface-card-title">FLIP 99% (Houdini Nativo)</div>
-                <p class="surface-card-caption" data-i18n="surf_flip_desc">
-                  Genera una alta dispersión caótica de gotas aisladas y un oleaje rugoso con artefactos de rejilla visibles en la superficie del líquido.
-                </p>
-              </div>
-            </div>
-
-            <div class="surface-card">
-              <div class="surface-img-wrap" onclick="openLightbox('img/tfm/APIC_sframe_0500.png', 'APIC - Frame 500: Superficie suave y ondas cohesionadas')">
-                <img src="img/tfm/APIC_sframe_0500.png" alt="APIC Superficie" class="surface-img">
-              </div>
-              <div class="surface-card-body">
-                <div class="surface-card-title">APIC (Solver Implementado)</div>
-                <p class="surface-card-caption" data-i18n="surf_apic_desc">
-                  Superficie perfectamente limpia y continua. Las gotas se mantienen unidas por tensión sin ruido numérico y el oleaje fluye armónicamente.
-                </p>
-              </div>
-            </div>
-
-            <div class="surface-card">
-              <div class="surface-img-wrap" onclick="openLightbox('img/tfm/IPIC_sframe_0500.png', 'IPIC - Frame 500: Máxima riqueza en microestructuras')">
-                <img src="img/tfm/IPIC_sframe_0500.png" alt="IPIC Superficie" class="surface-img">
-              </div>
-              <div class="surface-card-body">
-                <div class="surface-card-title">IPIC (Solver Vanguardia)</div>
-                <p class="surface-card-caption" data-i18n="surf_ipic_desc">
-                  Retiene crestas afiladas, filamentos finos y un mapa de salpicaduras tridimensional hiperdetallado, ideal para tomas cinematográficas épicas.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <!-- SECTION 4: INTEGRACION PIPELINE Y HOUDINI HDK -->
-          <h4 class="tfm-subheading">
-            <i class="fa-solid fa-sliders"></i>
-            <span data-i18n="sec4_title">4. Integración en el Pipeline de SideFX Houdini: Custom HDK / VEX</span>
-          </h4>
-          <p class="tfm-section-desc" data-i18n="sec4_desc">
-            El solver no se limitó a un prototipo matemático abstracto: se desarrolló como una herramienta de producción totalmente integrada en SideFX Houdini a través de la arquitectura de operadores dinámicos (DOP Network) y la API C++ de Houdini (HDK):
-          </p>
-
-          <div class="houdini-grid">
-            <div class="houdini-card">
-              <div class="houdini-card-header">
-                <i class="fa-solid fa-gears"></i>
-                <h4 data-i18n="hdk_params_title">Panel de Parámetros Ajustables del Solver</h4>
-              </div>
-              <div class="houdini-img-wrap" onclick="openLightbox('img/tfm/ParametrosAjustablesHoudini.png', 'Panel de parámetros custom en SideFX Houdini')">
-                <img src="img/tfm/ParametrosAjustablesHoudini.png" alt="Parámetros Houdini" class="houdini-img">
-              </div>
-              <p class="houdini-desc" data-i18n="hdk_params_desc">
-                Interfaz procedural para artistas técnicos que permite conmutar en tiempo real entre los solvers PIC, FLIP, APIC e IPIC, configurar el orden del integrador temporal Runge-Kutta (RK2/RK4), limitar la condición CFL y modular el factor de mezcla afín.
-              </p>
-            </div>
-
-            <div class="houdini-card">
-              <div class="houdini-card-header">
-                <i class="fa-solid fa-diagram-project"></i>
-                <h4 data-i18n="hdk_tree_title">Arquitectura de Nodos y Estructura DOP</h4>
-              </div>
-              <div class="houdini-img-wrap" onclick="openLightbox('img/tfm/flipsolver.png', 'Grafo de nodos DOP y ciclo de simulación')">
-                <img src="img/tfm/flipsolver.png" alt="Grafo DOP Houdini" class="houdini-img">
-              </div>
-              <p class="houdini-desc" data-i18n="hdk_tree_desc">
-                Inyección modular dentro de la subred del solver de fluidos, conectando las etapas de transferencia de momento (Particle-to-Grid), resolución de Poisson de presión con fronteras cerradas y actualización de posiciones (Grid-to-Particle).
-              </p>
-            </div>
           </div>
 
           <!-- Technical Specs Strip -->
@@ -1441,6 +1550,365 @@
             </div>
           </div>
         </article>
+
+        <!-- Master Toolbar: Expand / Collapse All -->
+        <div class="master-expand-bar">
+          <div class="master-expand-info">
+            <i class="fa-solid fa-folder-open"></i>
+            <span data-i18n="tfm_explore_guide">Dossier Técnico Desplegable: Selecciona una sección para explorar su contenido</span>
+          </div>
+          <button class="btn-toggle-all" id="btnToggleAll" onclick="toggleAllModules()">
+            <i class="fa-solid fa-arrows-up-down"></i>
+            <span id="txtToggleAll" data-i18n="tfm_expand_all">Desplegar Todo</span>
+          </button>
+        </div>
+
+        <!-- ========================================================================= -->
+        <!-- MÓDULO 1: INVESTIGACIÓN DE FLUIDOS Y MÉTODOS NUMÉRICOS (DESPLEGABLE) -->
+        <!-- ========================================================================= -->
+        <div class="accordion-module module-part1" id="module-part1">
+          <div class="accordion-header" onclick="toggleModule('part1')">
+            <div class="accordion-title-block">
+              <span class="module-badge badge-part1" data-i18n="part1_badge">
+                <i class="fa-solid fa-atom"></i> PARTE I · INVESTIGACIÓN FÍSICA & MÉTODOS NUMÉRICOS
+              </span>
+              <h3 class="module-title" data-i18n="part1_title">
+                Investigación de Fluidos, Solvers Avanzados (APIC/IPIC) & Benchmarks de Colisión
+              </h3>
+              <p class="module-subtitle" data-i18n="part1_summary">
+                Formulación matemática comparativa de PIC, FLIP, APIC e IPIC, pruebas de estrés de impacto contra geometría compleja (Dinosaurio a Frame 250/500) y análisis morfológico de superficie Level-Set con OpenVDB.
+              </p>
+            </div>
+            <div class="accordion-cta">
+              <span class="accordion-state-pill state-pill-part1" id="pill-part1">
+                <span id="txt-part1" data-i18n="part1_btn_expand">Desplegar Investigación</span>
+                <i class="fa-solid fa-chevron-down chevron-icon" id="icon-part1"></i>
+              </span>
+            </div>
+          </div>
+
+          <div class="accordion-body" id="body-part1">
+            <!-- 1.1 Marco Teórico y 4 Solvers -->
+            <h4 class="tfm-subheading subheading-part1">
+              <i class="fa-solid fa-code-compare"></i>
+              <span data-i18n="sec1_title">1. Marco Teórico y Arquitectura de los 4 Solvers Estudiados</span>
+            </h4>
+            <p class="tfm-section-desc" data-i18n="sec1_desc">
+              El flujo de trabajo acopla partículas Lagrangianas libres (que transportan masa y momento con conservación estricta) con una grilla cartesiana Euleriana escalonada (MAC grid) donde se proyecta la presión incompresible libre de divergencia (&nabla; &middot; <strong>u</strong> = 0).
+            </p>
+
+            <div class="solver-grid">
+              <!-- PIC -->
+              <div class="solver-card">
+                <div>
+                  <div class="solver-card-header">
+                    <span class="solver-name">PIC (Particle-In-Cell)</span>
+                    <span class="solver-pill pill-classic" data-i18n="pill_classic">Clásico (1955)</span>
+                  </div>
+                  <p class="solver-desc" data-i18n="pic_desc">
+                    Interpola directamente las velocidades de la rejilla a las partículas tras cada paso de presión. Extremadamente estable y libre de ruido caótico, pero introduce una excesiva difusión numérica que actúa como una viscosidad artificial brutal, disipando rápidamente vórtices y turbulencias.
+                  </p>
+                </div>
+                <div class="solver-diagram-wrap" onclick="openLightbox('img/tfm/pic-diagram.png', 'Esquema de transferencia PIC clásico')">
+                  <img src="img/tfm/pic-diagram.png" alt="PIC Diagram" class="solver-diagram-img">
+                </div>
+              </div>
+
+              <!-- FLIP -->
+              <div class="solver-card">
+                <div>
+                  <div class="solver-card-header">
+                    <span class="solver-name">FLIP (Fluid-Implicit Particle)</span>
+                    <span class="solver-pill pill-classic" data-i18n="pill_classic">Clásico (1986)</span>
+                  </div>
+                  <p class="solver-desc" data-i18n="flip_desc">
+                    Transfiere únicamente los cambios (&Delta;<strong>u</strong>) de velocidad calculados en la rejilla hacia las partículas. Preserva con gran viveza la energía cinética y las salpicaduras, pero sufre de inestabilidad intrínseca, ruidos parásitos de rejilla y formación descontrolada de agregados.
+                  </p>
+                </div>
+                <div class="solver-diagram-wrap" onclick="openLightbox('img/tfm/flip-diagram.png', 'Esquema de transferencia de incrementos FLIP')">
+                  <img src="img/tfm/flip-diagram.png" alt="FLIP Diagram" class="solver-diagram-img">
+                </div>
+              </div>
+
+              <!-- APIC -->
+              <div class="solver-card">
+                <div>
+                  <div class="solver-card-header">
+                    <span class="solver-name">APIC (Affine PIC)</span>
+                    <span class="solver-pill pill-advanced" data-i18n="pill_advanced">Avanzado (Jiang et al.)</span>
+                  </div>
+                  <p class="solver-desc" data-i18n="apic_desc">
+                    Almacena en cada partícula un tensor de velocidad afín Bp que representa localmente la rotación, cizalladura y deformación. Garantiza la conservación exacta del momento angular y la vorticidad entre partícula y rejilla sin añadir disipación artificial ni generar ruido numérico.
+                  </p>
+                </div>
+                <div class="solver-diagram-wrap" onclick="openLightbox('img/tfm/apic-diagram.png', 'Esquema de transferencia afín APIC')">
+                  <img src="img/tfm/apic-diagram.png" alt="APIC Diagram" class="solver-diagram-img">
+                </div>
+              </div>
+
+              <!-- IPIC -->
+              <div class="solver-card">
+                <div>
+                  <div class="solver-card-header">
+                    <span class="solver-name">IPIC (Impulse PIC)</span>
+                    <span class="solver-pill pill-advanced" data-i18n="pill_advanced">Vanguardia (Teshima et al.)</span>
+                  </div>
+                  <p class="solver-desc" data-i18n="ipic_desc">
+                    Sustituye la velocidad por la variable de impulso <strong>m</strong> conectada con potenciales de Clebsch y mapas de flujo inversos. Al proyectar el impulso sin tocar la vorticidad intrínseca, logra mantener láminas de fluido hiperdelgadas (thin sheets) y vórtices a escala sub-rejilla que ningún otro solver puede retener.
+                  </p>
+                </div>
+                <div class="solver-diagram-wrap" onclick="openLightbox('img/tfm/ipic-diagram.png', 'Esquema de variable de impulso IPIC')">
+                  <img src="img/tfm/ipic-diagram.png" alt="IPIC Diagram" class="solver-diagram-img">
+                </div>
+              </div>
+            </div>
+
+            <!-- 1.2 Benchmark Dinosaurio -->
+            <h4 class="tfm-subheading subheading-part1">
+              <i class="fa-solid fa-dragon"></i>
+              <span data-i18n="sec2_title">2. Benchmark de Impacto y Salpicadura: Colisión contra Geometría Compleja (Dinosaurio)</span>
+            </h4>
+            <p class="tfm-section-desc" data-i18n="sec2_desc">
+              Prueba de estrés computacional con una columna masiva de fluido impactando a alta velocidad sobre un modelo anatómico de dinosaurio con cavidades y bordes afilados. Comparativa directa a resolución completa entre el solver APIC e IPIC en los instantes clave de dispersión y turbulencia:
+            </p>
+
+            <div class="benchmark-strip">
+              <!-- Frame 250 -->
+              <div class="benchmark-grid">
+                <div class="benchmark-card">
+                  <div class="benchmark-img-wrap" onclick="openLightbox('img/tfm/dinoAPIC250.png', 'APIC - Frame 250: Colisión inicial y expansión sobre el obstáculo')">
+                    <span class="benchmark-tag">APIC · Frame 250</span>
+                    <img src="img/tfm/dinoAPIC250.png" alt="dino APIC Frame 250" class="benchmark-img">
+                  </div>
+                  <div class="benchmark-content">
+                    <div class="benchmark-title" data-i18n="bench_apic250_title">APIC: Expansión y Flujo Adherente</div>
+                    <p class="benchmark-caption" data-i18n="bench_apic250_desc">
+                      El fluido envuelve suavemente las protuberancias de la geometría. La matriz afín preserva el momento angular del choque, evitando pérdidas numéricas y manteniendo un frente de onda homogéneo sin dispersión espuria.
+                    </p>
+                  </div>
+                </div>
+
+                <div class="benchmark-card">
+                  <div class="benchmark-img-wrap" onclick="openLightbox('img/tfm/dinoIPIC250.png', 'IPIC - Frame 250: Formación de láminas líquidas ultrafinas')">
+                    <span class="benchmark-tag tag-ipic">IPIC · Frame 250</span>
+                    <img src="img/tfm/dinoIPIC250.png" alt="dino IPIC Frame 250" class="benchmark-img">
+                  </div>
+                  <div class="benchmark-content">
+                    <div class="benchmark-title" data-i18n="bench_ipic250_title">IPIC: Láminas Líquidas Ultrafinas (Thin Sheets)</div>
+                    <p class="benchmark-caption" data-i18n="bench_ipic250_desc">
+                      Gracias a la formulación por impulso libre de disipación, las láminas de fluido que se desprenden de la cabeza y lomo se mantienen tensas y cohesionadas en el aire durante mucho más tiempo antes de granularse.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Frame 500 -->
+              <div class="benchmark-grid">
+                <div class="benchmark-card">
+                  <div class="benchmark-img-wrap" onclick="openLightbox('img/tfm/dinoAPIC500.png', 'APIC - Frame 500: Reagrupación en el lecho inferior y estabilidad continua')">
+                    <span class="benchmark-tag">APIC · Frame 500</span>
+                    <img src="img/tfm/dinoAPIC500.png" alt="dino APIC Frame 500" class="benchmark-img">
+                  </div>
+                  <div class="benchmark-content">
+                    <div class="benchmark-title" data-i18n="bench_apic500_title">APIC: Reagrupación Estable y Ondas de Fondo</div>
+                    <p class="benchmark-caption" data-i18n="bench_apic500_desc">
+                      El fluido sedimenta en la base del dominio formando ondas concéntricas sin presentar el efecto hervidero (boiling) característico de FLIP. Excelente estabilidad para tomas de producción VFX continuadas.
+                    </p>
+                  </div>
+                </div>
+
+                <div class="benchmark-card">
+                  <div class="benchmark-img-wrap" onclick="openLightbox('img/tfm/dinoIPIC500.png', 'IPIC - Frame 500: Alta energía residual y conservación de vórtices')">
+                    <span class="benchmark-tag tag-ipic">IPIC · Frame 500</span>
+                    <img src="img/tfm/dinoIPIC500.png" alt="dino IPIC Frame 500" class="benchmark-img">
+                  </div>
+                  <div class="benchmark-content">
+                    <div class="benchmark-title" data-i18n="bench_ipic500_title">IPIC: Vórtices Persistentes y Energía Cinética</div>
+                    <p class="benchmark-caption" data-i18n="bench_ipic500_desc">
+                      Muestra una dinámica mucho más viva y turbulenta a largo plazo: los remolinos y las microestructuras vorticiales desprendidas durante el impacto siguen rotando activamente tras 500 frames sin decaimiento numérico artificial.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 1.3 Reconstrucción de Superficie -->
+            <h4 class="tfm-subheading subheading-part1">
+              <i class="fa-solid fa-water"></i>
+              <span data-i18n="sec3_title">3. Comparativa de Reconstrucción de Superficie y Ruido Numérico</span>
+            </h4>
+            <p class="tfm-section-desc" data-i18n="sec3_desc">
+              Evaluación morfológica de la superficie libre reconstruida (Level-Set con OpenVDB) a frame 500 bajo idénticas condiciones iniciales y mismo conteo de partículas entre los solvers evaluados:
+            </p>
+
+            <div class="surface-grid">
+              <div class="surface-card">
+                <div class="surface-img-wrap" onclick="openLightbox('img/tfm/FLIP99_sframe_0500.png', 'FLIP 99% - Frame 500: Fragmentación caótica y ruido')">
+                  <img src="img/tfm/FLIP99_sframe_0500.png" alt="FLIP 99% Superficie" class="surface-img">
+                </div>
+                <div class="surface-card-body">
+                  <div class="surface-card-title">FLIP 99% (Houdini Nativo)</div>
+                  <p class="surface-card-caption" data-i18n="surf_flip_desc">
+                    Genera una alta dispersión caótica de gotas aisladas y un oleaje rugoso con artefactos de rejilla visibles en la superficie del líquido.
+                  </p>
+                </div>
+              </div>
+
+              <div class="surface-card">
+                <div class="surface-img-wrap" onclick="openLightbox('img/tfm/APIC_sframe_0500.png', 'APIC - Frame 500: Superficie suave y ondas cohesionadas')">
+                  <img src="img/tfm/APIC_sframe_0500.png" alt="APIC Superficie" class="surface-img">
+                </div>
+                <div class="surface-card-body">
+                  <div class="surface-card-title">APIC (Solver Implementado)</div>
+                  <p class="surface-card-caption" data-i18n="surf_apic_desc">
+                    Superficie perfectamente limpia y continua. Las gotas se mantienen unidas por tensión sin ruido numérico y el oleaje fluye armónicamente.
+                  </p>
+                </div>
+              </div>
+
+              <div class="surface-card">
+                <div class="surface-img-wrap" onclick="openLightbox('img/tfm/IPIC_sframe_0500.png', 'IPIC - Frame 500: Máxima riqueza en microestructuras')">
+                  <img src="img/tfm/IPIC_sframe_0500.png" alt="IPIC Superficie" class="surface-img">
+                </div>
+                <div class="surface-card-body">
+                  <div class="surface-card-title">IPIC (Solver Vanguardia)</div>
+                  <p class="surface-card-caption" data-i18n="surf_ipic_desc">
+                    Retiene crestas afiladas, filamentos finos y un mapa de salpicaduras tridimensional hiperdetallado, ideal para tomas cinematográficas épicas.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- 1.4 Diagramas de Transferencia -->
+            <h4 class="tfm-subheading subheading-part1">
+              <i class="fa-solid fa-arrows-split-up-and-left"></i>
+              <span data-i18n="part1_cycle_title">4. Ciclo Algorítmico: Transferencia de Velocidad y Actualización de Partículas</span>
+            </h4>
+            <p class="tfm-section-desc" data-i18n="part1_cycle_desc">
+              Arquitectura del bucle de simulación desacoplado: proyección de velocidades a la grilla Euleriana y posterior actualización de estados Lagrangianos.
+            </p>
+
+            <div class="cycle-grid">
+              <div class="cycle-card">
+                <h5><i class="fa-solid fa-arrow-right-arrow-left"></i> <span data-i18n="cycle_c1_h">Transferencia de Velocidades (P2G & G2P)</span></h5>
+                <div class="cycle-img-wrap" onclick="openLightbox('img/tfm/VelocityTransfer.png', 'Transferencia de velocidad entre partículas y celdas MAC')">
+                  <img src="img/tfm/VelocityTransfer.png" alt="Velocity Transfer" class="cycle-img">
+                </div>
+                <p class="cycle-desc" data-i18n="cycle_c1_p">
+                  Interpolación ponderada por funciones B-Spline cuadráticas para transferir el momento desde las partículas hacia las caras de la grilla cartesiana MAC y retro-interpolación sin artefactos.
+                </p>
+              </div>
+
+              <div class="cycle-card">
+                <h5><i class="fa-solid fa-rotate"></i> <span data-i18n="cycle_c2_h">Actualización y Advección de Partículas</span></h5>
+                <div class="cycle-img-wrap" onclick="openLightbox('img/tfm/ParticleUpdates.png', 'Ciclo de actualización de partículas y corrección de deformación')">
+                  <img src="img/tfm/ParticleUpdates.png" alt="Particle Updates" class="cycle-img">
+                </div>
+                <p class="cycle-desc" data-i18n="cycle_c2_p">
+                  Actualización de tensores afines Bp y corrección de advección temporal de segundo orden (RK2/RK4) para garantizar la integridad posicional bajo gradientes extremos de velocidad.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ========================================================================= -->
+        <!-- MÓDULO 2: PLUGIN DE HOUDINI Y PRUEBAS EN PIPELINE (DESPLEGABLE) -->
+        <!-- ========================================================================= -->
+        <div class="accordion-module module-part2" id="module-part2">
+          <div class="accordion-header" onclick="toggleModule('part2')">
+            <div class="accordion-title-block">
+              <span class="module-badge badge-part2" data-i18n="part2_badge">
+                <i class="fa-solid fa-cubes"></i> PARTE II · PLUGIN DE SIDEFX HOUDINI & PIPELINE VFX
+              </span>
+              <h3 class="module-title" data-i18n="part2_title">
+                Desarrollo del Plugin, Nodo Solver Customizado y Pruebas en Pipeline
+              </h3>
+              <p class="module-subtitle" data-i18n="part2_summary">
+                Implementación nativa en C++ mediante el HDK de SideFX Houdini, panel interactivo de parámetros para artistas técnicos, arquitectura de grafo DOP y pruebas de estrés de simulación.
+              </p>
+            </div>
+            <div class="accordion-cta">
+              <span class="accordion-state-pill state-pill-part2" id="pill-part2">
+                <span id="txt-part2" data-i18n="part2_btn_expand">Desplegar Plugin & Pruebas</span>
+                <i class="fa-solid fa-chevron-down chevron-icon" id="icon-part2"></i>
+              </span>
+            </div>
+          </div>
+
+          <div class="accordion-body" id="body-part2">
+            <!-- 2.1 Arquitectura del Plugin y Panel -->
+            <h4 class="tfm-subheading subheading-part2">
+              <i class="fa-solid fa-sliders"></i>
+              <span data-i18n="sec4_title">1. Arquitectura del Plugin en SideFX Houdini & Controles HDK</span>
+            </h4>
+            <p class="tfm-section-desc" data-i18n="sec4_desc">
+              El solver fue desarrollado como una herramienta de producción autónoma e integrable dentro del ecosistema procedural de SideFX Houdini, haciendo uso de la API C++ de Houdini (HDK) y estructuras de datos nativas:
+            </p>
+
+            <div class="houdini-grid">
+              <!-- Panel de Parámetros -->
+              <div class="houdini-card">
+                <div class="houdini-card-header">
+                  <i class="fa-solid fa-gears"></i>
+                  <h4 data-i18n="hdk_params_title">Panel de Parámetros Ajustables del Solver</h4>
+                </div>
+                <div class="houdini-img-wrap" onclick="openLightbox('img/tfm/ParametrosAjustablesHoudini.png', 'Panel de parámetros custom en SideFX Houdini')">
+                  <img src="img/tfm/ParametrosAjustablesHoudini.png" alt="Parámetros Houdini" class="houdini-img">
+                </div>
+                <p class="houdini-desc" data-i18n="hdk_params_desc">
+                  Interfaz procedural para artistas técnicos que permite conmutar en tiempo real entre los solvers PIC, FLIP, APIC e IPIC, configurar el orden del integrador temporal Runge-Kutta (RK2/RK4), limitar la condición CFL y modular el factor de mezcla afín.
+                </p>
+              </div>
+
+              <!-- Estructura de Nodos DOP -->
+              <div class="houdini-card">
+                <div class="houdini-card-header">
+                  <i class="fa-solid fa-diagram-project"></i>
+                  <h4 data-i18n="hdk_tree_title">Arquitectura de Nodos y Estructura DOP</h4>
+                </div>
+                <div class="houdini-img-wrap" onclick="openLightbox('img/tfm/flipsolver.png', 'Grafo de nodos DOP y ciclo de simulación')">
+                  <img src="img/tfm/flipsolver.png" alt="Grafo DOP Houdini" class="houdini-img">
+                </div>
+                <p class="houdini-desc" data-i18n="hdk_tree_desc">
+                  Inyección modular dentro de la subred del solver de fluidos, conectando las etapas de transferencia de momento (Particle-to-Grid), resolución de Poisson de presión con fronteras cerradas y actualización de posiciones (Grid-to-Particle).
+                </p>
+              </div>
+            </div>
+
+            <!-- 2.2 Pruebas de Estrés y Rendimiento -->
+            <h4 class="tfm-subheading subheading-part2">
+              <i class="fa-solid fa-gauge-high"></i>
+              <span data-i18n="hdk_tests_title">2. Pruebas de Estrés y Rendimiento del Plugin en Producción</span>
+            </h4>
+            <p class="tfm-section-desc" data-i18n="hdk_tests_desc">
+              Validación computacional del plugin con cargas de trabajo de 2.4 a 5 millones de partículas y uso eficiente de memoria RAM mediante grillas OpenVDB jerárquicas:
+            </p>
+
+            <div class="tests-grid">
+              <div class="test-box">
+                <div class="test-box-header">
+                  <i class="fa-solid fa-stopwatch"></i>
+                  <h5 data-i18n="hdk_test1_h">Pruebas de Estabilidad CFL & Substepping</h5>
+                </div>
+                <p data-i18n="hdk_test1_p">
+                  Verificación de la condición Courant-Friedrichs-Lewy adaptativa para evitar explosiones numéricas en impactos violentos manteniendo pasos de tiempo RK4 estables y controlando el presupuesto por frame.
+                </p>
+              </div>
+
+              <div class="test-box">
+                <div class="test-box-header">
+                  <i class="fa-solid fa-microchip"></i>
+                  <h5 data-i18n="hdk_test2_h">Optimización de Memoria con OpenVDB</h5>
+                </div>
+                <p data-i18n="hdk_test2_p">
+                  Las celdas inactivas fuera del ancho de banda del fluido se liberan dinámicamente, reduciendo el consumo de RAM en más del 65% frente a grillas densas convencionales y permitiendo dominios masivos.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
 
       <!-- PESTAÑA 2: EXPERIENCIA LABORAL EN EL SECTOR -->
@@ -1654,6 +2122,73 @@
       if (activePane) activePane.classList.add('active');
     }
 
+    // ACCORDION MODULE TOGGLE LOGIC
+    function toggleModule(partId) {
+      const module = document.getElementById('module-' + partId);
+      const isCurrentlyOpen = module.classList.contains('is-open');
+      const currentLang = localStorage.getItem('portfolio_lang') || 'es';
+      
+      if (isCurrentlyOpen) {
+        module.classList.remove('is-open');
+        updatePillLabel(partId, false, currentLang);
+      } else {
+        module.classList.add('is-open');
+        updatePillLabel(partId, true, currentLang);
+      }
+      checkMasterButtonState();
+    }
+
+    function updatePillLabel(partId, isOpen, lang) {
+      const txtElem = document.getElementById('txt-' + partId);
+      if (!txtElem) return;
+      
+      if (partId === 'part1') {
+        txtElem.setAttribute('data-i18n', isOpen ? 'part1_btn_collapse' : 'part1_btn_expand');
+        txtElem.innerHTML = isOpen ? (lang === 'es' ? 'Comprimir Sección' : 'Collapse Section') 
+                                   : (lang === 'es' ? 'Desplegar Investigación' : 'Expand Research');
+      } else if (partId === 'part2') {
+        txtElem.setAttribute('data-i18n', isOpen ? 'part2_btn_collapse' : 'part2_btn_expand');
+        txtElem.innerHTML = isOpen ? (lang === 'es' ? 'Comprimir Sección' : 'Collapse Section') 
+                                   : (lang === 'es' ? 'Desplegar Plugin & Pruebas' : 'Expand Plugin & Tests');
+      }
+    }
+
+    function toggleAllModules() {
+      const m1 = document.getElementById('module-part1');
+      const m2 = document.getElementById('module-part2');
+      const bothOpen = m1.classList.contains('is-open') && m2.classList.contains('is-open');
+      const currentLang = localStorage.getItem('portfolio_lang') || 'es';
+
+      if (bothOpen) {
+        m1.classList.remove('is-open');
+        m2.classList.remove('is-open');
+        updatePillLabel('part1', false, currentLang);
+        updatePillLabel('part2', false, currentLang);
+      } else {
+        m1.classList.add('is-open');
+        m2.classList.add('is-open');
+        updatePillLabel('part1', true, currentLang);
+        updatePillLabel('part2', true, currentLang);
+      }
+      checkMasterButtonState();
+    }
+
+    function checkMasterButtonState() {
+      const m1 = document.getElementById('module-part1');
+      const m2 = document.getElementById('module-part2');
+      const bothOpen = m1.classList.contains('is-open') && m2.classList.contains('is-open');
+      const txtAll = document.getElementById('txtToggleAll');
+      const currentLang = localStorage.getItem('portfolio_lang') || 'es';
+
+      if (bothOpen) {
+        txtAll.setAttribute('data-i18n', 'tfm_collapse_all');
+        txtAll.innerHTML = currentLang === 'es' ? 'Comprimir Todo' : 'Collapse All';
+      } else {
+        txtAll.setAttribute('data-i18n', 'tfm_expand_all');
+        txtAll.innerHTML = currentLang === 'es' ? 'Desplegar Todo' : 'Expand All';
+      }
+    }
+
     // LIGHTBOX PREVIEW LOGIC
     function openLightbox(src, caption) {
       const modal = document.getElementById('lightboxModal');
@@ -1696,6 +2231,18 @@
         tfm_badge_hdk: "Houdini HDK / VEX",
         tfm_title: "Investigación y Desarrollo de Solvers Híbridos APIC e IPIC para Preservación de Vorticidad y Láminas Líquidas",
         tfm_desc: "Este proyecto de fin de máster aborda las limitaciones históricas de los métodos Particle-In-Cell en la industria cinematográfica y de efectos visuales (VFX): la pérdida severa de energía cinética y momento angular por difusión numérica en el PIC clásico, frente al ruido de alta frecuencia y caoticidad de partículas que presenta FLIP. Se investigaron, formularon matemáticamente e implementaron en SideFX Houdini dos metodologías de vanguardia: <strong>APIC (Affine Particle-In-Cell)</strong> e <strong>IPIC (Impulse Particle-In-Cell)</strong>, integrándolas dentro de un pipeline procedural con nodos customizados, grillas dispersas OpenVDB y renderizado PBR.",
+        spec_domain_label: "Escala de Partículas",
+        spec_solver_label: "Algoritmos Soportados",
+        spec_integration_label: "Integración Temporal",
+        spec_vorticity_label: "Conservación de Momento",
+        tfm_explore_guide: "Dossier Técnico Desplegable: Selecciona una sección para explorar su contenido",
+        tfm_expand_all: "Desplegar Todo",
+        tfm_collapse_all: "Comprimir Todo",
+        part1_badge: "<i class="fa-solid fa-atom"></i> PARTE I · INVESTIGACIÓN FÍSICA & MÉTODOS NUMÉRICOS",
+        part1_title: "Investigación de Fluidos, Solvers Avanzados (APIC/IPIC) & Benchmarks de Colisión",
+        part1_summary: "Formulación matemática comparativa de PIC, FLIP, APIC e IPIC, pruebas de estrés de impacto contra geometría compleja (Dinosaurio a Frame 250/500) y análisis morfológico de superficie Level-Set con OpenVDB.",
+        part1_btn_expand: "Desplegar Investigación",
+        part1_btn_collapse: "Comprimir Sección",
         sec1_title: "1. Marco Teórico y Arquitectura de los 4 Solvers Estudiados",
         sec1_desc: "El flujo de trabajo acopla partículas Lagrangianas libres (que transportan masa y momento con conservación estricta) con una grilla cartesiana Euleriana escalonada (MAC grid) donde se proyecta la presión incompresible libre de divergencia (&nabla; &middot; <strong>u</strong> = 0).",
         pill_classic: "Clásico",
@@ -1719,16 +2266,29 @@
         surf_flip_desc: "Genera una alta dispersión caótica de gotas aisladas y un oleaje rugoso con artefactos de rejilla visibles en la superficie del líquido.",
         surf_apic_desc: "Superficie perfectamente limpia y continua. Las gotas se mantienen unidas por tensión sin ruido numérico y el oleaje fluye armónicamente.",
         surf_ipic_desc: "Retiene crestas afiladas, filamentos finos y un mapa de salpicaduras tridimensional hiperdetallado, ideal para tomas cinematográficas épicas.",
-        sec4_title: "4. Integración en el Pipeline de SideFX Houdini: Custom HDK / VEX",
-        sec4_desc: "El solver no se limitó a un prototipo matemático abstracto: se desarrolló como una herramienta de producción totalmente integrada en SideFX Houdini a través de la arquitectura de operadores dinámicos (DOP Network) y la API C++ de Houdini (HDK):",
+        part1_cycle_title: "4. Ciclo Algorítmico: Transferencia de Velocidad y Actualización de Partículas",
+        part1_cycle_desc: "Arquitectura del bucle de simulación desacoplado: proyección de velocidades a la grilla Euleriana y posterior actualización de estados Lagrangianos.",
+        cycle_c1_h: "Transferencia de Velocidades (P2G & G2P)",
+        cycle_c1_p: "Interpolación ponderada por funciones B-Spline cuadráticas para transferir el momento desde las partículas hacia las caras de la grilla cartesiana MAC y retro-interpolación sin artefactos.",
+        cycle_c2_h: "Actualización y Advección de Partículas",
+        cycle_c2_p: "Actualización de tensores afines Bp y corrección de advección temporal de segundo orden (RK2/RK4) para garantizar la integridad posicional bajo gradientes extremos de velocidad.",
+        part2_badge: "<i class="fa-solid fa-cubes"></i> PARTE II · PLUGIN DE SIDEFX HOUDINI & PIPELINE VFX",
+        part2_title: "Desarrollo del Plugin, Nodo Solver Customizado y Pruebas en Pipeline",
+        part2_summary: "Implementación nativa en C++ mediante el HDK de SideFX Houdini, panel interactivo de parámetros para artistas técnicos, arquitectura de grafo DOP y pruebas de estrés de simulación.",
+        part2_btn_expand: "Desplegar Plugin & Pruebas",
+        part2_btn_collapse: "Comprimir Sección",
+        sec4_title: "1. Arquitectura del Plugin en SideFX Houdini & Controles HDK",
+        sec4_desc: "El solver fue desarrollado como una herramienta de producción autónoma e integrable dentro del ecosistema procedural de SideFX Houdini, haciendo uso de la API C++ de Houdini (HDK) y estructuras de datos nativas:",
         hdk_params_title: "Panel de Parámetros Ajustables del Solver",
         hdk_params_desc: "Interfaz procedural para artistas técnicos que permite conmutar en tiempo real entre los solvers PIC, FLIP, APIC e IPIC, configurar el orden del integrador temporal Runge-Kutta (RK2/RK4), limitar la condición CFL y modular el factor de mezcla afín.",
         hdk_tree_title: "Arquitectura de Nodos y Estructura DOP",
         hdk_tree_desc: "Inyección modular dentro de la subred del solver de fluidos, conectando las etapas de transferencia de momento (Particle-to-Grid), resolución de Poisson de presión con fronteras cerradas y actualización de posiciones (Grid-to-Particle).",
-        spec_domain_label: "Escala de Partículas",
-        spec_solver_label: "Algoritmos Soportados",
-        spec_integration_label: "Integración Temporal",
-        spec_vorticity_label: "Conservación de Momento",
+        hdk_tests_title: "2. Pruebas de Estrés y Rendimiento del Plugin en Producción",
+        hdk_tests_desc: "Validación computacional del plugin con cargas de trabajo de 2.4 a 5 millones de partículas y uso eficiente de memoria RAM mediante grillas OpenVDB jerárquicas:",
+        hdk_test1_h: "Pruebas de Estabilidad CFL & Substepping",
+        hdk_test1_p: "Verificación de la condición Courant-Friedrichs-Lewy adaptativa para evitar explosiones numéricas en impactos violentos manteniendo pasos de tiempo RK4 estables y controlando el presupuesto por frame.",
+        hdk_test2_h: "Optimización de Memoria con OpenVDB",
+        hdk_test2_p: "Las celdas inactivas fuera del ancho de banda del fluido se liberan dinámicamente, reduciendo el consumo de RAM en más del 65% frente a grillas densas convencionales y permitiendo dominios masivos.",
         label_exp: "TRAYECTORIA PROFESIONAL",
         heading_exp: "Experiencia en Simulación, Gráficos & Multimedia",
         sim_role: "Ingeniero de Software y Programación Gráfica (C++ / OpenGL) & Pipeline",
@@ -1773,6 +2333,18 @@
         tfm_badge_hdk: "Houdini HDK / VEX",
         tfm_title: "Research and Development of Hybrid APIC and IPIC Solvers for Vorticity Preservation and Thin Liquid Sheets",
         tfm_desc: "This master's thesis addresses the historical limitations of Particle-In-Cell methods in the film and visual effects (VFX) industry: the severe loss of kinetic energy and angular momentum due to numerical diffusion in classic PIC, versus high-frequency noise and particle chaos in FLIP. Two state-of-the-art methodologies were researched, mathematically formulated, and implemented in SideFX Houdini: <strong>APIC (Affine Particle-In-Cell)</strong> and <strong>IPIC (Impulse Particle-In-Cell)</strong>, integrating them within a procedural pipeline featuring custom solver nodes, OpenVDB sparse grids, and PBR rendering.",
+        spec_domain_label: "Particle Scale",
+        spec_solver_label: "Supported Solvers",
+        spec_integration_label: "Time Integration",
+        spec_vorticity_label: "Momentum Conservation",
+        tfm_explore_guide: "Collapsible Technical Dossier: Select a section below to unfold detailed documentation",
+        tfm_expand_all: "Expand All",
+        tfm_collapse_all: "Collapse All",
+        part1_badge: "<i class="fa-solid fa-atom"></i> PART I · FLUID DYNAMICS & NUMERICAL SOLVERS",
+        part1_title: "Fluid Research, Advanced Solvers (APIC/IPIC) & Collision Benchmarks",
+        part1_summary: "Comparative mathematical formulation of PIC, FLIP, APIC, and IPIC solvers, high-speed collision stress tests against dinosaur geometry (Frame 250/500), and OpenVDB Level-Set surface reconstruction analysis.",
+        part1_btn_expand: "Expand Research",
+        part1_btn_collapse: "Collapse Section",
         sec1_title: "1. Theoretical Framework & Architecture of the 4 Evaluated Solvers",
         sec1_desc: "The workflow couples free Lagrangian particles (carrying mass and momentum with strict conservation) with a staggered Eulerian Cartesian MAC grid where divergence-free incompressible pressure projection is resolved (&nabla; &middot; <strong>u</strong> = 0).",
         pill_classic: "Classic",
@@ -1796,16 +2368,29 @@
         surf_flip_desc: "Produces high chaotic spray of isolated droplets and noisy, turbulent surface ripples with visible grid artifacts.",
         surf_apic_desc: "Clean, continuous surface. Droplets remain cohesive under surface tension without numerical noise, producing harmonious wave propagation.",
         surf_ipic_desc: "Preserves sharp crests, fine filaments, and a richly detailed 3D splash structure, ideal for high-end cinematic VFX shots.",
-        sec4_title: "4. SideFX Houdini Pipeline Integration: Custom HDK / VEX",
-        sec4_desc: "The solver was not confined to an abstract mathematical prototype: it was developed as a production tool fully integrated into SideFX Houdini through the Dynamic Operators (DOP) architecture and the C++ HDK API:",
+        part1_cycle_title: "4. Algorithmic Cycle: Velocity Transfer & Particle Updates",
+        part1_cycle_desc: "Decoupled simulation loop architecture: velocity splatting to Eulerian grid and subsequent Lagrangian state updates.",
+        cycle_c1_h: "Velocity Transfer (P2G & G2P)",
+        cycle_c1_p: "Quadratic B-Spline kernel weighting to transfer momentum from particles to MAC grid cell faces, with smooth back-interpolation free of grid-crossing errors.",
+        cycle_c2_h: "Particle Updates & Advection",
+        cycle_c2_p: "Affine Bp tensor updates and second-order time advection (RK2/RK4) ensuring positional integrity under extreme spatial velocity gradients.",
+        part2_badge: "<i class="fa-solid fa-cubes"></i> PART II · SIDEFX HOUDINI PLUGIN & VFX PIPELINE",
+        part2_title: "Plugin Engineering, Custom HDK Solver Node & VFX Pipeline Validation",
+        part2_summary: "Native C++ implementation on the SideFX Houdini HDK API, procedural artist parameter UI, DOP network coupling, and simulation stress testing.",
+        part2_btn_expand: "Expand Plugin & Tests",
+        part2_btn_collapse: "Collapse Section",
+        sec4_title: "1. SideFX Houdini Plugin Architecture & HDK Controls",
+        sec4_desc: "The solver was built as a standalone, production-ready tool integrated directly into the SideFX Houdini procedural ecosystem, utilizing the native C++ HDK API and core data structures:",
         hdk_params_title: "Custom Solver Parameter Interface",
         hdk_params_desc: "Procedural artist interface allowing real-time switching between PIC, FLIP, APIC, and IPIC solvers, setting Runge-Kutta time integration order (RK2/RK4), enforcing CFL limits, and tuning affine blending ratios.",
         hdk_tree_title: "Node Architecture & DOP Structure",
         hdk_tree_desc: "Modular integration within the fluid solver network, linking particle-to-grid momentum splatting, closed-boundary Poisson pressure projection, and grid-to-particle advective updates.",
-        spec_domain_label: "Particle Scale",
-        spec_solver_label: "Supported Solvers",
-        spec_integration_label: "Time Integration",
-        spec_vorticity_label: "Momentum Conservation",
+        hdk_tests_title: "2. Plugin Stress Testing & Production Performance",
+        hdk_tests_desc: "Computational validation of the plugin under 2.4 to 5 million particle workloads and efficient RAM usage via hierarchical OpenVDB sparse grids:",
+        hdk_test1_h: "CFL Stability & Substepping Tests",
+        hdk_test1_p: "Verification of adaptive Courant-Friedrichs-Lewy condition to prevent numerical blowups in violent impacts while preserving stable RK4 time integration and per-frame budgets.",
+        hdk_test2_h: "Memory Optimization with OpenVDB",
+        hdk_test2_p: "Inactive cells outside fluid narrow-band are dynamically freed, cutting RAM consumption by over 65% compared to conventional dense grids and enabling massive simulation domains.",
         label_exp: "CAREER TIMELINE",
         heading_exp: "Experience in Simulation, Graphics & Multimedia",
         sim_role: "Software & Graphics Programmer (C++ / OpenGL) & Pipeline Developer",
@@ -1844,6 +2429,13 @@
           el.innerHTML = dict[key];
         }
       });
+
+      // Also refresh active accordion button texts
+      const m1Open = document.getElementById('module-part1').classList.contains('is-open');
+      const m2Open = document.getElementById('module-part2').classList.contains('is-open');
+      updatePillLabel('part1', m1Open, lang);
+      updatePillLabel('part2', m2Open, lang);
+      checkMasterButtonState();
     }
 
     document.addEventListener('DOMContentLoaded', () => {
