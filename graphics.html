@@ -1667,41 +1667,11 @@
               </div>
             </div>
 
-            <!-- 1.2 Ciclo Algorítmico: Transferencia y Advección -->
-            <h4 class="tfm-subheading subheading-part1">
-              <i class="fa-solid fa-arrows-split-up-and-left"></i>
-              <span data-i18n="part1_cycle_title">2. Ciclo Algorítmico: Transferencia de Velocidad y Actualización de Partículas</span>
-            </h4>
-            <p class="tfm-section-desc" data-i18n="part1_cycle_desc">
-              Arquitectura del bucle de simulación desacoplado: proyección de velocidades a la grilla Euleriana y posterior actualización de estados Lagrangianos.
-            </p>
+            <!-- 1.2 Reconstrucción de Superficie -->
 
-            <div class="cycle-grid">
-              <div class="cycle-card">
-                <h5><i class="fa-solid fa-arrow-right-arrow-left"></i> <span data-i18n="cycle_c1_h">Transferencia de Velocidades (P2G & G2P)</span></h5>
-                <div class="cycle-img-wrap" onclick="openLightbox('img/tfm/VelocityTransfer.png', 'Transferencia de velocidad entre partículas y celdas MAC')">
-                  <img src="img/tfm/VelocityTransfer.png" alt="Velocity Transfer" class="cycle-img">
-                </div>
-                <p class="cycle-desc" data-i18n="cycle_c1_p">
-                  Interpolación ponderada por funciones B-Spline cuadráticas para transferir el momento desde las partículas hacia las caras de la grilla cartesiana MAC y retro-interpolación sin artefactos.
-                </p>
-              </div>
-
-              <div class="cycle-card">
-                <h5><i class="fa-solid fa-rotate"></i> <span data-i18n="cycle_c2_h">Actualización y Advección de Partículas</span></h5>
-                <div class="cycle-img-wrap" onclick="openLightbox('img/tfm/ParticleUpdates.png', 'Ciclo de actualización de partículas y corrección de deformación')">
-                  <img src="img/tfm/ParticleUpdates.png" alt="Particle Updates" class="cycle-img">
-                </div>
-                <p class="cycle-desc" data-i18n="cycle_c2_p">
-                  Actualización de tensores afines Bp y corrección de advección temporal de segundo orden (RK2/RK4) para garantizar la integridad posicional bajo gradientes extremos de velocidad.
-                </p>
-              </div>
-            </div>
-
-            <!-- 1.3 Reconstrucción de Superficie -->
             <h4 class="tfm-subheading subheading-part1">
               <i class="fa-solid fa-water"></i>
-              <span data-i18n="sec3_title">3. Comparativa de Reconstrucción de Superficie y Ruido Numérico</span>
+              <span data-i18n="sec3_title">2. Comparativa de Reconstrucción de Superficie y Ruido Numérico</span>
             </h4>
             <p class="tfm-section-desc" data-i18n="sec3_desc">
               Evaluación morfológica de la superficie libre reconstruida (Level-Set con OpenVDB) a frame 500 bajo idénticas condiciones iniciales y mismo conteo de partículas entre los solvers evaluados:
@@ -1809,8 +1779,35 @@
                   Inyección modular dentro de la subred del solver de fluidos, conectando las etapas de transferencia de momento (Particle-to-Grid), resolución de Poisson de presión con fronteras cerradas y actualización de posiciones (Grid-to-Particle).
                 </p>
               </div>
-            </div>
 
+              <!-- Cadena Particle Updates -->
+              <div class="houdini-card">
+                <div class="houdini-card-header">
+                  <i class="fa-solid fa-microchip"></i>
+                  <h4 data-i18n="hdk_pu_title">Subred Particle Updates & Integración HDK</h4>
+                </div>
+                <div class="houdini-img-wrap" onclick="openLightbox('img/tfm/ParticleUpdates.png', 'Subred Particle Updates en FLIP Solver')">
+                  <img src="img/tfm/ParticleUpdates.png" alt="Particle Updates Houdini" class="houdini-img">
+                </div>
+                <p class="houdini-desc" data-i18n="hdk_pu_desc">
+                  Inserción de la lógica del solver personalizado directamente dentro del bloque Particle Updates de Houdini, encadenando el cálculo HDK inmediatamente tras la transferencia afín del nodo gasfieldtoparticle_vel_apic.
+                </p>
+              </div>
+
+              <!-- Velocity Transfer en Houdini -->
+              <div class="houdini-card">
+                <div class="houdini-card-header">
+                  <i class="fa-solid fa-sliders"></i>
+                  <h4 data-i18n="hdk_vt_title">Configuración de Transferencia de Velocidad</h4>
+                </div>
+                <div class="houdini-img-wrap" onclick="openLightbox('img/tfm/VelocityTransfer.png', 'Opciones de Velocity Transfer en Houdini')">
+                  <img src="img/tfm/VelocityTransfer.png" alt="Velocity Transfer Houdini" class="houdini-img">
+                </div>
+                <p class="houdini-desc" data-i18n="hdk_vt_desc">
+                  Ajuste en la pestaña Volume Motion del FLIP Solver para activar la transferencia afín (APIC) en lugar del estándar FLIP, habilitando la comunicación de matrices de deformación requerida por el plugin.
+                </p>
+              </div>
+            </div>
             <!-- 2.2 Benchmark Dinosaurio (PRUEBAS DEL PLUGIN EN HOUDINI) -->
             <h4 class="tfm-subheading subheading-part2">
               <i class="fa-solid fa-dragon"></i>
@@ -2248,7 +2245,7 @@
         tfm_collapse_all: "Comprimir Todo",
         part1_badge: "PARTE I · INVESTIGACIÓN FÍSICA & MÉTODOS NUMÉRICOS",
         part1_title: "Investigación Teórica, Formulación Matemática & Análisis de Superficie",
-        part1_summary: "Estudio analítico de los fundamentos de Navier-Stokes, formulación comparativa de PIC, FLIP, APIC e IPIC, ciclo de transferencia partícula-rejilla y análisis morfológico de superficie libre.",
+        part1_summary: "Estudio analítico de los fundamentos de Navier-Stokes, formulación comparativa de PIC, FLIP, APIC e IPIC, y análisis morfológico de superficie libre mediante OpenVDB.",
         part1_btn_expand: "Desplegar Investigación",
         part1_btn_collapse: "Comprimir Sección",
         sec1_title: "1. Marco Teórico y Arquitectura de los 4 Solvers Estudiados",
@@ -2265,7 +2262,7 @@
         cycle_c1_p: "Interpolación ponderada por funciones B-Spline cuadráticas para transferir el momento desde las partículas hacia las caras de la grilla cartesiana MAC y retro-interpolación sin artefactos.",
         cycle_c2_h: "Actualización y Advección de Partículas",
         cycle_c2_p: "Actualización de tensores afines Bp y corrección de advección temporal de segundo orden (RK2/RK4) para garantizar la integridad posicional bajo gradientes extremos de velocidad.",
-        sec3_title: "3. Comparativa de Reconstrucción de Superficie y Ruido Numérico",
+        sec3_title: "2. Comparativa de Reconstrucción de Superficie y Ruido Numérico",
         sec3_desc: "Evaluación morfológica de la superficie libre reconstruida (Level-Set con OpenVDB) a frame 500 bajo idénticas condiciones iniciales y mismo conteo de partículas entre los solvers evaluados:",
         surf_flip_desc: "Genera una alta dispersión caótica de gotas aisladas y un oleaje rugoso con artefactos de rejilla visibles en la superficie del líquido.",
         surf_apic_desc: "Superficie perfectamente limpia y continua. Las gotas se mantienen unidas por tensión sin ruido numérico y el oleaje fluye armónicamente.",
@@ -2280,7 +2277,11 @@
         hdk_params_title: "Panel de Parámetros Ajustables del Solver",
         hdk_params_desc: "Interfaz procedural para artistas técnicos que permite conmutar en tiempo real entre los solvers PIC, FLIP, APIC e IPIC, configurar el orden del integrador temporal Runge-Kutta (RK2/RK4), limitar la condición CFL y modular el factor de mezcla afín.",
         hdk_tree_title: "Arquitectura de Nodos y Estructura DOP",
-        hdk_tree_desc: "Inyección modular dentro de la subred del solver de fluidos, conectando las etapas de transferencia de momento (Particle-to-Grid), resolución de Poisson de presión con fronteras cerradas y actualización de posiciones (Grid-to-Particle).",
+                hdk_tree_desc: "Inyección modular dentro de la subred del solver de fluidos, conectando las etapas de transferencia de momento (Particle-to-Grid), resolución de Poisson de presión con fronteras cerradas y actualización de posiciones (Grid-to-Particle).",
+        hdk_pu_title: "Subred Particle Updates & Integración HDK",
+        hdk_pu_desc: "Inserción de la lógica del solver personalizado directamente dentro del bloque Particle Updates de Houdini, encadenando el cálculo HDK inmediatamente tras la transferencia afín del nodo gasfieldtoparticle_vel_apic.",
+        hdk_vt_title: "Configuración de Transferencia de Velocidad",
+        hdk_vt_desc: "Ajuste en la pestaña Volume Motion del FLIP Solver para activar la transferencia afín (APIC) en lugar del estándar FLIP, habilitando la comunicación de matrices de deformación requerida por el plugin.",
         sec2_title: "2. Pruebas del Plugin en Houdini: Benchmark de Colisión contra Dinosaurio",
         sec2_desc: "Validación práctica del plugin desarrollado en SideFX Houdini bajo una prueba de estrés computacional: columna masiva de fluido impactando a alta velocidad sobre un dinosaurio con cavidades y bordes afilados. Comparativa directa entre los solvers APIC e IPIC ejecutados dentro de Houdini:",
         bench_apic250_title: "APIC: Expansión y Flujo Adherente",
@@ -2350,7 +2351,7 @@
         tfm_collapse_all: "Collapse All",
         part1_badge: "PART I · FLUID DYNAMICS & NUMERICAL SOLVERS",
         part1_title: "Theoretical Research, Mathematical Formulation & Surface Analysis",
-        part1_summary: "Analytical study of Navier-Stokes foundations, comparative formulation of PIC, FLIP, APIC, and IPIC solvers, particle-grid transfer cycle, and free surface morphology analysis.",
+        part1_summary: "Analytical study of Navier-Stokes foundations, comparative formulation of PIC, FLIP, APIC, and IPIC solvers, and free surface morphology analysis via OpenVDB Level-Set.",
         part1_btn_expand: "Expand Research",
         part1_btn_collapse: "Collapse Section",
         sec1_title: "1. Theoretical Framework & Architecture of the 4 Evaluated Solvers",
@@ -2367,7 +2368,7 @@
         cycle_c1_p: "Quadratic B-Spline kernel weighting to transfer momentum from particles to MAC grid cell faces, with smooth back-interpolation free of grid-crossing errors.",
         cycle_c2_h: "Particle Updates & Advection",
         cycle_c2_p: "Affine Bp tensor updates and second-order time advection (RK2/RK4) ensuring positional integrity under extreme spatial velocity gradients.",
-        sec3_title: "3. Surface Reconstruction & Numerical Noise Comparison",
+        sec3_title: "2. Surface Reconstruction & Numerical Noise Comparison",
         sec3_desc: "Morphological evaluation of the reconstructed free surface (OpenVDB Level-Set) at frame 500 under identical initial conditions and particle counts across the evaluated solvers:",
         surf_flip_desc: "Produces high chaotic spray of isolated droplets and noisy, turbulent surface ripples with visible grid artifacts.",
         surf_apic_desc: "Clean, continuous surface. Droplets remain cohesive under surface tension without numerical noise, producing harmonious wave propagation.",
@@ -2382,7 +2383,11 @@
         hdk_params_title: "Custom Solver Parameter Interface",
         hdk_params_desc: "Procedural artist interface allowing real-time switching between PIC, FLIP, APIC, and IPIC solvers, setting Runge-Kutta time integration order (RK2/RK4), enforcing CFL limits, and tuning affine blending ratios.",
         hdk_tree_title: "Node Architecture & DOP Structure",
-        hdk_tree_desc: "Modular integration within the fluid solver network, linking particle-to-grid momentum splatting, closed-boundary Poisson pressure projection, and grid-to-particle advective updates.",
+                hdk_tree_desc: "Modular integration within the fluid solver network, linking particle-to-grid momentum splatting, closed-boundary Poisson pressure projection, and grid-to-particle advective updates.",
+        hdk_pu_title: "Particle Updates Subnet & HDK Integration",
+        hdk_pu_desc: "Insertion of custom solver logic directly into Houdini's Particle Updates block, chaining HDK computation right after affine transfer from the gasfieldtoparticle_vel_apic node.",
+        hdk_vt_title: "Velocity Transfer Mode Configuration",
+        hdk_vt_desc: "Configuration in the Volume Motion tab of the FLIP Solver to enable affine transfer (APIC) instead of standard FLIP, enabling deformation matrix communication required by the plugin.",
         sec2_title: "2. Houdini Plugin Tests: Collision & Splashing Benchmark (Dinosaur)",
         sec2_desc: "Practical validation of the custom solver plugin developed in SideFX Houdini under computational stress: massive liquid column impacting at high velocity on an anatomical dinosaur model. Side-by-side full-resolution comparison between APIC and IPIC executed within Houdini:",
         bench_apic250_title: "APIC: Smooth Expansion & Clinging Flow",
