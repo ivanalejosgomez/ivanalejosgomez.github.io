@@ -17,7 +17,6 @@
       --text: #e6edf3;
       --text-muted: #8b949e;
       --accent: #58a6ff;
-      --font-pixel: 'Press Start 2P', monospace;
       --font-mono: 'JetBrains Mono', monospace;
       --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 
@@ -27,10 +26,10 @@
       --ubuntu-orange: #e95420;
       --ubuntu-glow: rgba(233, 84, 32, 0.35);
 
-      /* Pac-Man Arcade Palette */
-      --pacman-blue: #2121ff;
-      --pacman-yellow: #ffff00;
-      --pacman-glow: rgba(33, 33, 255, 0.45);
+      /* Fluid Dynamics Palette */
+      --fluid-orange: #ea580c;
+      --fluid-orange-light: #f97316;
+      --fluid-glow: rgba(234, 88, 12, 0.35);
     }
 
     * {
@@ -62,9 +61,9 @@
 
     body.hover-graphics {
       background: 
-        radial-gradient(circle at 75% 35%, rgba(33, 33, 255, 0.28) 0%, transparent 55%),
-        radial-gradient(circle at 65% 55%, rgba(255, 255, 0, 0.08) 0%, transparent 60%),
-        linear-gradient(135deg, #060618 0%, #010105 85%);
+        radial-gradient(circle at 75% 35%, rgba(234, 88, 12, 0.22) 0%, transparent 55%),
+        radial-gradient(circle at 65% 55%, rgba(245, 238, 227, 0.12) 0%, transparent 60%),
+        linear-gradient(135deg, #181411 0%, #0c0a09 85%);
     }
 
     .container {
@@ -159,14 +158,8 @@
     }
 
     .nav-link.nav-link-graph:hover {
-      border-color: var(--pacman-blue);
-      color: var(--pacman-yellow);
-    }
-
-    .ghost-icon {
-      font-family: var(--font-pixel);
-      font-size: 0.65rem;
-      color: var(--pacman-yellow);
+      border-color: var(--fluid-orange);
+      color: var(--fluid-orange-light);
     }
 
     /* Minimal Language Toggle */
@@ -441,32 +434,34 @@
       transform: translateX(3px);
     }
 
-    /* Portal Card 2: Pac-Man Arcade Cabinet (Graphics & VFX) */
+    /* Portal Card 2: Fluid Simulation & Visual Computing */
     .portal-card-graphics {
-      background: #03030e;
-      border: 2px solid var(--pacman-blue);
+      background: #14110e;
+      border: 1px solid rgba(234, 88, 12, 0.35);
       border-radius: 10px;
       overflow: hidden;
       cursor: pointer;
       transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
       position: relative;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 15px rgba(33, 33, 255, 0.25);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 15px rgba(234, 88, 12, 0.12);
       display: flex;
       flex-direction: column;
       text-decoration: none;
       color: inherit;
     }
 
-    .arcade-card-header {
-      background: #060616;
-      border-bottom: 2px solid var(--pacman-blue);
+    .fluid-card-header {
+      background: #1f1914;
+      border-bottom: 1px solid rgba(234, 88, 12, 0.25);
       padding: 10px 16px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      font-family: var(--font-pixel);
-      font-size: 0.65rem;
-      color: var(--pacman-yellow);
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      color: #ea580c;
     }
 
     .portal-graphics-body {
@@ -475,32 +470,31 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      background: radial-gradient(circle at center, rgba(33, 33, 255, 0.1) 0%, transparent 80%);
+      background: radial-gradient(circle at center, rgba(234, 88, 12, 0.08) 0%, transparent 80%);
     }
 
-    .arcade-hud-mini {
+    .fluid-hud-mini {
       display: flex;
       gap: 12px;
-      font-family: var(--font-pixel);
-      font-size: 0.6rem;
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
       margin-bottom: 14px;
     }
 
-    .arcade-hud-mini span.label { color: #ff0000; }
-    .arcade-hud-mini span.val { color: #ffffff; }
+    .fluid-hud-mini span.label { color: #f97316; font-weight: 600; }
+    .fluid-hud-mini span.val { color: #ffffff; }
 
     .portal-graphics-title {
-      font-family: var(--font-pixel);
-      font-size: 1.05rem;
-      color: var(--pacman-yellow);
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #ffffff;
       margin-bottom: 12px;
-      line-height: 1.45;
-      text-shadow: 1px 1px 0px #000;
+      line-height: 1.3;
     }
 
     .portal-graphics-desc {
       font-size: 0.93rem;
-      color: #cbd5e1;
+      color: #d6d3d1;
       line-height: 1.58;
       margin-bottom: 22px;
     }
@@ -513,40 +507,40 @@
     }
 
     .graphics-tag {
-      font-family: var(--font-pixel);
-      font-size: 0.58rem;
-      padding: 4px 8px;
-      background: rgba(33, 33, 255, 0.15);
-      border: 1px solid var(--pacman-blue);
-      color: #38bdf8;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      padding: 3px 9px;
+      border-radius: 4px;
+      background: rgba(234, 88, 12, 0.12);
+      border: 1px solid rgba(234, 88, 12, 0.3);
+      color: #ffedd5;
     }
 
     .btn-portal-graphics {
-      background: var(--pacman-yellow);
-      color: #000000;
-      border: 2px solid #ffffff;
-      padding: 8px 16px;
-      font-family: var(--font-pixel);
-      font-size: 0.65rem;
-      font-weight: 700;
+      background: #ea580c;
+      color: #ffffff;
+      border: 1px solid #c2410c;
+      padding: 9px 18px;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      font-weight: 600;
       display: inline-flex;
       align-items: center;
       gap: 8px;
       transition: all 0.2s ease;
       align-self: flex-start;
-      box-shadow: 3px 3px 0px var(--pacman-blue);
+      box-shadow: 0 4px 14px rgba(234, 88, 12, 0.3);
     }
 
     .portal-card-graphics:hover {
       transform: translateY(-6px);
-      border-color: var(--pacman-yellow);
-      box-shadow: 0 16px 40px rgba(33, 33, 255, 0.45), 0 0 25px rgba(255, 255, 0, 0.35);
+      border-color: #f97316;
+      box-shadow: 0 16px 40px rgba(234, 88, 12, 0.35), 0 0 25px rgba(234, 88, 12, 0.25);
     }
 
     .portal-card-graphics:hover .btn-portal-graphics {
-      background: #ffff66;
-      transform: translate(2px, 2px);
-      box-shadow: 1px 1px 0px var(--pacman-blue);
+      background: #d9480f;
+      transform: translateX(3px);
     }
 
     /* Footer */
@@ -634,8 +628,8 @@
           </li>
           <li>
             <a href="./graphics.html" class="nav-link nav-link-graph" id="nav-graphics">
-              <span class="ghost-icon">ᗣ</span>
-              <span data-i18n="nav_graphics">Gráficos & VFX</span>
+              <i class="fa-solid fa-droplet" style="color: #ea580c;"></i>
+              <span data-i18n="nav_graphics">Simulación & Gráficos</span>
             </a>
           </li>
         </ul>
@@ -729,38 +723,38 @@
           </div>
         </a>
 
-        <!-- CARD 2: PAC-MAN ARCADE COMPUTER GRAPHICS & SIMULATION -->
+        <!-- CARD 2: FLUID SIMULATION & COMPUTER GRAPHICS -->
         <a href="./graphics.html" class="portal-card-graphics" id="card-graphics">
-          <div class="arcade-card-header">
-            <span>ᗧ PAC-MAN ARCADE</span>
-            <span>1UP 1999</span>
+          <div class="fluid-card-header">
+            <span><i class="fa-solid fa-droplet"></i> FLUID DYNAMICS // PIC-FLIP</span>
+            <span>NAVIER-STOKES</span>
           </div>
 
           <div class="portal-graphics-body">
             <div>
-              <div class="arcade-hud-mini">
-                <span><span class="label">STAGE</span> <span class="val">01</span></span>
-                <span><span class="label">BONUS</span> <span class="val">TFM</span></span>
+              <div class="fluid-hud-mini">
+                <span><span class="label">ÁREA</span> <span class="val">02 SIMULACIÓN</span></span>
+                <span><span class="label">SOLVER</span> <span class="val">HOUDINI TFM</span></span>
               </div>
 
-              <h3 class="portal-graphics-title" data-i18n="card_graphics_title">Gráficos & Simulación 3D</h3>
+              <h3 class="portal-graphics-title" data-i18n="card_graphics_title">Simulación de Fluidos & Gráficos 3D</h3>
               <p class="portal-graphics-desc" data-i18n="card_graphics_desc">
-                Investigación en computación gráfica, simulación avanzada de fluidos en Houdini (solver híbrido PIC/FLIP), modelado numérico de Navier-Stokes, programación procedural en VEX y optimización para VFX.
+                Investigación en física computacional, simulación avanzada de fluidos en Houdini (solver híbrido PIC/FLIP), modelado numérico de Navier-Stokes, programación procedural en VEX y pipelines de producción visual.
               </p>
 
               <div class="graphics-tags">
                 <span class="graphics-tag">Houdini FX</span>
                 <span class="graphics-tag">VEX</span>
                 <span class="graphics-tag">PIC / FLIP</span>
-                <span class="graphics-tag">OpenVDB</span>
                 <span class="graphics-tag">Navier-Stokes</span>
-                <span class="graphics-tag">Unity / C++</span>
+                <span class="graphics-tag">OpenVDB</span>
+                <span class="graphics-tag">C++ / OpenGL</span>
               </div>
             </div>
 
             <div class="btn-portal-graphics">
-              <span data-i18n="btn_explore_graphics">Abrir Gráficos & VFX</span>
-              <i class="fa-solid fa-play"></i>
+              <span data-i18n="btn_explore_graphics">Abrir Simulación & Gráficos</span>
+              <i class="fa-solid fa-arrow-right"></i>
             </div>
           </div>
         </a>
@@ -827,7 +821,7 @@
         brand_title: "PORTFOLIO DE IVÁN ALEJOS",
         nav_home: "Inicio",
         nav_software: "Software & Sistemas",
-        nav_graphics: "Gráficos & VFX",
+        nav_graphics: "Simulación & Gráficos",
         hero_role: "Ingeniero Multimedia & Desarrollador de Software",
         hero_bio: "Desarrollador con doble perfil técnico: arquitectura de software backend, automatización industrial y bases de datos por un lado, e informática gráfica, simulación física procedural y herramientas de pipeline por el otro.",
         btn_contact: "Contactar",
@@ -837,16 +831,16 @@
         card_software_title: "Software Empresarial & Sistemas",
         card_software_desc: "Enfoque en desarrollo backend, arquitecturas escalables, automatización industrial con Ignition SCADA, integración ERP Odoo, procesamiento de visión artificial y gestión de bases de datos relacionales.",
         btn_explore_software: "Abrir Software & Sistemas",
-        card_graphics_title: "Gráficos & Simulación 3D",
-        card_graphics_desc: "Investigación en computación gráfica, simulación avanzada de fluidos en Houdini (solver híbrido PIC/FLIP), modelado numérico de Navier-Stokes, programación procedural en VEX y optimización para VFX.",
-        btn_explore_graphics: "Abrir Gráficos & VFX",
+        card_graphics_title: "Simulación de Fluidos & Gráficos 3D",
+        card_graphics_desc: "Investigación en física computacional, simulación avanzada de fluidos en Houdini (solver híbrido PIC/FLIP), modelado numérico de Navier-Stokes, programación procedural en VEX y pipelines de producción visual.",
+        btn_explore_graphics: "Abrir Simulación & Gráficos",
         footer_location: "Valencia, España"
       },
       en: {
         brand_title: "PORTFOLIO - IVÁN ALEJOS",
         nav_home: "Home",
         nav_software: "Software & Systems",
-        nav_graphics: "Graphics & VFX",
+        nav_graphics: "Simulation & Graphics",
         hero_role: "Multimedia Engineer & Software Developer",
         hero_bio: "Dual-track technical engineer: backend software architecture, industrial automation, and databases on one side, and computer graphics, procedural simulation, and pipeline tooling on the other.",
         btn_contact: "Contact",
@@ -856,9 +850,9 @@
         card_software_title: "Enterprise Software & Systems",
         card_software_desc: "Focused on backend engineering, scalable architectures, Ignition SCADA automation, Odoo ERP integration, computer vision processing, and relational database administration.",
         btn_explore_software: "Open Software & Systems",
-        card_graphics_title: "3D Graphics & Simulation",
-        card_graphics_desc: "Computer graphics research, advanced fluid simulation in Houdini (hybrid PIC/FLIP solver), Navier-Stokes numerical modeling, procedural VEX programming, and VFX rendering optimization.",
-        btn_explore_graphics: "Open Graphics & VFX",
+        card_graphics_title: "Fluid Simulation & 3D Graphics",
+        card_graphics_desc: "Computer graphics and physics research, advanced fluid simulation in Houdini (hybrid PIC/FLIP solver), Navier-Stokes numerical modeling, procedural VEX programming, and visual production pipelines.",
+        btn_explore_graphics: "Open Simulation & Graphics",
         footer_location: "Valencia, Spain"
       }
     };

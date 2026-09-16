@@ -3,30 +3,33 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Iván Alejos Gómez | Computación Gráfica & Simulación VFX</title>
+  <title>Iván Alejos Gómez | Simulación de Fluidos & Computación Gráfica</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
   <style>
     :root {
-      --bg: #030308;
-      --bg-card: #080816;
-      --surface: #0e0e24;
-      --border-maze: #2121ff;
-      --pacman-yellow: #ffff00;
-      --ghost-red: #ff0000;
-      --ghost-pink: #ffb8ff;
-      --ghost-cyan: #00ffff;
-      --ghost-orange: #ffb852;
-      --pellet-white: #dedeff;
-      --text: #f8fafc;
-      --text-muted: #94a3b8;
+      --bg: #f7f3eb;
+      --bg-alt: #eee7dc;
+      --surface: #ffffff;
+      --surface-card: #fdfbf7;
+      --surface-warm: #f3ede2;
+      --border: rgba(185, 155, 125, 0.24);
+      --border-hover: rgba(234, 88, 12, 0.45);
+      --border-focus: #ea580c;
+      --text: #1d1916;
+      --text-muted: #665e56;
+      --text-subtle: #8c8278;
+      --fluid-orange: #ea580c;
+      --fluid-orange-light: #f97316;
+      --fluid-orange-dark: #c2410c;
+      --fluid-amber: #d97706;
+      --fluid-glow: rgba(234, 88, 12, 0.16);
       --ubuntu-orange: #e95420;
-      --font-pixel: 'Press Start 2P', monospace;
-      --font-mono: 'JetBrains Mono', monospace;
       --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      --font-mono: 'JetBrains Mono', Consolas, monospace;
     }
 
     * {
@@ -42,9 +45,9 @@
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
       background-image: 
-        radial-gradient(circle at 50% 10%, rgba(33, 33, 255, 0.18) 0%, transparent 60%),
-        radial-gradient(circle at 85% 60%, rgba(255, 255, 0, 0.05) 0%, transparent 50%),
-        linear-gradient(180deg, #020206 0%, #060614 100%);
+        radial-gradient(circle at 15% 15%, rgba(234, 88, 12, 0.08) 0%, transparent 45%),
+        radial-gradient(circle at 85% 65%, rgba(217, 119, 6, 0.07) 0%, transparent 50%),
+        linear-gradient(180deg, #f7f3eb 0%, #f1ebe0 100%);
       background-attachment: fixed;
       min-height: 100vh;
       display: flex;
@@ -52,47 +55,21 @@
     }
 
     .container {
-      max-width: 980px;
+      max-width: 1020px;
       margin: 0 auto;
       padding: 0 24px;
       width: 100%;
     }
 
-    /* Arcade HUD Banner */
-    .arcade-hud-top {
-      background: #000000;
-      border-bottom: 2px solid var(--border-maze);
-      padding: 8px 0;
-      font-family: var(--font-pixel);
-      font-size: 0.65rem;
-      box-shadow: 0 0 15px rgba(33, 33, 255, 0.3);
-    }
-
-    .hud-inner {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-
-    .hud-item {
-      display: flex;
-      gap: 8px;
-    }
-
-    .hud-label { color: var(--ghost-red); }
-    .hud-val { color: #ffffff; }
-
-    /* Sticky Navigation */
+    /* Sticky Top Navigation */
     nav {
       position: sticky;
       top: 0;
       z-index: 100;
-      background: rgba(4, 4, 12, 0.96);
-      backdrop-filter: blur(12px);
-      border-bottom: 2px solid var(--border-maze);
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.8), 0 0 10px rgba(33, 33, 255, 0.2);
+      background: rgba(247, 243, 235, 0.94);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+      box-shadow: 0 4px 20px rgba(70, 50, 30, 0.04);
     }
 
     .nav-inner {
@@ -102,28 +79,38 @@
       height: 64px;
     }
 
-    /* Unified Brand with Pac-Man Typography */
     .nav-brand {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 9px;
       text-decoration: none;
+      color: var(--text);
     }
 
-    .pacman-char {
-      font-family: var(--font-pixel);
+    .fluid-drop-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #f97316 0%, #c2410c 100%);
+      color: #ffffff;
+      font-size: 0.82rem;
+      box-shadow: 0 2px 8px rgba(234, 88, 12, 0.35);
+    }
+
+    .brand-title-fluid {
+      font-family: var(--font-sans);
       font-size: 0.95rem;
-      color: var(--pacman-yellow);
-      text-shadow: 0 0 8px rgba(255, 255, 0, 0.7);
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: -0.2px;
+      transition: color 0.2s ease;
     }
 
-    .brand-pixel-title {
-      font-family: var(--font-pixel);
-      font-size: 0.74rem;
-      color: var(--pacman-yellow);
-      letter-spacing: 0.5px;
-      text-shadow: 2px 2px 0px #000, 0 0 8px rgba(255, 255, 0, 0.4);
-      line-height: 1.3;
+    .nav-brand:hover .brand-title-fluid {
+      color: var(--fluid-orange);
     }
 
     .nav-actions {
@@ -149,41 +136,35 @@
       display: inline-flex;
       align-items: center;
       gap: 7px;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      background: #000000;
+      border: 1px solid var(--border);
+      background: var(--surface);
     }
 
     .nav-link:hover {
-      color: #ffffff;
-      background: rgba(33, 33, 255, 0.2);
-      border-color: var(--border-maze);
-      box-shadow: 0 0 10px rgba(33, 33, 255, 0.3);
+      color: var(--text);
+      border-color: rgba(185, 155, 125, 0.45);
+      background: #ffffff;
     }
 
     .nav-link.active {
-      background: rgba(33, 33, 255, 0.25);
-      border-color: var(--border-maze);
-      color: var(--pacman-yellow);
-      box-shadow: 0 0 12px rgba(33, 33, 255, 0.4);
+      color: var(--fluid-orange-dark);
+      background: #ffffff;
+      border-color: var(--fluid-orange);
+      box-shadow: 0 2px 8px rgba(234, 88, 12, 0.15);
+      font-weight: 600;
     }
 
     .nav-link.nav-link-soft:hover {
       border-color: var(--ubuntu-orange);
-      color: #ff9b71;
-    }
-
-    .ghost-icon {
-      font-family: var(--font-pixel);
-      font-size: 0.65rem;
-      color: var(--pacman-yellow);
+      color: var(--ubuntu-orange);
     }
 
     /* Language Switcher */
     .lang-toggle {
       display: inline-flex;
-      background: #000000;
-      border: 1px solid var(--border-maze);
-      border-radius: 4px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
       padding: 2px;
     }
 
@@ -191,102 +172,68 @@
       background: transparent;
       border: none;
       color: var(--text-muted);
-      font-family: var(--font-pixel);
-      font-size: 0.55rem;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 600;
       padding: 4px 8px;
-      border-radius: 2px;
+      border-radius: 4px;
       cursor: pointer;
       transition: all 0.15s ease;
     }
 
     .lang-btn.active {
-      background: var(--pacman-yellow);
-      color: #000000;
+      background: var(--fluid-orange);
+      color: #ffffff;
     }
 
-    /* Pac-Man Canvas Animation Bar */
-    .pacman-canvas-container {
-      background: #000000;
-      border-bottom: 2px solid var(--border-maze);
-      position: relative;
-      height: 48px;
-      overflow: hidden;
+    /* Hero Section */
+    .hero-graphics {
+      padding: 42px 0 28px;
     }
 
-    #pacmanCanvas {
-      width: 100%;
-      height: 100%;
-      display: block;
-    }
-
-    /* Arcade Cabinet Hero Section (No personal photo or general bio) */
-    .hero {
-      padding: 42px 0 35px;
-    }
-
-    .arcade-hero-cabinet {
-      background: #050512;
-      border: 3px double var(--border-maze);
-      border-radius: 12px;
-      box-shadow: 
-        0 0 25px rgba(33, 33, 255, 0.35),
-        inset 0 0 20px rgba(33, 33, 255, 0.15);
-      padding: 34px 30px;
-      position: relative;
-    }
-
-    .arcade-hero-cabinet::before {
-      content: "";
-      position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: repeating-linear-gradient(
-        0deg,
-        rgba(0, 0, 0, 0.15),
-        rgba(0, 0, 0, 0.15) 1px,
-        transparent 1px,
-        transparent 2px
-      );
-      pointer-events: none;
-      border-radius: 9px;
-    }
-
-    .arcade-hud-mini {
-      display: flex;
-      gap: 14px;
-      font-family: var(--font-pixel);
-      font-size: 0.62rem;
+    .track-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-mono);
+      font-size: 0.74rem;
+      font-weight: 600;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      color: var(--fluid-orange-dark);
+      background: rgba(234, 88, 12, 0.1);
+      border: 1px solid rgba(234, 88, 12, 0.25);
+      padding: 4px 12px;
+      border-radius: 20px;
       margin-bottom: 14px;
     }
 
-    .arcade-hud-mini span.label { color: var(--ghost-red); }
-    .arcade-hud-mini span.val { color: #ffffff; }
-
-    .hero-text h1 {
-      font-family: var(--font-pixel);
-      font-size: 1.25rem;
-      color: var(--pacman-yellow);
-      line-height: 1.5;
-      margin-bottom: 10px;
-      text-shadow: 2px 2px 0px #000, 0 0 10px rgba(255, 255, 0, 0.5);
+    .hero-title {
+      font-size: 2.25rem;
+      font-weight: 800;
+      letter-spacing: -0.6px;
+      line-height: 1.22;
+      color: var(--text);
+      margin-bottom: 12px;
     }
 
     .hero-subtitle {
-      font-family: var(--font-mono);
-      font-size: 0.94rem;
-      color: var(--ghost-cyan);
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--fluid-orange-dark);
       margin-bottom: 14px;
-      font-weight: 500;
+      letter-spacing: -0.1px;
     }
 
-    .track-desc {
+    .hero-bio {
+      color: var(--text-muted);
       font-size: 0.96rem;
-      color: #cbd5e1;
-      line-height: 1.65;
+      max-width: 860px;
       margin-bottom: 24px;
-      max-width: 840px;
+      line-height: 1.65;
     }
 
-    .hero-links {
+    .hero-actions {
       display: flex;
       gap: 12px;
       flex-wrap: wrap;
@@ -296,237 +243,590 @@
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      padding: 10px 18px;
-      font-family: var(--font-pixel);
-      font-size: 0.65rem;
+      padding: 9px 18px;
+      border-radius: 6px;
+      font-size: 0.87rem;
+      font-weight: 600;
       text-decoration: none;
-      cursor: pointer;
       transition: all 0.2s ease;
-      border-radius: 4px;
+      cursor: pointer;
     }
 
-    .btn-pacman {
-      background: var(--pacman-yellow);
-      color: #000000;
-      border: 2px solid #ffffff;
-      box-shadow: 3px 3px 0px var(--border-maze);
-      font-weight: 700;
-    }
-
-    .btn-pacman:hover {
-      background: #ffff66;
-      transform: translate(2px, 2px);
-      box-shadow: 1px 1px 0px var(--border-maze);
-    }
-
-    .btn-arcade-sec {
-      background: #000000;
-      border: 2px solid var(--border-maze);
+    .btn-primary {
+      background: var(--fluid-orange);
       color: #ffffff;
-      box-shadow: 3px 3px 0px rgba(33, 33, 255, 0.5);
+      border: 1px solid var(--fluid-orange-dark);
+      box-shadow: 0 4px 14px rgba(234, 88, 12, 0.28);
     }
 
-    .btn-arcade-sec:hover {
-      background: var(--border-maze);
-      color: #ffffff;
-      transform: translate(2px, 2px);
-      box-shadow: 1px 1px 0px rgba(33, 33, 255, 0.5);
+    .btn-primary:hover {
+      background: #d9480f;
+      transform: translateY(-1px);
+      box-shadow: 0 6px 18px rgba(234, 88, 12, 0.35);
     }
 
-    /* Section Styling */
-    main {
-      padding: 30px 0 50px;
-      flex-grow: 1;
+    .btn-outline {
+      background: #ffffff;
+      color: var(--text);
+      border: 1px solid var(--border);
     }
 
-    .section-block {
-      padding: 40px 0 20px;
+    .btn-outline:hover {
+      border-color: var(--fluid-orange);
+      color: var(--fluid-orange);
+      background: #fffbf7;
     }
 
-    .section-head {
-      margin-bottom: 26px;
-      border-left: 4px solid var(--border-maze);
-      padding-left: 14px;
-    }
-
-    .section-label {
-      font-family: var(--font-pixel);
-      font-size: 0.65rem;
-      color: var(--pacman-yellow);
-      margin-bottom: 6px;
-      display: block;
-      letter-spacing: 0.5px;
-    }
-
-    .section-heading {
-      font-family: var(--font-pixel);
-      font-size: 1.15rem;
-      color: #ffffff;
-      line-height: 1.4;
-      text-shadow: 0 0 10px rgba(33, 33, 255, 0.5);
-    }
-
-    /* Arcade Showcase Card (Featured TFM) */
-    .arcade-card {
-      background: var(--bg-card);
-      border: 2px solid var(--border-maze);
-      border-radius: 10px;
-      padding: 30px;
-      margin-bottom: 28px;
-      box-shadow: 0 0 20px rgba(33, 33, 255, 0.25);
-      transition: all 0.25s ease;
+    /* Interactive Viscous Fluid Canvas Banner */
+    .fluid-canvas-wrapper {
+      margin: 10px 0 36px;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background: #ffffff;
+      box-shadow: 0 10px 30px rgba(80, 55, 35, 0.06);
       position: relative;
+    }
+
+    .fluid-canvas-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 18px;
+      background: var(--surface-warm);
+      border-bottom: 1px solid var(--border);
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--text-muted);
+    }
+
+    .fluid-status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      color: var(--fluid-orange-dark);
+      font-weight: 600;
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--fluid-orange);
+      box-shadow: 0 0 6px var(--fluid-orange);
+      animation: pulse-dot 2s infinite ease-in-out;
+    }
+
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 0.6; transform: scale(0.9); }
+      50% { opacity: 1; transform: scale(1.15); }
+    }
+
+    .fluid-canvas-container {
+      width: 100%;
+      height: 190px;
+      position: relative;
+      background: radial-gradient(ellipse at 50% 50%, #fffdfa 0%, #f9f4ea 100%);
+      cursor: crosshair;
       overflow: hidden;
     }
 
-    .arcade-card:hover {
-      border-color: var(--pacman-yellow);
-      box-shadow: 0 0 30px rgba(255, 255, 0, 0.35);
+    #fluidCanvas {
+      width: 100%;
+      height: 100%;
+      display: block;
     }
 
-    .arcade-card-header {
+    .canvas-hint {
+      position: absolute;
+      bottom: 10px;
+      right: 14px;
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      color: var(--text-subtle);
+      pointer-events: none;
+      background: rgba(255, 255, 255, 0.85);
+      padding: 3px 8px;
+      border-radius: 4px;
+      border: 1px solid var(--border);
+    }
+
+    /* PESTAÑAS (TABS UI) */
+    .tabs-section {
+      margin-bottom: 30px;
+    }
+
+    .tabs-nav {
       display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      margin-bottom: 14px;
-      gap: 16px;
-      flex-wrap: wrap;
+      gap: 12px;
+      border-bottom: 2px solid var(--border);
+      padding-bottom: 0;
+      margin-bottom: 28px;
     }
 
-    .arcade-project-title {
-      font-family: var(--font-pixel);
+    .tab-trigger {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      padding: 12px 20px;
+      background: transparent;
+      border: none;
+      border-bottom: 3px solid transparent;
+      margin-bottom: -2px;
+      font-family: var(--font-sans);
       font-size: 0.95rem;
-      color: var(--pacman-yellow);
-      line-height: 1.5;
-      text-shadow: 1px 1px 0px #000;
-    }
-
-    .arcade-project-meta {
-      font-family: var(--font-pixel);
-      font-size: 0.62rem;
-      color: var(--ghost-cyan);
-      white-space: nowrap;
-      background: rgba(0, 255, 255, 0.1);
-      border: 1px solid rgba(0, 255, 255, 0.3);
-      padding: 4px 8px;
-      border-radius: 3px;
-    }
-
-    .project-desc {
-      font-size: 0.94rem;
-      color: #cbd5e1;
-      margin-bottom: 22px;
-      line-height: 1.65;
-    }
-
-    /* Technical Dossier Grid */
-    .tech-dossier {
-      background: rgba(0, 0, 0, 0.6);
-      border: 1px solid rgba(33, 33, 255, 0.5);
-      border-radius: 8px;
-      padding: 22px;
-      margin-bottom: 22px;
-    }
-
-    .tech-dossier-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-      gap: 18px;
-    }
-
-    .dossier-item h4 {
-      font-family: var(--font-pixel);
-      font-size: 0.62rem;
-      color: var(--ghost-pink);
-      margin-bottom: 6px;
-      letter-spacing: 0.3px;
-    }
-
-    .dossier-item p {
-      font-size: 0.86rem;
-      color: #94a3b8;
-      line-height: 1.5;
-    }
-
-    .tag-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-
-    .tag {
-      font-family: var(--font-pixel);
-      font-size: 0.56rem;
-      padding: 5px 9px;
-      background: rgba(33, 33, 255, 0.15);
-      border: 1px solid var(--border-maze);
-      border-radius: 3px;
-      color: #7dd3fc;
-    }
-
-    .tag-alt {
-      background: rgba(255, 255, 0, 0.1);
-      border-color: var(--pacman-yellow);
-      color: var(--pacman-yellow);
-    }
-
-    /* Skills Grid */
-    .skills-block {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-      gap: 20px;
-    }
-
-    .skill-group {
-      background: var(--bg-card);
-      border: 1px solid var(--border-maze);
-      border-radius: 8px;
-      padding: 22px;
+      font-weight: 600;
+      color: var(--text-muted);
+      cursor: pointer;
       transition: all 0.2s ease;
     }
 
-    .skill-group:hover {
-      border-color: var(--ghost-cyan);
-      box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
+    .tab-trigger:hover {
+      color: var(--text);
     }
 
-    .skill-group h4 {
-      font-family: var(--font-pixel);
-      font-size: 0.65rem;
-      color: var(--pacman-yellow);
-      margin-bottom: 14px;
-      letter-spacing: 0.5px;
+    .tab-trigger.active {
+      color: var(--fluid-orange-dark);
+      border-bottom-color: var(--fluid-orange);
+      font-weight: 700;
     }
 
-    .skill-items {
+    .tab-trigger .tab-icon {
+      font-size: 1rem;
+      color: var(--text-subtle);
+      transition: color 0.2s ease;
+    }
+
+    .tab-trigger.active .tab-icon {
+      color: var(--fluid-orange);
+    }
+
+    .tab-pane {
+      display: none;
+      animation: fadeIn 0.25s ease-out;
+    }
+
+    .tab-pane.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* CARD STYLES */
+    .section-header-compact {
+      margin-bottom: 20px;
+    }
+
+    .section-label {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      color: var(--fluid-orange);
+      margin-bottom: 4px;
+    }
+
+    .section-heading {
+      font-size: 1.45rem;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: -0.3px;
+    }
+
+    /* Flagship Project Card */
+    .project-card-featured {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 30px;
+      margin-bottom: 24px;
+      box-shadow: 0 6px 24px rgba(70, 50, 30, 0.05);
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+      position: relative;
+    }
+
+    .project-card-featured:hover {
+      border-color: var(--border-hover);
+      box-shadow: 0 10px 32px rgba(234, 88, 12, 0.1);
+    }
+
+    .project-top-row {
       display: flex;
-      flex-direction: column;
-      gap: 8px;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 14px;
     }
 
-    .skill-item {
-      font-size: 0.88rem;
-      color: #cbd5e1;
+    .project-title {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.3;
+    }
+
+    .project-context {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: var(--fluid-orange-dark);
+      font-weight: 600;
+      background: rgba(234, 88, 12, 0.08);
+      padding: 3px 9px;
+      border-radius: 4px;
+      display: inline-block;
+      margin-top: 4px;
+    }
+
+    .project-desc {
+      color: var(--text-muted);
+      font-size: 0.93rem;
+      line-height: 1.65;
+      margin-bottom: 22px;
+    }
+
+    .tech-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-bottom: 22px;
+    }
+
+    .tech-badge {
+      font-family: var(--font-mono);
+      font-size: 0.73rem;
+      font-weight: 500;
+      padding: 4px 10px;
+      border-radius: 4px;
+      background: var(--surface-warm);
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .tech-badge.highlight {
+      background: rgba(234, 88, 12, 0.1);
+      color: var(--fluid-orange-dark);
+      border-color: rgba(234, 88, 12, 0.3);
+      font-weight: 600;
+    }
+
+    /* Technical Dossier Grid (4 columns) */
+    .dossier-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .dossier-item {
+      background: var(--surface-card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px;
+      transition: all 0.2s ease;
+    }
+
+    .dossier-item:hover {
+      background: #ffffff;
+      border-color: var(--border-hover);
+      transform: translateY(-2px);
+    }
+
+    .dossier-header {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 9px;
+      margin-bottom: 8px;
     }
 
-    .skill-item::before {
-      content: "•";
-      color: var(--ghost-red);
-      font-size: 1.2rem;
-      line-height: 0;
+    .dossier-icon {
+      color: var(--fluid-orange);
+      font-size: 0.95rem;
     }
 
-    /* Arcade Bottom Bar / Footer */
-    footer {
-      border-top: 2px solid var(--border-maze);
-      background: #000000;
-      padding: 35px 0 45px;
-      margin-top: auto;
+    .dossier-header h4 {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .dossier-item p {
+      font-size: 0.83rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    /* Technical Specs Strip */
+    .specs-strip {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      padding: 14px;
+      background: var(--surface-warm);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+    }
+
+    .spec-box {
+      text-align: center;
+    }
+
+    .spec-label {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      color: var(--text-subtle);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 2px;
+    }
+
+    .spec-value {
+      font-family: var(--font-mono);
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--fluid-orange-dark);
+    }
+
+    /* Modular Projects Grid */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+
+    .project-card-standard {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: 0 4px 16px rgba(70, 50, 30, 0.04);
+      transition: all 0.2s ease;
+    }
+
+    .project-card-standard:hover {
+      border-color: var(--border-hover);
+      box-shadow: 0 8px 24px rgba(234, 88, 12, 0.1);
+      transform: translateY(-2px);
+    }
+
+    .project-card-standard h3 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+
+    .project-card-standard .project-inst {
+      font-family: var(--font-mono);
+      font-size: 0.74rem;
+      color: var(--fluid-orange-dark);
+      margin-bottom: 12px;
+    }
+
+    .project-card-standard p {
       font-size: 0.85rem;
       color: var(--text-muted);
+      line-height: 1.55;
+      margin-bottom: 16px;
+    }
+
+    /* Modular Upcoming Slot */
+    .project-card-modular-slot {
+      background: rgba(255, 255, 255, 0.6);
+      border: 2px dashed rgba(185, 155, 125, 0.4);
+      border-radius: 10px;
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      min-height: 240px;
+      transition: all 0.2s ease;
+    }
+
+    .project-card-modular-slot:hover {
+      border-color: var(--fluid-orange);
+      background: #ffffff;
+      box-shadow: 0 8px 24px rgba(234, 88, 12, 0.08);
+    }
+
+    .slot-icon {
+      font-size: 1.8rem;
+      color: var(--fluid-orange);
+      margin-bottom: 12px;
+      opacity: 0.85;
+    }
+
+    .slot-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+
+    .slot-desc {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      max-width: 320px;
+      line-height: 1.5;
+    }
+
+    /* TAB 2: WORK EXPERIENCE */
+    .experience-list {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      margin-bottom: 36px;
+    }
+
+    .experience-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 26px 28px;
+      box-shadow: 0 6px 20px rgba(70, 50, 30, 0.04);
+      transition: all 0.2s ease;
+    }
+
+    .experience-card:hover {
+      border-color: var(--border-hover);
+      box-shadow: 0 10px 30px rgba(234, 88, 12, 0.09);
+    }
+
+    .exp-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .exp-role-title {
+      font-size: 1.18rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+
+    .exp-company {
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: var(--fluid-orange-dark);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .exp-period {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      background: var(--surface-warm);
+      padding: 4px 10px;
+      border-radius: 4px;
+      border: 1px solid var(--border);
+      white-space: nowrap;
+    }
+
+    .exp-responsibilities {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+      margin: 16px 0 18px;
+    }
+
+    .exp-responsibilities li {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .exp-bullet {
+      color: var(--fluid-orange);
+      font-size: 0.75rem;
+      margin-top: 5px;
+      flex-shrink: 0;
+    }
+
+    /* Technical Inventory Stack Section */
+    .stack-section {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 28px;
+      margin-bottom: 40px;
+      box-shadow: 0 4px 18px rgba(70, 50, 30, 0.04);
+    }
+
+    .stack-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      margin-top: 18px;
+    }
+
+    .stack-col h4 {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--text);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 12px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .stack-col h4 i {
+      color: var(--fluid-orange);
+      font-size: 0.8rem;
+    }
+
+    .stack-items {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+
+    .stack-item {
+      font-size: 0.84rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .stack-item::before {
+      content: "›";
+      color: var(--fluid-orange);
+      font-weight: bold;
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 35px 0 45px;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-top: auto;
+      background: rgba(247, 243, 235, 0.6);
     }
 
     .footer-content {
@@ -546,23 +846,50 @@
       color: var(--text-muted);
       text-decoration: none;
       transition: color 0.15s ease;
-      font-family: var(--font-mono);
-      font-size: 0.85rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
     }
 
     .footer-links a:hover {
-      color: var(--pacman-yellow);
+      color: var(--fluid-orange);
     }
 
-    @media (max-width: 768px) {
+    @media (max-width: 820px) {
+      .dossier-grid {
+        grid-template-columns: 1fr;
+      }
+      .specs-strip {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .projects-grid {
+        grid-template-columns: 1fr;
+      }
+      .stack-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 600px) {
       .nav-inner {
         flex-direction: column;
         height: auto;
         padding: 12px 0;
         gap: 10px;
       }
-      .brand-pixel-title {
-        font-size: 0.62rem;
+      .hero-title {
+        font-size: 1.8rem;
+      }
+      .tabs-nav {
+        flex-direction: column;
+        gap: 0;
+      }
+      .tab-trigger {
+        width: 100%;
+        justify-content: flex-start;
+      }
+      .stack-grid {
+        grid-template-columns: 1fr;
       }
       .footer-content {
         flex-direction: column;
@@ -573,12 +900,12 @@
 </head>
 <body>
 
-  <!-- Sticky Top Navigation (At the very top) -->
+  <!-- Sticky Top Navigation -->
   <nav>
     <div class="container nav-inner">
       <a href="./index.html" class="nav-brand">
-        <span class="pacman-char">ᗧ</span>
-        <span class="brand-pixel-title" data-i18n="brand_title">Portfolio de Iván Alejos</span>
+        <span class="fluid-drop-icon"><i class="fa-solid fa-droplet"></i></span>
+        <span class="brand-title-fluid" data-i18n="brand_title">Portfolio de Iván Alejos</span>
       </a>
 
       <div class="nav-actions">
@@ -596,9 +923,9 @@
             </a>
           </li>
           <li>
-            <a href="./graphics.html" class="nav-link nav-link-graph active" id="nav-graphics">
-              <span class="ghost-icon">ᗣ</span>
-              <span data-i18n="nav_graphics">Gráficos & VFX</span>
+            <a href="./graphics.html" class="nav-link active" id="nav-graphics">
+              <i class="fa-solid fa-droplet" style="color: var(--fluid-orange);"></i>
+              <span data-i18n="nav_graphics">Simulación & Gráficos</span>
             </a>
           </li>
         </ul>
@@ -612,239 +939,383 @@
     </div>
   </nav>
 
-  <!-- Retro Arcade Top HUD (Below Navigation) -->
-  <div class="arcade-hud-top">
-    <div class="container hud-inner">
-      <div class="hud-item">
-        <span class="hud-label">1UP</span>
-        <span class="hud-val">1999</span>
+  <!-- Hero Header -->
+  <section class="hero-graphics">
+    <div class="container">
+      <div class="track-tag">
+        <i class="fa-solid fa-atom"></i>
+        <span data-i18n="track_tag">Simulación Numérica & Computación Gráfica</span>
       </div>
-      <div class="hud-item">
-        <span class="hud-label">HIGH SCORE</span>
-        <span class="hud-val">202600</span>
+
+      <h1 class="hero-title" data-i18n="hero_title">
+        Simulación de Fluidos, Física Numérica & Pipeline Gráfico
+      </h1>
+      
+      <div class="hero-subtitle" data-i18n="hero_subtitle">
+        SideFX Houdini · Solvers Híbridos PIC/FLIP · Programación en VEX · OpenVDB · C++ / OpenGL
       </div>
-      <div class="hud-item">
-        <span class="hud-label">STAGE</span>
-        <span class="hud-val">01 VFX</span>
+
+      <p class="hero-bio" data-i18n="hero_bio">
+        Especialización técnica en dinámica de fluidos incompresible basada en las ecuaciones de Navier-Stokes, acoplamiento Lagrangiano-Euleriano con solvers híbridos (PIC/FLIP), programación vectorial en VEX, computación gráfica en C++ y desarrollo de herramientas de pipeline para producción visual y simuladores interactivos.
+      </p>
+
+      <div class="hero-actions">
+        <a href="mailto:ivanalejosgomez99@gmail.com" class="btn btn-primary">
+          <i class="fa-regular fa-envelope"></i>
+          <span data-i18n="btn_contact">Contactar</span>
+        </a>
+        <a href="./cv_ivan_alejos.pdf" target="_blank" class="btn btn-outline">
+          <i class="fa-regular fa-file-pdf"></i>
+          <span data-i18n="btn_cv">CV Especializado (PDF)</span>
+        </a>
       </div>
-      <div class="hud-item">
-        <span class="hud-label">CREDIT</span>
-        <span class="hud-val">02</span>
+    </div>
+  </section>
+
+  <!-- Interactive Viscous Liquid Simulation Canvas -->
+  <div class="container">
+    <div class="fluid-canvas-wrapper">
+      <div class="fluid-canvas-header">
+        <div class="fluid-status-badge">
+          <span class="status-dot"></span>
+          <span data-i18n="canvas_status">SIMULACIÓN INTERACTIVA DE FLUIDO VISCOSO (NAVIER-STOKES PIC/FLIP)</span>
+        </div>
+        <div data-i18n="canvas_params">VISCOSITY: 2.15 Pa·s // SOLVER: ADAPTIVE BLEND // SURFACE TENSION: ON</div>
+      </div>
+
+      <div class="fluid-canvas-container" id="canvasContainer">
+        <canvas id="fluidCanvas"></canvas>
+        <div class="canvas-hint" data-i18n="canvas_hint">
+          <i class="fa-solid fa-arrow-pointer"></i> Pasa el cursor para agitar el fluido viscoso
+        </div>
       </div>
     </div>
   </div>
 
-  <!-- Interactive Pac-Man Canvas Banner (Below Navigation) -->
-  <div class="pacman-canvas-container">
-    <canvas id="pacmanCanvas"></canvas>
-  </div>
-
-  <!-- Arcade Hero Header (Focused on Graphics Track - No personal photo or general bio) -->
-  <header class="hero">
+  <!-- PESTAÑAS INTERACTIVAS: PROYECTOS / EXPERIENCIA LABORAL -->
+  <section class="tabs-section">
     <div class="container">
-      <div class="arcade-hero-cabinet">
-        <div class="hero-text">
-          <div class="arcade-hud-mini">
-            <span><span class="label">STAGE</span> <span class="val">01 VFX</span></span>
-            <span><span class="label">MISSION</span> <span class="val">PHYSICS SIMULATION</span></span>
+      <div class="tabs-nav">
+        <button class="tab-trigger active" id="tab-btn-projects" onclick="switchTab('projects')">
+          <i class="fa-solid fa-layer-group tab-icon"></i>
+          <span data-i18n="tab_projects">01. Proyectos de Simulación & Gráficos</span>
+        </button>
+
+        <button class="tab-trigger" id="tab-btn-experience" onclick="switchTab('experience')">
+          <i class="fa-solid fa-briefcase tab-icon"></i>
+          <span data-i18n="tab_experience">02. Experiencia Laboral en el Sector</span>
+        </button>
+      </div>
+
+      <!-- PESTAÑA 1: PROYECTOS -->
+      <div class="tab-pane active" id="pane-projects">
+        <div class="section-header-compact">
+          <div class="section-label" data-i18n="label_tfm">PROYECTO DESTACADO (MSc)</div>
+          <h2 class="section-heading" data-i18n="heading_tfm">Simulación Avanzada de Fluidos en Houdini mediante Métodos PIC/FLIP</h2>
+        </div>
+
+        <!-- TFM Flagship Card -->
+        <article class="project-card-featured">
+          <div class="project-top-row">
+            <div>
+              <h3 class="project-title" data-i18n="tfm_title">
+                Solver Numérico Híbrido de Fluidos Incompresibles Partícula-Malla
+              </h3>
+              <span class="project-context" data-i18n="tfm_context">
+                Trabajo de Fin de Máster (MSc) · Universidad Rey Juan Carlos (2023 - 2025)
+              </span>
+            </div>
           </div>
-          
-          <h1 data-i18n="hero_title">COMPUTACIÓN GRÁFICA & SIMULACIÓN 3D</h1>
-          <div class="hero-subtitle" data-i18n="hero_subtitle">SideFX Houdini · Solvers Físicos PIC/FLIP · Programación VEX · Dinámicas Numéricas</div>
-          
-          <p class="track-desc" data-i18n="track_desc">
-            Especialización técnica en simulación numérica de fluidos multifásicos basada en las ecuaciones de Navier-Stokes, cálculo procedural vectorial en VEX, estructuras de aceleración volumétrica OpenVDB y herramientas de desarrollo para pipelines de efectos visuales y gráficos interactivos.
+
+          <p class="project-desc" data-i18n="tfm_desc">
+            Investigación, formulación matemática e implementación de un solver numérico para fluidos incompresibles basado en las ecuaciones de Navier-Stokes dentro de SideFX Houdini. La arquitectura desacopla el transporte advectivo Lagrangiano (partículas libres) del cálculo Euleriano de presiones sobre una grilla espacial tridimensional, contrarrestando la pérdida de energía cinética inherente a los métodos PIC clásicos mediante un blend adaptativo FLIP.
           </p>
 
-          <div class="hero-links">
-            <a href="mailto:ivanalejosgomez99@gmail.com" class="btn btn-pacman">
-              <i class="fa-regular fa-envelope"></i> <span data-i18n="btn_contact">Contactar</span>
-            </a>
-            <a href="./cv_ivan_alejos.pdf" target="_blank" class="btn btn-arcade-sec">
-              <i class="fa-regular fa-file-pdf"></i> <span data-i18n="btn_cv">CV Especializado (PDF)</span>
-            </a>
-            <a href="https://github.com/ivanalejosgomez" target="_blank" class="btn btn-arcade-sec">
-              <i class="fa-brands fa-github"></i> GitHub
-            </a>
+          <div class="tech-badges">
+            <span class="tech-badge highlight">SideFX Houdini</span>
+            <span class="tech-badge highlight">VEX Vectorized</span>
+            <span class="tech-badge highlight">Hybrid PIC/FLIP</span>
+            <span class="tech-badge">Ecuaciones Navier-Stokes</span>
+            <span class="tech-badge">Helmholtz-Hodge Projection</span>
+            <span class="tech-badge">OpenVDB Sparse Grids</span>
+            <span class="tech-badge">Level-Set Meshing</span>
+            <span class="tech-badge">Solaris / Karma PBR</span>
+            <span class="tech-badge">Python Custom DOPs</span>
+          </div>
+
+          <!-- Technical Dossier: 4 Pillars -->
+          <div class="dossier-grid">
+            <div class="dossier-item">
+              <div class="dossier-header">
+                <i class="fa-solid fa-calculator dossier-icon"></i>
+                <h4 data-i18n="dossier_math_h">Navier-Stokes & Proyección Incompresible</h4>
+              </div>
+              <p data-i18n="dossier_math_p">
+                Resolución de la ecuación de Poisson para el campo de presiones mediante descomposición Helmholtz-Hodge, garantizando un campo de velocidades con divergencia nula (\(\nabla \cdot \mathbf{u} = 0\)) y estricta conservación de volumen.
+              </p>
+            </div>
+
+            <div class="dossier-item">
+              <div class="dossier-header">
+                <i class="fa-solid fa-shuffle dossier-icon"></i>
+                <h4 data-i18n="dossier_vex_h">Acoplamiento Lagrangiano-Euleriano</h4>
+              </div>
+              <p data-i18n="dossier_vex_p">
+                Transferencia trilineal de masa y momento desde partículas libres hacia la grilla celular; resolución de presiones en celdas MAC escalonadas y retro-interpolación de aceleraciones con mezcla adaptativa (95% FLIP / 5% PIC) para estabilidad visual.
+              </p>
+            </div>
+
+            <div class="dossier-item">
+              <div class="dossier-header">
+                <i class="fa-solid fa-cubes dossier-icon"></i>
+                <h4 data-i18n="dossier_vdb_h">Grillas Dispersas OpenVDB & Tensión</h4>
+              </div>
+              <p data-i18n="dossier_vdb_p">
+                Uso de estructuras de datos volumétricas jerárquicas dispersas con OpenVDB, permitiendo simular dominios de alta resolución con más de 2 millones de partículas sin sobrecargar la memoria RAM física del equipo.
+              </p>
+            </div>
+
+            <div class="dossier-item">
+              <div class="dossier-header">
+                <i class="fa-solid fa-wand-magic-sparkles dossier-icon"></i>
+                <h4 data-i18n="dossier_pipe_h">Extracción Level-Set & Shading Físico</h4>
+              </div>
+              <p data-i18n="dossier_pipe_p">
+                Reconstrucción de superficie continua con filtro de suavizado gaussiano adaptativo y renderizado en Karma/Solaris con coeficientes dieléctricos de absorción volumétrica y refracción física exacta.
+              </p>
+            </div>
+          </div>
+
+          <!-- Technical Specs Strip -->
+          <div class="specs-strip">
+            <div class="spec-box">
+              <div class="spec-label" data-i18n="spec_particles_label">Recuento de Partículas</div>
+              <div class="spec-value">2.4M + Partículas</div>
+            </div>
+            <div class="spec-box">
+              <div class="spec-label" data-i18n="spec_solver_label">Algoritmo Numérico</div>
+              <div class="spec-value">PIC / FLIP Adaptativo</div>
+            </div>
+            <div class="spec-box">
+              <div class="spec-label" data-i18n="spec_integration_label">Integración Temporal</div>
+              <div class="spec-value">Runge-Kutta 4 (RK4)</div>
+            </div>
+            <div class="spec-box">
+              <div class="spec-label" data-i18n="spec_render_label">Motor de Render</div>
+              <div class="spec-value">Karma XPU / PBR</div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Secondary Projects & Modular Expansion Slot -->
+        <div class="projects-grid">
+          <!-- TFG: Computer Vision & Real-time Tracking -->
+          <div class="project-card-standard">
+            <div>
+              <h3 data-i18n="cv_proj_title">Visión por Computador & Tracking Cinemático en Tiempo Real</h3>
+              <div class="project-inst" data-i18n="cv_proj_inst">
+                Trabajo de Fin de Grado (BSc) · Universitat de València (2021 - 2022)
+              </div>
+              <p data-i18n="cv_proj_p">
+                Algoritmo de segmentación espacial y seguimiento cinemático en tiempo real sobre transmisiones de vídeo procedentes de cámaras industriales. Optimización matricial con OpenCV y C++, filtros morfológicos continuos, reducción de ruido y arquitectura de interfaz gráfica para análisis de trayectorias.
+              </p>
+            </div>
+            <div class="tech-badges">
+              <span class="tech-badge">C++</span>
+              <span class="tech-badge">OpenCV</span>
+              <span class="tech-badge">Tracking Cinemático</span>
+              <span class="tech-badge">Cámaras Industriales</span>
+            </div>
+          </div>
+
+          <!-- Modular Slot: Ready for more graphics & VFX projects -->
+          <div class="project-card-modular-slot">
+            <i class="fa-solid fa-flask-vial slot-icon"></i>
+            <h3 class="slot-title" data-i18n="slot_title">Próximos Proyectos de Simulación & R&D</h3>
+            <p class="slot-desc" data-i18n="slot_desc">
+              Espacio modular preparado para la incorporación de nuevos desarrollos: solvers SPH acelerados por GPU con CUDA/C++, shaders procedurales en tiempo real y herramientas de pipeline USD para producción VFX.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- PESTAÑA 2: EXPERIENCIA LABORAL EN EL SECTOR -->
+      <div class="tab-pane" id="pane-experience">
+        <div class="section-header-compact">
+          <div class="section-label" data-i18n="label_exp">TRAYECTORIA PROFESIONAL</div>
+          <h2 class="section-heading" data-i18n="heading_exp">Experiencia en Simulación, Gráficos & Multimedia</h2>
+        </div>
+
+        <div class="experience-list">
+          <!-- EXP 1: SIMODAR TRAINING SOLUTIONS SL -->
+          <article class="experience-card">
+            <div class="exp-header">
+              <div>
+                <h3 class="exp-role-title" data-i18n="sim_role">
+                  Ingeniero de Software y Programación Gráfica (C++ / OpenGL) & Pipeline
+                </h3>
+                <div class="exp-company">
+                  <i class="fa-solid fa-building"></i>
+                  <span>SIMODAR TRAINING SOLUTIONS SL · Paterna, Valencia</span>
+                </div>
+              </div>
+              <div class="exp-period" data-i18n="sim_period">Jul. 2024 - Jul. 2026</div>
+            </div>
+
+            <div class="tech-badges">
+              <span class="tech-badge highlight">C++20</span>
+              <span class="tech-badge highlight">OpenGL 4.6</span>
+              <span class="tech-badge">Simulación Física</span>
+              <span class="tech-badge">Python / Qt / PySide</span>
+              <span class="tech-badge">Telemetría de Hardware</span>
+              <span class="tech-badge">Redes UDP / TCP</span>
+              <span class="tech-badge">Linux & Windows</span>
+              <span class="tech-badge">Git / GitLab</span>
+            </div>
+
+            <ul class="exp-responsibilities">
+              <li>
+                <i class="fa-solid fa-circle-check exp-bullet"></i>
+                <span data-i18n="sim_p1">
+                  <strong>Arquitectura de Simuladores en Tiempo Real:</strong> Diseño e implementación de simuladores interactivos de formación técnica utilizando C++ y OpenGL, asegurando tasas de refresco constantes (60+ FPS) con renderizado de baja latencia.
+                </span>
+              </li>
+              <li>
+                <i class="fa-solid fa-circle-check exp-bullet"></i>
+                <span data-i18n="sim_p2">
+                  <strong>Física y Cinemática Multicuerpo:</strong> Integración de dinámicas físicas, algoritmos cinemáticos y modelos tridimensionales con instrumentación física real y sensores mecatrónicos de entrenamiento.
+                </span>
+              </li>
+              <li>
+                <i class="fa-solid fa-circle-check exp-bullet"></i>
+                <span data-i18n="sim_p3">
+                  <strong>Optimización y Perfilado GPU/CPU:</strong> Análisis analítico y mitigación de cuellos de botella en shaders, llamadas de dibujo y asignación de memoria dinámica para ejecución fluida en entornos de producción.
+                </span>
+              </li>
+              <li>
+                <i class="fa-solid fa-circle-check exp-bullet"></i>
+                <span data-i18n="sim_p4">
+                  <strong>Herramientas de Pipeline & GUIs (Qt/PySide):</strong> Creación de aplicaciones modulares internas en Python y Qt/PySide para automatizar la calibración de hardware óptico, conversión de assets y tests de estrés sobre los subsistemas.
+                </span>
+              </li>
+              <li>
+                <i class="fa-solid fa-circle-check exp-bullet"></i>
+                <span data-i18n="sim_p5">
+                  <strong>Sincronización de Red y Telemetría:</strong> Implementación de protocolos bidireccionales basados en sockets UDP/TCP y WebSockets para la comunicación síncrona entre motores gráficos distribuidos y hardware de cabina.
+                </span>
+              </li>
+            </ul>
+          </article>
+
+          <!-- EXP 2: CUBICUP DESIGN HOME SL -->
+          <article class="experience-card">
+            <div class="exp-header">
+              <div>
+                <h3 class="exp-role-title" data-i18n="cub_role">
+                  Integrador Multimedia y Diseño UI/Web
+                </h3>
+                <div class="exp-company">
+                  <i class="fa-solid fa-building"></i>
+                  <span>Cubicup Design Home SL · Valencia</span>
+                </div>
+              </div>
+              <div class="exp-period" data-i18n="cub_period">Feb. 2021 - May. 2021</div>
+            </div>
+
+            <div class="tech-badges">
+              <span class="tech-badge highlight">Procesamiento Digital de Imagen</span>
+              <span class="tech-badge">Diseño UI/UX</span>
+              <span class="tech-badge">Assets Vectoriales & 2D</span>
+              <span class="tech-badge">Optimización de Recursos</span>
+              <span class="tech-badge">Soporte Técnico Multimedia</span>
+            </div>
+
+            <ul class="exp-responsibilities">
+              <li>
+                <i class="fa-solid fa-circle-check exp-bullet"></i>
+                <span data-i18n="cub_p1">
+                  <strong>Procesamiento y Edición Digital de Imagen:</strong> Tratamiento y optimización de recursos gráficos, renders arquitectónicos y material fotográfico digital para maximizar la calidad visual y el engagement en plataformas corporativas.
+                </span>
+              </li>
+              <li>
+                <i class="fa-solid fa-circle-check exp-bullet"></i>
+                <span data-i18n="cub_p2">
+                  <strong>Diseño de Interfaces de Usuario (UI/UX):</strong> Elaboración de interfaces funcionales, componentes visuales e iconografía vectorial para la web de soporte y herramientas internas de la empresa.
+                </span>
+              </li>
+              <li>
+                <i class="fa-solid fa-circle-check exp-bullet"></i>
+                <span data-i18n="cub_p3">
+                  <strong>Gestión de Activos Digitales:</strong> Catalogación estructurada, compresión sin pérdida y control de calidad de material multimedia interactivo, colaborando con los equipos de marketing y desarrollo web.
+                </span>
+              </li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Technical Stack Inventory -->
+  <section class="container">
+    <div class="stack-section">
+      <div class="section-label" data-i18n="label_stack">INVENTARIO TECNOLÓGICO</div>
+      <h3 class="section-heading" data-i18n="heading_stack">Herramientas de Simulación, Gráficos & Pipeline</h3>
+
+      <div class="stack-grid">
+        <div class="stack-col">
+          <h4><i class="fa-solid fa-droplet"></i> <span data-i18n="stack_s1">Fluidos & VFX</span></h4>
+          <div class="stack-items">
+            <div class="stack-item">SideFX Houdini (DOPs/SOPs)</div>
+            <div class="stack-item">PIC / FLIP Physics Solvers</div>
+            <div class="stack-item">VEX Procedural Scripting</div>
+            <div class="stack-item">OpenVDB Sparse Grids</div>
+            <div class="stack-item">Karma / Solaris PBR</div>
+          </div>
+        </div>
+
+        <div class="stack-col">
+          <h4><i class="fa-solid fa-code"></i> <span data-i18n="stack_s2">Programación Gráfica</span></h4>
+          <div class="stack-items">
+            <div class="stack-item">C++ Moderno (C++17/20)</div>
+            <div class="stack-item">OpenGL 4.6 & GLSL</div>
+            <div class="stack-item">Python 3 (Numpy / Scipy)</div>
+            <div class="stack-item">OpenCV & Visión Artificial</div>
+            <div class="stack-item">C# & Unity Engine</div>
+          </div>
+        </div>
+
+        <div class="stack-col">
+          <h4><i class="fa-solid fa-screwdriver-wrench"></i> <span data-i18n="stack_s3">Pipeline & Tools</span></h4>
+          <div class="stack-items">
+            <div class="stack-item">Qt / PySide GUIs</div>
+            <div class="stack-item">Redes UDP / TCP Sockets</div>
+            <div class="stack-item">Git & GitLab CI/CD</div>
+            <div class="stack-item">Linux (Ubuntu/Debian)</div>
+            <div class="stack-item">Windows Server / Desktop</div>
+          </div>
+        </div>
+
+        <div class="stack-col">
+          <h4><i class="fa-solid fa-square-root-variable"></i> <span data-i18n="stack_s4">Matemáticas Aplicadas</span></h4>
+          <div class="stack-items">
+            <div class="stack-item">Ecuaciones Navier-Stokes</div>
+            <div class="stack-item">Álgebra Lineal & Cálculo 3D</div>
+            <div class="stack-item">Métodos Runge-Kutta (RK4)</div>
+            <div class="stack-item">Proyección Helmholtz-Hodge</div>
+            <div class="stack-item">Cinemática de Cuerpos Rígidos</div>
           </div>
         </div>
       </div>
     </div>
-  </header>
+  </section>
 
-  <main class="container">
-
-    <!-- FEATURED MASTER THESIS PROJECT (TFM) -->
-    <section class="section-block">
-      <div class="section-head">
-        <span class="section-label" data-i18n="label_tfm">BONUS STAGE · MASTER THESIS (TFM)</span>
-        <h2 class="section-heading" data-i18n="heading_tfm">Simulación de Fluidos en Houdini mediante PIC/FLIP</h2>
-      </div>
-
-      <article class="arcade-card">
-        <div class="arcade-card-header">
-          <div>
-            <h3 class="arcade-project-title" data-i18n="tfm_card_title">Solver Numérico Multifásico Híbrido Partícula-Rejilla</h3>
-            <div style="font-size: 0.82rem; color: var(--ghost-cyan); margin-top: 4px;" data-i18n="tfm_inst">Trabajo de Fin de Máster (MSc) · Universidad Rey Juan Carlos (2023 - 2025)</div>
-          </div>
-          <span class="arcade-project-meta">SCORE: 10/10</span>
-        </div>
-
-        <p class="project-desc" data-i18n="tfm_p1">
-          Investigación, formulación matemática e implementación de un solver numérico para la simulación de fluidos incompresibles basado en las ecuaciones de Navier-Stokes. El núcleo del desarrollo resuelve la alternancia entre la perspectiva Lagrangiana (partículas libres) y la Euleriana (rejilla espacial tridimensional), compensando la pérdida de energía cinética inherente al método PIC clásico mediante la combinación adaptativa con FLIP.
-        </p>
-
-        <!-- Technical Breakdown Grid -->
-        <div class="tech-dossier">
-          <div class="tech-dossier-grid">
-            <div class="dossier-item">
-              <h4 data-i18n="dossier_math_h">Navier-Stokes & Proyección</h4>
-              <p data-i18n="dossier_math_p">Resolución de la ecuación de Poisson para el campo de presión con descomposición de Helmholtz-Hodge para garantizar divergencia nula.</p>
-            </div>
-            <div class="dossier-item">
-              <h4 data-i18n="dossier_vex_h">Arquitectura VEX / Python</h4>
-              <p data-i18n="dossier_vex_p">Operadores vectorizados multi-hilo en Houdini DOPs/SOPs para advección de partículas, interpolación trilineal y cálculo de curvatura superficial.</p>
-            </div>
-            <div class="dossier-item">
-              <h4 data-i18n="dossier_vdb_h">Mallas OpenVDB Escalar</h4>
-              <p data-i18n="dossier_vdb_p">Estructuración volumétrica jerárquica dispersa para simular dominios de alta resolución con más de 2 millones de partículas sin saturación de memoria.</p>
-            </div>
-            <div class="dossier-item">
-              <h4 data-i18n="dossier_pipe_h">Render Karma / Shading</h4>
-              <p data-i18n="dossier_pipe_p">Extracción de superficies mediante Level-Set meshing y shaders físicos de atenuación dieléctrica e índice de refracción para agua realista.</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="tag-list">
-          <span class="tag tag-alt">Houdini FX</span>
-          <span class="tag tag-alt">VEX</span>
-          <span class="tag">PIC / FLIP Solver</span>
-          <span class="tag">Navier-Stokes</span>
-          <span class="tag">OpenVDB</span>
-          <span class="tag">Karma / Mantra</span>
-          <span class="tag">Fluid Dynamics</span>
-          <span class="tag">Python</span>
-        </div>
-      </article>
-    </section>
-
-    <!-- OTHER COMPUTER GRAPHICS & SIMULATION WORK -->
-    <section class="section-block">
-      <div class="section-head">
-        <span class="section-label" data-i18n="label_other">STAGE 02 · PROYECTOS GRÁFICOS & SIMULACIÓN</span>
-        <h2 class="section-heading" data-i18n="heading_other">Visión por Computador, Motores 3D & Simulación</h2>
-      </div>
-
-      <!-- TFG Computer Vision -->
-      <article class="arcade-card">
-        <div class="arcade-card-header">
-          <div>
-            <h3 class="arcade-project-title" data-i18n="cv_proj_title">Visión Artificial y Tracking de Movimiento en Tiempo Real</h3>
-            <div style="font-size: 0.82rem; color: var(--ghost-cyan); margin-top: 4px;" data-i18n="cv_proj_inst">Trabajo de Fin de Grado (BSc) · Universitat de València (2021 - 2022)</div>
-          </div>
-          <span class="arcade-project-meta">REAL-TIME CV</span>
-        </div>
-
-        <p class="project-desc" data-i18n="cv_proj_p">
-          Algoritmo cinemático de segmentación y seguimiento espacial en tiempo real sobre transmisiones de vídeo procedentes de cámaras industriales. Optimización del preprocesamiento matricial mediante filtros morfológicos, reducción de ruido en flujo de fotogramas continuos y arquitectura de interfaz gráfica para análisis de trayectorias.
-        </p>
-
-        <div class="tag-list">
-          <span class="tag tag-alt">OpenCV</span>
-          <span class="tag">Python</span>
-          <span class="tag">C++</span>
-          <span class="tag">Spatial Tracking</span>
-          <span class="tag">Image Processing</span>
-        </div>
-      </article>
-
-      <!-- SIMODAR Simulation Hardware & Systems -->
-      <article class="arcade-card">
-        <div class="arcade-card-header">
-          <div>
-            <h3 class="arcade-project-title" data-i18n="sim_proj_title">Arquitectura de Simulación Interactiva y Telemetría</h3>
-            <div style="font-size: 0.82rem; color: var(--ghost-cyan); margin-top: 4px;" data-i18n="sim_proj_inst">SIMODAR Training Solutions SL (2024 - 2026)</div>
-          </div>
-          <span class="arcade-project-meta">SIM SYSTEMS</span>
-        </div>
-
-        <p class="project-desc" data-i18n="sim_proj_p">
-          Integración de instrumentación física para simuladores de entrenamiento técnico con motores de simulación en red. Protocolos de sincronización UDP/TCP con baja latencia, monitorización de señales cinemáticas y automatización de pruebas de estrés sobre subsistemas de hardware.
-        </p>
-
-        <div class="tag-list">
-          <span class="tag tag-alt">C++</span>
-          <span class="tag">Networking UDP/TCP</span>
-          <span class="tag">Hardware Interfacing</span>
-          <span class="tag">Real-Time Telemetry</span>
-          <span class="tag">Linux / Windows</span>
-        </div>
-      </article>
-    </section>
-
-    <!-- GRAPHICS TECHNICAL STACK -->
-    <section class="section-block">
-      <div class="section-head">
-        <span class="section-label" data-i18n="label_stack">STAGE 03 · INVENTARIO TÉCNICO</span>
-        <h2 class="section-heading" data-i18n="heading_stack">Tecnologías de Gráficos & VFX</h2>
-      </div>
-
-      <div class="skills-block">
-        <div class="skill-group">
-          <h4 data-i18n="stack_g1_title">Procedural & VFX</h4>
-          <div class="skill-items">
-            <span class="skill-item">SideFX Houdini (SOPs, DOPs)</span>
-            <span class="skill-item">Programación VEX Vectorizada</span>
-            <span class="skill-item">Estructuras OpenVDB / Mallas</span>
-            <span class="skill-item">Solvers PIC, FLIP & SPH</span>
-            <span class="skill-item">Render Karma & Shading Físico</span>
-          </div>
-        </div>
-
-        <div class="skill-group">
-          <h4 data-i18n="stack_g2_title">Lenguajes Gráficos</h4>
-          <div class="skill-items">
-            <span class="skill-item">Python (Tooling & APIs)</span>
-            <span class="skill-item">C++ (Estructuras de Datos 3D)</span>
-            <span class="skill-item">C# (Unity Engine Scripting)</span>
-            <span class="skill-item">GLSL / HLSL Shader Basics</span>
-            <span class="skill-item">Bash / Linux Automation</span>
-          </div>
-        </div>
-
-        <div class="skill-group">
-          <h4 data-i18n="stack_g3_title">Visión & Tiempo Real</h4>
-          <div class="skill-items">
-            <span class="skill-item">OpenCV (Procesamiento de Imagen)</span>
-            <span class="skill-item">Tracking Espacial & Cinemática</span>
-            <span class="skill-item">Unity 3D Interactive Sim</span>
-            <span class="skill-item">Conceptos Formatos USD / Alembic</span>
-            <span class="skill-item">Integración de Periféricos & HW</span>
-          </div>
-        </div>
-
-        <div class="skill-group">
-          <h4 data-i18n="stack_g4_title">Matemáticas Aplicadas</h4>
-          <div class="skill-items">
-            <span class="skill-item">Ecuaciones Navier-Stokes</span>
-            <span class="skill-item">Álgebra Lineal & Espacios 3D</span>
-            <span class="skill-item">Cálculo Diferencial & Gradientes</span>
-            <span class="skill-item">Métodos Numéricos Discretos</span>
-            <span class="skill-item">Interacción Fluido-Sólido (FSI)</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-  </main>
-
-  <!-- Arcade Footer -->
+  <!-- Footer -->
   <footer>
     <div class="container footer-content">
       <div>
-        <span style="color: var(--pacman-yellow); font-family: var(--font-pixel); font-size: 0.65rem;">© 2026 IVÁN ALEJOS GÓMEZ</span>
-        <span style="margin: 0 8px; color: var(--border-maze);">·</span>
+        <strong style="color: var(--text);">Iván Alejos Gómez</strong> — 
+        <span data-i18n="footer_role">Simulación de Fluidos & Computación Gráfica</span> · 
         <span data-i18n="footer_loc">Valencia, España</span>
       </div>
 
@@ -856,201 +1327,335 @@
     </div>
   </footer>
 
-  <!-- Pac-Man Canvas Banner Script -->
   <script>
-    const canvas = document.getElementById('pacmanCanvas');
+    // TAB SWITCHING LOGIC
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-trigger').forEach(btn => btn.classList.remove('active'));
+      document.querySelectorAll('.tab-pane').forEach(pane => pane.classList.remove('active'));
+
+      const activeBtn = document.getElementById('tab-btn-' + tabId);
+      const activePane = document.getElementById('pane-' + tabId);
+
+      if (activeBtn) activeBtn.classList.add('active');
+      if (activePane) activePane.classList.add('active');
+    }
+
+    // VISCOUS ORANGE FLUID CANVAS SIMULATION
+    const canvas = document.getElementById('fluidCanvas');
     const ctx = canvas.getContext('2d');
+    let width, height;
+    let particles = [];
+    const NUM_PARTICLES = 50;
+
+    let mouse = {
+      x: -1000,
+      y: -1000,
+      vx: 0,
+      vy: 0,
+      lastX: -1000,
+      lastY: -1000,
+      isOver: false
+    };
 
     function resizeCanvas() {
-      canvas.width = canvas.parentElement.clientWidth;
-      canvas.height = canvas.parentElement.clientHeight;
-    }
-    window.addEventListener('resize', resizeCanvas);
-    resizeCanvas();
-
-    // Pac-Man Animation State
-    let pacmanX = -40;
-    const pacmanY = 24;
-    const pacmanRadius = 14;
-    let mouthAngle = 0.2;
-    let mouthSpeed = 0.03;
-
-    // Ghosts trailing Pac-Man
-    const ghosts = [
-      { offset: -50, color: '#ff0000' }, // Blinky
-      { offset: -85, color: '#ffb8ff' }, // Pinky
-      { offset: -120, color: '#00ffff' }, // Inky
-      { offset: -155, color: '#ffb852' }  // Clyde
-    ];
-
-    function drawGhost(x, y, color) {
-      if (x < -30 || x > canvas.width + 30) return;
-      const r = 13;
-      ctx.fillStyle = color;
-      ctx.beginPath();
-      ctx.arc(x, y - 2, r, Math.PI, 0, false);
-      ctx.lineTo(x + r, y + 10);
-      
-      // Wavy bottom tentacles
-      ctx.lineTo(x + (r * 0.6), y + 6);
-      ctx.lineTo(x + (r * 0.2), y + 10);
-      ctx.lineTo(x - (r * 0.2), y + 6);
-      ctx.lineTo(x - (r * 0.6), y + 10);
-      ctx.lineTo(x - r, y + 6);
-      ctx.closePath();
-      ctx.fill();
-
-      // White eyes
-      ctx.fillStyle = '#ffffff';
-      ctx.beginPath();
-      ctx.arc(x - 4, y - 4, 3.5, 0, Math.PI * 2);
-      ctx.arc(x + 4, y - 4, 3.5, 0, Math.PI * 2);
-      ctx.fill();
-
-      // Blue pupils looking right
-      ctx.fillStyle = '#2121ff';
-      ctx.beginPath();
-      ctx.arc(x - 3, y - 4, 1.8, 0, Math.PI * 2);
-      ctx.arc(x + 5, y - 4, 1.8, 0, Math.PI * 2);
-      ctx.fill();
+      const container = canvas.parentElement;
+      width = container.clientWidth;
+      height = container.clientHeight;
+      canvas.width = width * window.devicePixelRatio;
+      canvas.height = height * window.devicePixelRatio;
+      ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
     }
 
-    function animate() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    class FluidDrop {
+      constructor() {
+        this.reset(true);
+      }
 
-      // Draw horizontal maze line
-      ctx.strokeStyle = '#2121ff';
-      ctx.lineWidth = 2;
-      ctx.beginPath();
-      ctx.moveTo(0, 2);
-      ctx.lineTo(canvas.width, 2);
-      ctx.moveTo(0, canvas.height - 2);
-      ctx.lineTo(canvas.width, canvas.height - 2);
-      ctx.stroke();
+      reset(init = false) {
+        this.x = init ? Math.random() * (width || 800) : (Math.random() > 0.5 ? -20 : (width || 800) + 20);
+        this.y = (height || 180) * (0.3 + Math.random() * 0.5);
+        this.targetY = this.y;
+        this.vx = (Math.random() - 0.5) * 0.8;
+        this.vy = (Math.random() - 0.5) * 0.5;
+        this.baseRadius = 14 + Math.random() * 22;
+        this.radius = this.baseRadius;
+        this.viscosity = 0.93; // High viscous damping
+        this.colorHue = 24 + Math.random() * 8; // Rich warm orange-amber
+        this.alpha = 0.85 + Math.random() * 0.15;
+      }
 
-      // Draw food pellets ahead of Pac-Man
-      const pelletSpacing = 35;
-      for (let px = 20; px < canvas.width; px += pelletSpacing) {
-        if (px > pacmanX + 15) {
-          ctx.fillStyle = '#dedeff';
-          ctx.beginPath();
-          ctx.arc(px, pacmanY, 3, 0, Math.PI * 2);
-          ctx.fill();
+      update() {
+        // Ambient flow & laminar drift
+        this.x += this.vx;
+        this.y += this.vy;
+
+        // Gentle spring returning to target vertical band
+        this.vy += (this.targetY - this.y) * 0.008;
+
+        // Mouse interaction: viscous drag and attraction/repulsion
+        if (mouse.isOver) {
+          const dx = mouse.x - this.x;
+          const dy = mouse.y - this.y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          const maxDist = 140;
+
+          if (dist < maxDist && dist > 1) {
+            // Viscous fluid stirring: particles swirl with mouse motion
+            const force = (1 - dist / maxDist);
+            const swirlAngle = Math.atan2(dy, dx) + Math.PI * 0.35;
+            
+            this.vx += (Math.cos(swirlAngle) * force * 1.5 + mouse.vx * 0.08);
+            this.vy += (Math.sin(swirlAngle) * force * 1.5 + mouse.vy * 0.08);
+
+            // Compress/expand radius with shear strain
+            this.radius = this.baseRadius * (1 + force * 0.35);
+          }
+        }
+
+        // Viscous damping
+        this.vx *= this.viscosity;
+        this.vy *= this.viscosity;
+        this.radius += (this.baseRadius - this.radius) * 0.1;
+
+        // Boundary wrapping
+        if (this.x < -60) this.x = width + 50;
+        if (this.x > width + 60) this.x = -50;
+        if (this.y < 15) this.vy += 0.8;
+        if (this.y > height - 15) this.vy -= 0.8;
+      }
+
+      draw() {
+        // Viscous droplet with glossy amber/orange gradient and specular highlight
+        const grad = ctx.createRadialGradient(
+          this.x - this.radius * 0.3,
+          this.y - this.radius * 0.35,
+          this.radius * 0.1,
+          this.x,
+          this.y,
+          this.radius
+        );
+
+        grad.addColorStop(0, '#fff4e6'); // Specular highlight
+        grad.addColorStop(0.25, '#fb923c'); // Bright warm orange
+        grad.addColorStop(0.65, '#ea580c'); // Viscous core orange
+        grad.addColorStop(0.95, '#c2410c'); // Dense amber rim
+        grad.addColorStop(1, 'rgba(194, 65, 12, 0)');
+
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        ctx.fillStyle = grad;
+        ctx.shadowColor = 'rgba(234, 88, 12, 0.28)';
+        ctx.shadowBlur = 10;
+        ctx.fill();
+        ctx.shadowBlur = 0;
+
+        // Secondary specular glint
+        ctx.beginPath();
+        ctx.ellipse(
+          this.x - this.radius * 0.32,
+          this.y - this.radius * 0.36,
+          this.radius * 0.26,
+          this.radius * 0.15,
+          -Math.PI / 4,
+          0,
+          Math.PI * 2
+        );
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.65)';
+        ctx.fill();
+      }
+    }
+
+    function initFluid() {
+      resizeCanvas();
+      particles = [];
+      for (let i = 0; i < NUM_PARTICLES; i++) {
+        particles.push(new FluidDrop());
+      }
+    }
+
+    function animateFluid() {
+      ctx.clearRect(0, 0, width, height);
+
+      // Subtle connected viscous bridges between near drops
+      for (let i = 0; i < particles.length; i++) {
+        for (let j = i + 1; j < particles.length; j++) {
+          const p1 = particles[i];
+          const p2 = particles[j];
+          const dx = p2.x - p1.x;
+          const dy = p2.y - p1.y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          const maxBridge = (p1.radius + p2.radius) * 1.35;
+
+          if (dist < maxBridge && dist > 1) {
+            const bridgeAlpha = (1 - dist / maxBridge) * 0.35;
+            ctx.beginPath();
+            ctx.moveTo(p1.x, p1.y);
+            ctx.lineTo(p2.x, p2.y);
+            ctx.lineWidth = (p1.radius + p2.radius) * 0.35 * (1 - dist / maxBridge);
+            ctx.strokeStyle = `rgba(234, 88, 12, ${bridgeAlpha})`;
+            ctx.lineCap = 'round';
+            ctx.stroke();
+          }
         }
       }
 
-      // Draw Pac-Man
-      mouthAngle += mouthSpeed;
-      if (mouthAngle > 0.45 || mouthAngle < 0.05) {
-        mouthSpeed = -mouthSpeed;
-      }
-
-      ctx.fillStyle = '#ffff00';
-      ctx.beginPath();
-      ctx.arc(
-        pacmanX,
-        pacmanY,
-        pacmanRadius,
-        mouthAngle * Math.PI,
-        (2 - mouthAngle) * Math.PI
-      );
-      ctx.lineTo(pacmanX, pacmanY);
-      ctx.closePath();
-      ctx.fill();
-
-      // Draw Ghosts
-      ghosts.forEach(g => {
-        drawGhost(pacmanX + g.offset, pacmanY, g.color);
+      // Update and draw drops
+      particles.forEach(p => {
+        p.update();
+        p.draw();
       });
 
-      // Move forward
-      pacmanX += 2.2;
-      if (pacmanX > canvas.width + 200) {
-        pacmanX = -40;
-      }
-
-      requestAnimationFrame(animate);
+      requestAnimationFrame(animateFluid);
     }
-    requestAnimationFrame(animate);
 
-    // Bilingual Dictionary
+    window.addEventListener('resize', resizeCanvas);
+
+    const canvasContainer = document.getElementById('canvasContainer');
+    canvasContainer.addEventListener('mousemove', (e) => {
+      const rect = canvas.getBoundingClientRect();
+      const newX = e.clientX - rect.left;
+      const newY = e.clientY - rect.top;
+
+      mouse.vx = newX - mouse.lastX;
+      mouse.vy = newY - mouse.lastY;
+      mouse.lastX = newX;
+      mouse.lastY = newY;
+      mouse.x = newX;
+      mouse.y = newY;
+      mouse.isOver = true;
+    });
+
+    canvasContainer.addEventListener('mouseleave', () => {
+      mouse.isOver = false;
+      mouse.vx = 0;
+      mouse.vy = 0;
+    });
+
+    initFluid();
+    animateFluid();
+
+    // BILINGUAL DICTIONARY (ES / EN)
     const i18n = {
       es: {
         brand_title: "Portfolio de Iván Alejos",
         nav_home: "Inicio",
         nav_software: "Software & Sistemas",
-        nav_graphics: "Gráficos & VFX",
-        hero_title: "COMPUTACIÓN GRÁFICA & SIMULACIÓN 3D",
-        hero_subtitle: "SideFX Houdini · Solvers Físicos PIC/FLIP · Programación VEX · Dinámicas Numéricas",
-        track_desc: "Especialización técnica en simulación numérica de fluidos multifásicos basada en las ecuaciones de Navier-Stokes, cálculo procedural vectorial en VEX, estructuras de aceleración volumétrica OpenVDB y herramientas de desarrollo para pipelines de efectos visuales y gráficos interactivos.",
+        nav_graphics: "Simulación & Gráficos",
+        track_tag: "Simulación Numérica & Computación Gráfica",
+        hero_title: "Simulación de Fluidos, Física Numérica & Pipeline Gráfico",
+        hero_subtitle: "SideFX Houdini · Solvers Híbridos PIC/FLIP · Programación en VEX · OpenVDB · C++ / OpenGL",
+        hero_bio: "Especialización técnica en dinámica de fluidos incompresible basada en las ecuaciones de Navier-Stokes, acoplamiento Lagrangiano-Euleriano con solvers híbridos (PIC/FLIP), programación vectorial en VEX, computación gráfica en C++ y desarrollo de herramientas de pipeline para producción visual y simuladores interactivos.",
         btn_contact: "Contactar",
         btn_cv: "CV Especializado (PDF)",
-        label_tfm: "BONUS STAGE · MASTER THESIS (TFM)",
-        heading_tfm: "Simulación de Fluidos en Houdini mediante PIC/FLIP",
-        tfm_card_title: "Solver Numérico Multifásico Híbrido Partícula-Rejilla",
-        tfm_inst: "Trabajo de Fin de Máster (MSc) · Universidad Rey Juan Carlos (2023 - 2025)",
-        tfm_p1: "Investigación, formulación matemática e implementación de un solver numérico para la simulación de fluidos incompresibles basado en las ecuaciones de Navier-Stokes. El núcleo del desarrollo resuelve la alternancia entre la perspectiva Lagrangiana (partículas libres) y la Euleriana (rejilla espacial tridimensional), compensando la pérdida de energía cinética inherente al método PIC clásico mediante la combinación adaptativa con FLIP.",
-        dossier_math_h: "Navier-Stokes & Proyección",
-        dossier_math_p: "Resolución de la ecuación de Poisson para el campo de presión con descomposición de Helmholtz-Hodge para garantizar divergencia nula.",
-        dossier_vex_h: "Arquitectura VEX / Python",
-        dossier_vex_p: "Operadores vectorizados multi-hilo en Houdini DOPs/SOPs para advección de partículas, interpolación trilineal y cálculo de curvatura superficial.",
-        dossier_vdb_h: "Mallas OpenVDB Escalar",
-        dossier_vdb_p: "Estructuración volumétrica jerárquica dispersa para simular dominios de alta resolución con más de 2 millones de partículas sin saturación de memoria.",
-        dossier_pipe_h: "Render Karma / Shading",
-        dossier_pipe_p: "Extracción de superficies mediante Level-Set meshing y shaders físicos de atenuación dieléctrica e índice de refracción para agua realista.",
-        label_other: "STAGE 02 · PROYECTOS GRÁFICOS & SIMULACIÓN",
-        heading_other: "Visión por Computador, Motores 3D & Simulación",
-        cv_proj_title: "Visión Artificial y Tracking de Movimiento en Tiempo Real",
+        canvas_status: "SIMULACIÓN INTERACTIVA DE FLUIDO VISCOSO (NAVIER-STOKES PIC/FLIP)",
+        canvas_params: "VISCOSITY: 2.15 Pa·s // SOLVER: ADAPTIVE BLEND // SURFACE TENSION: ON",
+        canvas_hint: "Pasa el cursor para agitar el fluido viscoso",
+        tab_projects: "01. Proyectos de Simulación & Gráficos",
+        tab_experience: "02. Experiencia Laboral en el Sector",
+        label_tfm: "PROYECTO DESTACADO (MSc)",
+        heading_tfm: "Simulación Avanzada de Fluidos en Houdini mediante Métodos PIC/FLIP",
+        tfm_title: "Solver Numérico Híbrido de Fluidos Incompresibles Partícula-Malla",
+        tfm_context: "Trabajo de Fin de Máster (MSc) · Universidad Rey Juan Carlos (2023 - 2025)",
+        tfm_desc: "Investigación, formulación matemática e implementación de un solver numérico para fluidos incompresibles basado en las ecuaciones de Navier-Stokes dentro de SideFX Houdini. La arquitectura desacopla el transporte advectivo Lagrangiano (partículas libres) del cálculo Euleriano de presiones sobre una grilla espacial tridimensional, contrarrestando la pérdida de energía cinética inherente a los métodos PIC clásicos mediante un blend adaptativo FLIP.",
+        dossier_math_h: "Navier-Stokes & Proyección Incompresible",
+        dossier_math_p: "Resolución de la ecuación de Poisson para el campo de presiones mediante descomposición Helmholtz-Hodge, garantizando un campo de velocidades con divergencia nula (∇ · u = 0) y estricta conservación de volumen.",
+        dossier_vex_h: "Acoplamiento Lagrangiano-Euleriano",
+        dossier_vex_p: "Transferencia trilineal de masa y momento desde partículas libres hacia la grilla celular; resolución de presiones en celdas MAC escalonadas y retro-interpolación de aceleraciones con mezcla adaptativa (95% FLIP / 5% PIC) para estabilidad visual.",
+        dossier_vdb_h: "Grillas Dispersas OpenVDB & Tensión",
+        dossier_vdb_p: "Uso de estructuras de datos volumétricas jerárquicas dispersas con OpenVDB, permitiendo simular dominios de alta resolución con más de 2 millones de partículas sin sobrecargar la memoria RAM física del equipo.",
+        dossier_pipe_h: "Extracción Level-Set & Shading Físico",
+        dossier_pipe_p: "Reconstrucción de superficie continua con filtro de suavizado gaussiano adaptativo y renderizado en Karma/Solaris con coeficientes dieléctricos de absorción volumétrica y refracción física exacta.",
+        spec_particles_label: "Recuento de Partículas",
+        spec_solver_label: "Algoritmo Numérico",
+        spec_integration_label: "Integración Temporal",
+        spec_render_label: "Motor de Render",
+        cv_proj_title: "Visión por Computador & Tracking Cinemático en Tiempo Real",
         cv_proj_inst: "Trabajo de Fin de Grado (BSc) · Universitat de València (2021 - 2022)",
-        cv_proj_p: "Algoritmo cinemático de segmentación y seguimiento espacial en tiempo real sobre transmisiones de vídeo procedentes de cámaras industriales. Optimización del preprocesamiento matricial mediante filtros morfológicos, reducción de ruido en flujo de fotogramas continuos y arquitectura de interfaz gráfica para análisis de trayectorias.",
-        sim_proj_title: "Arquitectura de Simulación Interactiva y Telemetría",
-        sim_proj_inst: "SIMODAR Training Solutions SL (2024 - 2026)",
-        sim_proj_p: "Integración de instrumentación física para simuladores de entrenamiento técnico con motores de simulación en red. Protocolos de sincronización UDP/TCP con baja latencia, monitorización de señales cinemáticas y automatización de pruebas de estrés sobre subsistemas de hardware.",
-        label_stack: "STAGE 03 · INVENTARIO TÉCNICO",
-        heading_stack: "Tecnologías de Gráficos & VFX",
-        stack_g1_title: "Procedural & VFX",
-        stack_g2_title: "Lenguajes Gráficos",
-        stack_g3_title: "Visión & Tiempo Real",
-        stack_g4_title: "Matemáticas Aplicadas",
+        cv_proj_p: "Algoritmo de segmentación espacial y seguimiento cinemático en tiempo real sobre transmisiones de vídeo procedentes de cámaras industriales. Optimización matricial con OpenCV y C++, filtros morfológicos continuos, reducción de ruido y arquitectura de interfaz gráfica para análisis de trayectorias.",
+        slot_title: "Próximos Proyectos de Simulación & R&D",
+        slot_desc: "Espacio modular preparado para la incorporación de nuevos desarrollos: solvers SPH acelerados por GPU con CUDA/C++, shaders procedurales en tiempo real y herramientas de pipeline USD para producción VFX.",
+        label_exp: "TRAYECTORIA PROFESIONAL",
+        heading_exp: "Experiencia en Simulación, Gráficos & Multimedia",
+        sim_role: "Ingeniero de Software y Programación Gráfica (C++ / OpenGL) & Pipeline",
+        sim_period: "Jul. 2024 - Jul. 2026",
+        sim_p1: "Arquitectura de Simuladores en Tiempo Real: Diseño e implementación de simuladores interactivos de formación técnica utilizando C++ y OpenGL, asegurando tasas de refresco constantes (60+ FPS) con renderizado de baja latencia.",
+        sim_p2: "Física y Cinemática Multicuerpo: Integración de dinámicas físicas, algoritmos cinemáticos y modelos tridimensionales con instrumentación física real y sensores mecatrónicos de entrenamiento.",
+        sim_p3: "Optimización y Perfilado GPU/CPU: Análisis analítico y mitigación de cuellos de botella en shaders, llamadas de dibujo y asignación de memoria dinámica para ejecución fluida en entornos de producción.",
+        sim_p4: "Herramientas de Pipeline & GUIs (Qt/PySide): Creación de aplicaciones modulares internas en Python y Qt/PySide para automatizar la calibración de hardware óptico, conversión de assets y tests de estrés sobre los subsistemas.",
+        sim_p5: "Sincronización de Red y Telemetría: Implementación de protocolos bidireccionales basados en sockets UDP/TCP y WebSockets para la comunicación síncrona entre motores gráficos distribuidos y hardware de cabina.",
+        cub_role: "Integrador Multimedia y Diseño UI/Web",
+        cub_period: "Feb. 2021 - May. 2021",
+        cub_p1: "Procesamiento y Edición Digital de Imagen: Tratamiento y optimización de recursos gráficos, renders arquitectónicos y material fotográfico digital para maximizar la calidad visual y el engagement en plataformas corporativas.",
+        cub_p2: "Diseño de Interfaces de Usuario (UI/UX): Elaboración de interfaces funcionales, componentes visuales e iconografía vectorial para la web de soporte y herramientas internas de la empresa.",
+        cub_p3: "Gestión de Activos Digitales: Catalogación estructurada, compresión sin pérdida y control de calidad de material multimedia interactivo, colaborando con los equipos de marketing y desarrollo web.",
+        label_stack: "INVENTARIO TECNOLÓGICO",
+        heading_stack: "Herramientas de Simulación, Gráficos & Pipeline",
+        stack_s1: "Fluidos & VFX",
+        stack_s2: "Programación Gráfica",
+        stack_s3: "Pipeline & Tools",
+        stack_s4: "Matemáticas Aplicadas",
+        footer_role: "Simulación de Fluidos & Computación Gráfica",
         footer_loc: "Valencia, España"
       },
       en: {
         brand_title: "Portfolio - Iván Alejos",
         nav_home: "Home",
         nav_software: "Software & Systems",
-        nav_graphics: "Graphics & VFX",
-        hero_title: "3D COMPUTER GRAPHICS & SIMULATION",
-        hero_subtitle: "SideFX Houdini · PIC/FLIP Physics Solvers · VEX Programming · Numerical Dynamics",
-        track_desc: "Technical specialization in numerical multiphase fluid dynamics based on the Navier-Stokes equations, procedural vector computing in VEX, OpenVDB sparse volumetric grids, and pipeline tool development for VFX and interactive graphics.",
+        nav_graphics: "Simulation & Graphics",
+        track_tag: "Numerical Simulation & Computer Graphics",
+        hero_title: "Fluid Simulation, Numerical Physics & Graphics Pipeline",
+        hero_subtitle: "SideFX Houdini · Hybrid PIC/FLIP Solvers · VEX Programming · OpenVDB · C++ / OpenGL",
+        hero_bio: "Technical specialization in incompressible fluid dynamics based on the Navier-Stokes equations, Lagrangian-Eulerian particle-grid coupling (PIC/FLIP), vectorized VEX programming, C++ graphics computing, and pipeline tool engineering for visual production and real-time simulators.",
         btn_contact: "Contact",
         btn_cv: "Specialized CV (PDF)",
-        label_tfm: "BONUS STAGE · MASTER'S THESIS (MSc)",
-        heading_tfm: "Fluid Simulation in Houdini using PIC/FLIP Methods",
-        tfm_card_title: "Hybrid Particle-Grid Multiphase Numerical Solver",
-        tfm_inst: "Master's Thesis (MSc) · Universidad Rey Juan Carlos (2023 - 2025)",
-        tfm_p1: "Research, mathematical formulation, and implementation of a numerical solver for incompressible fluids based on the Navier-Stokes equations. The architecture bridges the Lagrangian (free particles) and Eulerian (spatial 3D grid) perspectives, countering kinetic energy dissipation typical of classical PIC through adaptive FLIP blending.",
-        dossier_math_h: "Navier-Stokes & Projection",
-        dossier_math_p: "Poisson pressure equation solved using Helmholtz-Hodge projection ensuring zero-divergence velocity fields.",
-        dossier_vex_h: "VEX / Python Architecture",
-        dossier_vex_p: "Multi-threaded vectorized operators in Houdini DOPs/SOPs for particle advection, trilinear grid interpolation, and surface curvature estimation.",
-        dossier_vdb_h: "OpenVDB Sparse Grids",
-        dossier_vdb_p: "Hierarchical sparse volumetric data structures enabling high-resolution domain simulations with over 2M particles without memory exhaustion.",
-        dossier_pipe_h: "Karma Rendering / Shading",
-        dossier_pipe_p: "Level-set surface reconstruction and physically based dielectric extinction/refraction shaders for realistic water.",
-        label_other: "STAGE 02 · GRAPHICS & SIMULATION PROJECTS",
-        heading_other: "Computer Vision, 3D Engines & Simulation",
-        cv_proj_title: "Real-Time Computer Vision & Motion Tracking",
+        canvas_status: "INTERACTIVE VISCOUS FLUID SIMULATION (NAVIER-STOKES PIC/FLIP)",
+        canvas_params: "VISCOSITY: 2.15 Pa·s // SOLVER: ADAPTIVE BLEND // SURFACE TENSION: ON",
+        canvas_hint: "Move cursor to swirl the viscous fluid",
+        tab_projects: "01. Simulation & Graphics Projects",
+        tab_experience: "02. Industry Work Experience",
+        label_tfm: "FLAGSHIP PROJECT (MSc)",
+        heading_tfm: "Advanced Fluid Simulation in Houdini using PIC/FLIP Methods",
+        tfm_title: "Hybrid Particle-Grid Numerical Solver for Incompressible Fluids",
+        tfm_context: "Master's Thesis (MSc) · Universidad Rey Juan Carlos (2023 - 2025)",
+        tfm_desc: "Research, mathematical formulation, and implementation of a numerical solver for incompressible fluids based on the Navier-Stokes equations within SideFX Houdini. The architecture decouples Lagrangian advective transport (free particles) from Eulerian 3D grid pressure Poisson solves, countering kinetic energy dissipation in classic PIC via an adaptive FLIP blend.",
+        dossier_math_h: "Navier-Stokes & Incompressible Projection",
+        dossier_math_p: "Poisson equation solved for pressure fields via Helmholtz-Hodge decomposition, strictly ensuring divergence-free velocity fields (∇ · u = 0) and volume preservation.",
+        dossier_vex_h: "Lagrangian-Eulerian Coupling",
+        dossier_vex_p: "Trilinear mass and momentum splatting to staggered MAC grids; pressure solve and velocity update back-interpolation with adaptive blending (95% FLIP / 5% PIC) for visual stability.",
+        dossier_vdb_h: "OpenVDB Sparse Grids & Surface Tension",
+        dossier_vdb_p: "Hierarchical sparse volumetric data structures enabling high-resolution domain simulations with over 2.4 million particles without physical RAM exhaustion.",
+        dossier_pipe_h: "Level-Set Meshing & Physical Shading",
+        dossier_pipe_p: "Continuous surface reconstruction with adaptive Gaussian filtering and Solaris/Karma PBR shading with volumetric absorption and physically-based dielectric index of refraction.",
+        spec_particles_label: "Particle Count",
+        spec_solver_label: "Numerical Algorithm",
+        spec_integration_label: "Time Integration",
+        spec_render_label: "Render Engine",
+        cv_proj_title: "Real-Time Computer Vision & Kinematic Tracking",
         cv_proj_inst: "Bachelor's Thesis (BSc) · Universitat de València (2021 - 2022)",
-        cv_proj_p: "Real-time kinematic segmentation and spatial tracking on industrial camera video feeds. Optimized frame matrix operations with morphological filters, noise reduction, and custom GUI for spatial trajectory analytics.",
-        sim_proj_title: "Interactive Simulation Architecture & Telemetry",
-        sim_proj_inst: "SIMODAR Training Solutions SL (2024 - 2026)",
-        sim_proj_p: "Hardware instrumentation integration for physical training simulators linked to networked simulation engines. Low-latency UDP/TCP communication, kinematic sensor monitoring, and automated stress testing routines.",
-        label_stack: "STAGE 03 · TECHNICAL INVENTORY",
-        heading_stack: "Graphics & VFX Technologies",
-        stack_g1_title: "Procedural & VFX",
-        stack_g2_title: "Graphics Languages",
-        stack_g3_title: "Vision & Real-Time",
-        stack_g4_title: "Applied Mathematics",
+        cv_proj_p: "Kinematic spatial segmentation and real-time object tracking algorithms on industrial video streams. Matrix optimization with OpenCV and C++, continuous morphological filters, and custom trajectory analysis GUI.",
+        slot_title: "Upcoming Simulation & R&D Projects",
+        slot_desc: "Modular slot ready for upcoming technical projects: GPU-accelerated SPH solvers in CUDA/C++, real-time procedural shaders, and USD pipeline tools for VFX production.",
+        label_exp: "CAREER TIMELINE",
+        heading_exp: "Experience in Simulation, Graphics & Multimedia",
+        sim_role: "Software & Graphics Programmer (C++ / OpenGL) & Pipeline Developer",
+        sim_period: "Jul. 2024 - Jul. 2026",
+        sim_p1: "Real-Time Simulator Architecture: Engineering interactive simulators for technical training using modern C++ and OpenGL, ensuring solid 60+ FPS frame rates with ultra-low latency.",
+        sim_p2: "Physics & Multi-body Kinematics: Linking physical dynamics, kinematic solvers, and 3D visual assets with real-world mechatronic training hardware and sensor telemetry.",
+        sim_p3: "GPU/CPU Bottleneck Profiling: In-depth shader profiling, draw call reduction, and dynamic memory allocation optimization for rock-solid stability in production.",
+        sim_p4: "Pipeline Tools & GUIs (Qt/PySide): Building modular desktop tools in Python and Qt/PySide to automate optical hardware calibration, asset validation, and sub-system stress testing.",
+        sim_p5: "Network Sync & Telemetry: Engineering bi-directional UDP/TCP and WebSocket network communications for real-time synchronization between simulation engines and physical cockpits.",
+        cub_role: "Multimedia Integrator & UI/Web Designer",
+        cub_period: "Feb. 2021 - May. 2021",
+        cub_p1: "Digital Image Processing: Processing and optimizing architectural renders, graphic assets, and photographic material to enhance visual fidelity on digital platforms.",
+        cub_p2: "User Interface Design (UI/UX): Crafting intuitive interfaces, component mockups, and vector iconography for web platforms and support portals.",
+        cub_p3: "Digital Asset Management: Asset cataloging, lossless compression workflows, and quality assurance for interactive visual resources.",
+        label_stack: "TECHNICAL INVENTORY",
+        heading_stack: "Simulation, Graphics & Pipeline Tooling",
+        stack_s1: "Fluids & VFX",
+        stack_s2: "Graphics Programming",
+        stack_s3: "Pipeline & Tools",
+        stack_s4: "Applied Mathematics",
+        footer_role: "Fluid Simulation & Computer Graphics",
         footer_loc: "Valencia, Spain"
       }
     };
@@ -1065,7 +1670,7 @@
       document.querySelectorAll('[data-i18n]').forEach(el => {
         const key = el.getAttribute('data-i18n');
         if (dict[key]) {
-          el.innerText = dict[key];
+          el.innerHTML = dict[key];
         }
       });
     }

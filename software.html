@@ -21,9 +21,7 @@
       --ubuntu-orange: #e95420;
       --ubuntu-aubergine: #300a24;
       --ubuntu-purple: #77216f;
-      --pacman-yellow: #ffff00;
-      --pacman-blue: #2121ff;
-      --font-pixel: 'Press Start 2P', monospace;
+      --fluid-orange: #ea580c;
       --font-mono: 'JetBrains Mono', monospace;
       --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     }
@@ -148,14 +146,8 @@
     }
 
     .nav-link.nav-link-graph:hover {
-      border-color: var(--pacman-blue);
-      color: var(--pacman-yellow);
-    }
-
-    .ghost-icon {
-      font-family: var(--font-pixel);
-      font-size: 0.65rem;
-      color: var(--pacman-yellow);
+      border-color: #ea580c;
+      color: #ea580c;
     }
 
     /* Language Switcher */
@@ -557,8 +549,8 @@
           </li>
           <li>
             <a href="./graphics.html" class="nav-link nav-link-graph" id="nav-graphics">
-              <span class="ghost-icon">ᗣ</span>
-              <span data-i18n="nav_graphics">Gráficos & VFX</span>
+              <i class="fa-solid fa-droplet" style="color: #ea580c;"></i>
+              <span data-i18n="nav_graphics">Simulación & Gráficos</span>
             </a>
           </li>
         </ul>
@@ -816,7 +808,7 @@
         brand_title: "Portfolio de Iván Alejos",
         nav_home: "Inicio",
         nav_software: "Software & Sistemas",
-        nav_graphics: "Gráficos & VFX",
+        nav_graphics: "Simulación & Gráficos",
         track_title: "Software Empresarial & Sistemas",
         track_subtitle: "Arquitecturas Backend · SCADA & Automatización Industrial · Bases de Datos",
         track_desc: "Especialización en desarrollo de servicios backend en Python y C# (.NET), automatización y supervisión en tiempo real con Ignition SCADA, integración con ERP Odoo, analítica de vídeo y gestión de bases de datos relacionales (SQL Server, PostgreSQL) en entornos Linux y Windows.",
@@ -861,7 +853,7 @@
         brand_title: "Portfolio - Iván Alejos",
         nav_home: "Home",
         nav_software: "Software & Systems",
-        nav_graphics: "Graphics & VFX",
+        nav_graphics: "Simulation & Graphics",
         track_title: "Enterprise Software & Systems",
         track_subtitle: "Backend Architectures · Industrial SCADA Automation · Relational Databases",
         track_desc: "Specialized in backend service engineering in Python and C# (.NET), real-time supervision with Ignition SCADA, Odoo ERP integration, video stream analytics, and relational database administration (SQL Server, PostgreSQL) across Linux and Windows Server environments.",
