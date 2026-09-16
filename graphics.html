@@ -545,6 +545,9 @@
       background: var(--surface);
       user-select: none;
       transition: background-color 0.2s ease;
+      width: 100%;
+      border: none;
+      text-align: left;
     }
 
     .accordion-header:hover {
@@ -601,6 +604,7 @@
       align-items: flex-end;
       gap: 8px;
       flex-shrink: 0;
+      pointer-events: none;
     }
 
     .accordion-state-pill {
@@ -659,7 +663,7 @@
     }
 
     .accordion-module.is-open .accordion-body {
-      display: block;
+      display: block !important;
     }
 
     /* Subheadings inside Accordion */
@@ -1557,7 +1561,7 @@
             <i class="fa-solid fa-folder-open"></i>
             <span data-i18n="tfm_explore_guide">Dossier Técnico Desplegable: Selecciona una sección para explorar su contenido</span>
           </div>
-          <button class="btn-toggle-all" id="btnToggleAll" onclick="toggleAllModules()">
+          <button class="btn-toggle-all" id="btnToggleAll" type="button" onclick="toggleAllModules()">
             <i class="fa-solid fa-arrows-up-down"></i>
             <span id="txtToggleAll" data-i18n="tfm_expand_all">Desplegar Todo</span>
           </button>
@@ -1567,10 +1571,10 @@
         <!-- MÓDULO 1: INVESTIGACIÓN DE FLUIDOS Y MÉTODOS NUMÉRICOS (DESPLEGABLE) -->
         <!-- ========================================================================= -->
         <div class="accordion-module module-part1" id="module-part1">
-          <div class="accordion-header" onclick="toggleModule('part1')">
+          <div class="accordion-header" role="button" tabindex="0" onclick="toggleModule('part1')" onkeydown="if(event.key==='Enter'||event.key===' ')toggleModule('part1')">
             <div class="accordion-title-block">
-              <span class="module-badge badge-part1" data-i18n="part1_badge">
-                <i class="fa-solid fa-atom"></i> PARTE I · INVESTIGACIÓN FÍSICA & MÉTODOS NUMÉRICOS
+              <span class="module-badge badge-part1">
+                <i class="fa-solid fa-atom"></i> <span data-i18n="part1_badge">PARTE I · INVESTIGACIÓN FÍSICA & MÉTODOS NUMÉRICOS</span>
               </span>
               <h3 class="module-title" data-i18n="part1_title">
                 Investigación de Fluidos, Solvers Avanzados (APIC/IPIC) & Benchmarks de Colisión
@@ -1816,10 +1820,10 @@
         <!-- MÓDULO 2: PLUGIN DE HOUDINI Y PRUEBAS EN PIPELINE (DESPLEGABLE) -->
         <!-- ========================================================================= -->
         <div class="accordion-module module-part2" id="module-part2">
-          <div class="accordion-header" onclick="toggleModule('part2')">
+          <div class="accordion-header" role="button" tabindex="0" onclick="toggleModule('part2')" onkeydown="if(event.key==='Enter'||event.key===' ')toggleModule('part2')">
             <div class="accordion-title-block">
-              <span class="module-badge badge-part2" data-i18n="part2_badge">
-                <i class="fa-solid fa-cubes"></i> PARTE II · PLUGIN DE SIDEFX HOUDINI & PIPELINE VFX
+              <span class="module-badge badge-part2">
+                <i class="fa-solid fa-cubes"></i> <span data-i18n="part2_badge">PARTE II · PLUGIN DE SIDEFX HOUDINI & PIPELINE VFX</span>
               </span>
               <h3 class="module-title" data-i18n="part2_title">
                 Desarrollo del Plugin, Nodo Solver Customizado y Pruebas en Pipeline
@@ -2125,6 +2129,7 @@
     // ACCORDION MODULE TOGGLE LOGIC
     function toggleModule(partId) {
       const module = document.getElementById('module-' + partId);
+      if (!module) return;
       const isCurrentlyOpen = module.classList.contains('is-open');
       const currentLang = localStorage.getItem('portfolio_lang') || 'es';
       
@@ -2144,18 +2149,19 @@
       
       if (partId === 'part1') {
         txtElem.setAttribute('data-i18n', isOpen ? 'part1_btn_collapse' : 'part1_btn_expand');
-        txtElem.innerHTML = isOpen ? (lang === 'es' ? 'Comprimir Sección' : 'Collapse Section') 
-                                   : (lang === 'es' ? 'Desplegar Investigación' : 'Expand Research');
+        txtElem.textContent = isOpen ? (lang === 'es' ? 'Comprimir Sección' : 'Collapse Section') 
+                                     : (lang === 'es' ? 'Desplegar Investigación' : 'Expand Research');
       } else if (partId === 'part2') {
         txtElem.setAttribute('data-i18n', isOpen ? 'part2_btn_collapse' : 'part2_btn_expand');
-        txtElem.innerHTML = isOpen ? (lang === 'es' ? 'Comprimir Sección' : 'Collapse Section') 
-                                   : (lang === 'es' ? 'Desplegar Plugin & Pruebas' : 'Expand Plugin & Tests');
+        txtElem.textContent = isOpen ? (lang === 'es' ? 'Comprimir Sección' : 'Collapse Section') 
+                                     : (lang === 'es' ? 'Desplegar Plugin & Pruebas' : 'Expand Plugin & Tests');
       }
     }
 
     function toggleAllModules() {
       const m1 = document.getElementById('module-part1');
       const m2 = document.getElementById('module-part2');
+      if (!m1 || !m2) return;
       const bothOpen = m1.classList.contains('is-open') && m2.classList.contains('is-open');
       const currentLang = localStorage.getItem('portfolio_lang') || 'es';
 
@@ -2176,16 +2182,18 @@
     function checkMasterButtonState() {
       const m1 = document.getElementById('module-part1');
       const m2 = document.getElementById('module-part2');
+      if (!m1 || !m2) return;
       const bothOpen = m1.classList.contains('is-open') && m2.classList.contains('is-open');
       const txtAll = document.getElementById('txtToggleAll');
+      if (!txtAll) return;
       const currentLang = localStorage.getItem('portfolio_lang') || 'es';
 
       if (bothOpen) {
         txtAll.setAttribute('data-i18n', 'tfm_collapse_all');
-        txtAll.innerHTML = currentLang === 'es' ? 'Comprimir Todo' : 'Collapse All';
+        txtAll.textContent = currentLang === 'es' ? 'Comprimir Todo' : 'Collapse All';
       } else {
         txtAll.setAttribute('data-i18n', 'tfm_expand_all');
-        txtAll.innerHTML = currentLang === 'es' ? 'Desplegar Todo' : 'Expand All';
+        txtAll.textContent = currentLang === 'es' ? 'Desplegar Todo' : 'Expand All';
       }
     }
 
@@ -2238,7 +2246,7 @@
         tfm_explore_guide: "Dossier Técnico Desplegable: Selecciona una sección para explorar su contenido",
         tfm_expand_all: "Desplegar Todo",
         tfm_collapse_all: "Comprimir Todo",
-        part1_badge: "<i class="fa-solid fa-atom"></i> PARTE I · INVESTIGACIÓN FÍSICA & MÉTODOS NUMÉRICOS",
+        part1_badge: "PARTE I · INVESTIGACIÓN FÍSICA & MÉTODOS NUMÉRICOS",
         part1_title: "Investigación de Fluidos, Solvers Avanzados (APIC/IPIC) & Benchmarks de Colisión",
         part1_summary: "Formulación matemática comparativa de PIC, FLIP, APIC e IPIC, pruebas de estrés de impacto contra geometría compleja (Dinosaurio a Frame 250/500) y análisis morfológico de superficie Level-Set con OpenVDB.",
         part1_btn_expand: "Desplegar Investigación",
@@ -2272,7 +2280,7 @@
         cycle_c1_p: "Interpolación ponderada por funciones B-Spline cuadráticas para transferir el momento desde las partículas hacia las caras de la grilla cartesiana MAC y retro-interpolación sin artefactos.",
         cycle_c2_h: "Actualización y Advección de Partículas",
         cycle_c2_p: "Actualización de tensores afines Bp y corrección de advección temporal de segundo orden (RK2/RK4) para garantizar la integridad posicional bajo gradientes extremos de velocidad.",
-        part2_badge: "<i class="fa-solid fa-cubes"></i> PARTE II · PLUGIN DE SIDEFX HOUDINI & PIPELINE VFX",
+        part2_badge: "PARTE II · PLUGIN DE SIDEFX HOUDINI & PIPELINE VFX",
         part2_title: "Desarrollo del Plugin, Nodo Solver Customizado y Pruebas en Pipeline",
         part2_summary: "Implementación nativa en C++ mediante el HDK de SideFX Houdini, panel interactivo de parámetros para artistas técnicos, arquitectura de grafo DOP y pruebas de estrés de simulación.",
         part2_btn_expand: "Desplegar Plugin & Pruebas",
@@ -2340,7 +2348,7 @@
         tfm_explore_guide: "Collapsible Technical Dossier: Select a section below to unfold detailed documentation",
         tfm_expand_all: "Expand All",
         tfm_collapse_all: "Collapse All",
-        part1_badge: "<i class="fa-solid fa-atom"></i> PART I · FLUID DYNAMICS & NUMERICAL SOLVERS",
+        part1_badge: "PART I · FLUID DYNAMICS & NUMERICAL SOLVERS",
         part1_title: "Fluid Research, Advanced Solvers (APIC/IPIC) & Collision Benchmarks",
         part1_summary: "Comparative mathematical formulation of PIC, FLIP, APIC, and IPIC solvers, high-speed collision stress tests against dinosaur geometry (Frame 250/500), and OpenVDB Level-Set surface reconstruction analysis.",
         part1_btn_expand: "Expand Research",
@@ -2374,7 +2382,7 @@
         cycle_c1_p: "Quadratic B-Spline kernel weighting to transfer momentum from particles to MAC grid cell faces, with smooth back-interpolation free of grid-crossing errors.",
         cycle_c2_h: "Particle Updates & Advection",
         cycle_c2_p: "Affine Bp tensor updates and second-order time advection (RK2/RK4) ensuring positional integrity under extreme spatial velocity gradients.",
-        part2_badge: "<i class="fa-solid fa-cubes"></i> PART II · SIDEFX HOUDINI PLUGIN & VFX PIPELINE",
+        part2_badge: "PARTE II · SIDEFX HOUDINI PLUGIN & VFX PIPELINE",
         part2_title: "Plugin Engineering, Custom HDK Solver Node & VFX Pipeline Validation",
         part2_summary: "Native C++ implementation on the SideFX Houdini HDK API, procedural artist parameter UI, DOP network coupling, and simulation stress testing.",
         part2_btn_expand: "Expand Plugin & Tests",
@@ -2431,8 +2439,8 @@
       });
 
       // Also refresh active accordion button texts
-      const m1Open = document.getElementById('module-part1').classList.contains('is-open');
-      const m2Open = document.getElementById('module-part2').classList.contains('is-open');
+      const m1Open = document.getElementById('module-part1') ? document.getElementById('module-part1').classList.contains('is-open') : false;
+      const m2Open = document.getElementById('module-part2') ? document.getElementById('module-part2').classList.contains('is-open') : false;
       updatePillLabel('part1', m1Open, lang);
       updatePillLabel('part2', m2Open, lang);
       checkMasterButtonState();
