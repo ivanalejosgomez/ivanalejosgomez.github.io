@@ -54,9 +54,9 @@
     /* Dynamic Full-Page Theme Backgrounds on Hover */
     body.hover-software {
       background: 
-        radial-gradient(circle at 25% 35%, rgba(233, 84, 32, 0.18) 0%, transparent 55%),
-        radial-gradient(circle at 35% 55%, rgba(119, 33, 111, 0.35) 0%, transparent 65%),
-        linear-gradient(135deg, #1f0418 0%, #0d1117 80%);
+        radial-gradient(circle at 25% 35%, rgba(51, 103, 145, 0.35) 0%, transparent 55%),
+        radial-gradient(circle at 35% 55%, rgba(32, 69, 101, 0.45) 0%, transparent 65%),
+        linear-gradient(135deg, #0d1a26 0%, #081017 80%);
     }
 
     body.hover-graphics {
@@ -153,8 +153,8 @@
     }
 
     .nav-link.nav-link-soft:hover {
-      border-color: var(--ubuntu-orange);
-      color: #ff9b71;
+      border-color: #336791;
+      color: #93c5fd;
     }
 
     .nav-link.nav-link-graph:hover {
@@ -311,10 +311,10 @@
       gap: 30px;
     }
 
-    /* Portal Card 1: Ubuntu / Linux Terminal (Software) */
+    /* Portal Card 1: PostgreSQL & Enterprise Backend (Software) */
     .portal-card-software {
-      background: #1c1822;
-      border: 1px solid rgba(233, 84, 32, 0.4);
+      background: #0f1c29;
+      border: 1px solid rgba(51, 103, 145, 0.45);
       border-radius: 10px;
       overflow: hidden;
       cursor: pointer;
@@ -327,8 +327,8 @@
       color: inherit;
     }
 
-    .ubuntu-window-bar {
-      background: #2c001e;
+    .pg-window-bar {
+      background: #193147;
       border-bottom: 1px solid rgba(255, 255, 255, 0.08);
       padding: 10px 16px;
       display: flex;
@@ -336,25 +336,25 @@
       justify-content: space-between;
     }
 
-    .ubuntu-buttons {
+    .pg-buttons {
       display: flex;
       gap: 8px;
     }
 
-    .ubuntu-btn {
+    .pg-dot-btn {
       width: 12px;
       height: 12px;
       border-radius: 50%;
     }
 
-    .ubuntu-close { background: #e95420; }
-    .ubuntu-min { background: #555555; }
-    .ubuntu-max { background: #77216f; }
+    .pg-btn-1 { background: #336791; }
+    .pg-btn-2 { background: #4580b0; }
+    .pg-btn-3 { background: #60a5fa; }
 
-    .ubuntu-title-text {
+    .pg-title-text {
       font-family: var(--font-mono);
       font-size: 0.76rem;
-      color: #dfdbd2;
+      color: #bfdbfe;
       letter-spacing: 0.3px;
     }
 
@@ -369,11 +369,11 @@
     .terminal-prompt {
       font-family: var(--font-mono);
       font-size: 0.82rem;
-      color: #87e076;
+      color: #93c5fd;
       margin-bottom: 14px;
     }
 
-    .terminal-prompt span.user { color: var(--ubuntu-orange); font-weight: 600; }
+    .terminal-prompt span.user { color: #60a5fa; font-weight: 600; }
     .terminal-prompt span.cmd { color: #ffffff; }
 
     .portal-software-title {
@@ -386,7 +386,7 @@
 
     .portal-software-desc {
       font-size: 0.93rem;
-      color: #c9c7c2;
+      color: #cbd5e1;
       line-height: 1.58;
       margin-bottom: 22px;
     }
@@ -402,16 +402,16 @@
       font-family: var(--font-mono);
       font-size: 0.72rem;
       padding: 4px 8px;
-      background: rgba(233, 84, 32, 0.12);
-      border: 1px solid rgba(233, 84, 32, 0.3);
+      background: rgba(51, 103, 145, 0.18);
+      border: 1px solid rgba(51, 103, 145, 0.45);
       border-radius: 4px;
-      color: #ff9b71;
+      color: #93c5fd;
     }
 
     .btn-portal-software {
-      background: var(--ubuntu-orange);
+      background: #336791;
       color: #ffffff;
-      border: none;
+      border: 1px solid #4580b0;
       padding: 10px 18px;
       border-radius: 6px;
       font-size: 0.88rem;
@@ -421,16 +421,17 @@
       gap: 8px;
       transition: all 0.2s ease;
       align-self: flex-start;
+      box-shadow: 0 4px 14px rgba(51, 103, 145, 0.3);
     }
 
     .portal-card-software:hover {
       transform: translateY(-6px);
-      border-color: var(--ubuntu-orange);
-      box-shadow: 0 16px 40px rgba(233, 84, 32, 0.35);
+      border-color: #60a5fa;
+      box-shadow: 0 16px 40px rgba(51, 103, 145, 0.35);
     }
 
     .portal-card-software:hover .btn-portal-software {
-      background: #ff6832;
+      background: #2b5b84;
       transform: translateX(3px);
     }
 
@@ -622,7 +623,7 @@
           </li>
           <li>
             <a href="./software.html" class="nav-link nav-link-soft" id="nav-software">
-              <i class="fa-solid fa-terminal" style="color: var(--ubuntu-orange);"></i>
+              <i class="fa-solid fa-database" style="color: #336791;"></i>
               <span data-i18n="nav_software">Software & Sistemas</span>
             </a>
           </li>
@@ -683,33 +684,33 @@
 
       <div class="portal-grid">
         
-        <!-- CARD 1: UBUNTU / LINUX SOFTWARE & SYSTEMS -->
+        <!-- CARD 1: POSTGRESQL / ENTERPRISE SOFTWARE & SYSTEMS -->
         <a href="./software.html" class="portal-card-software" id="card-software">
-          <div class="ubuntu-window-bar">
-            <div class="ubuntu-buttons">
-              <span class="ubuntu-btn ubuntu-close"></span>
-              <span class="ubuntu-btn ubuntu-min"></span>
-              <span class="ubuntu-btn ubuntu-max"></span>
+          <div class="pg-window-bar">
+            <div class="pg-buttons">
+              <span class="pg-dot-btn pg-btn-1"></span>
+              <span class="pg-dot-btn pg-btn-2"></span>
+              <span class="pg-dot-btn pg-btn-3"></span>
             </div>
-            <span class="ubuntu-title-text">ivan@enterprise: ~/systems</span>
-            <span style="color: var(--ubuntu-orange); font-size: 0.75rem;"><i class="fa-brands fa-ubuntu"></i></span>
+            <span class="pg-title-text">postgres=# \c enterprise_systems</span>
+            <span style="color: #60a5fa; font-size: 0.78rem;"><i class="fa-solid fa-database"></i></span>
           </div>
 
           <div class="portal-software-body">
             <div>
               <div class="terminal-prompt">
-                <span class="user">ivan@ubuntu</span>:~$ <span class="cmd">./explore_software.sh</span>
+                <span class="user">postgres=#</span> <span class="cmd">SELECT * FROM software_portfolio;</span>
               </div>
               <h3 class="portal-software-title" data-i18n="card_software_title">Software Empresarial & Sistemas</h3>
               <p class="portal-software-desc" data-i18n="card_software_desc">
-                Enfoque en desarrollo backend, arquitecturas escalables, automatización industrial con Ignition SCADA, integración ERP Odoo, procesamiento de visión artificial y gestión de bases de datos relacionales.
+                Enfoque en desarrollo backend, arquitecturas escalables, automatización industrial con Ignition SCADA, integración ERP Odoo, procesamiento de visión artificial y modelado de bases de datos relacionales (PostgreSQL, SQL Server).
               </p>
               
               <div class="software-tags">
+                <span class="software-tag">PostgreSQL</span>
+                <span class="software-tag">SQL Server</span>
                 <span class="software-tag">Python</span>
                 <span class="software-tag">C# (.NET)</span>
-                <span class="software-tag">SQL Server</span>
-                <span class="software-tag">PostgreSQL</span>
                 <span class="software-tag">Ignition SCADA</span>
                 <span class="software-tag">OpenCV</span>
                 <span class="software-tag">Linux Server</span>

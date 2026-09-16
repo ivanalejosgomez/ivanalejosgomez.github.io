@@ -3,27 +3,41 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Iván Alejos Gómez | Software Empresarial & Sistemas</title>
+  <title>Iván Alejos Gómez | Software Empresarial, Sistemas & Bases de Datos</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
   <style>
     :root {
-      --bg: #0e0d14;
-      --surface: #191722;
-      --surface-subtle: #211e2d;
-      --border: rgba(255, 255, 255, 0.08);
-      --border-hover: rgba(233, 84, 32, 0.4);
-      --text: #f1f0f5;
-      --text-muted: #9994a8;
-      --ubuntu-orange: #e95420;
-      --ubuntu-aubergine: #300a24;
-      --ubuntu-purple: #77216f;
-      --fluid-orange: #ea580c;
-      --font-mono: 'JetBrains Mono', monospace;
+      /* PostgreSQL Inspired Enterprise Theme */
+      --pg-blue-primary: #336791;
+      --pg-blue-dark: #204565;
+      --pg-blue-deep: #162e44;
+      --pg-blue-light: #eaf1f7;
+      --pg-blue-subtle: #f0f5fa;
+      --pg-blue-border: #cee0ee;
+      --pg-blue-accent: #2b5b84;
+      
+      --bg-page: #f8fafc;
+      --surface-white: #ffffff;
+      --surface-card: #ffffff;
+      --surface-subtle: #f1f5f9;
+      --border-color: #e2e8f0;
+      --border-hover: #93c5fd;
+
+      --text-main: #0f172a;
+      --text-body: #334155;
+      --text-muted: #64748b;
+      --text-subtle: #94a3b8;
+
+      --terminal-bg: #111827;
+      --terminal-header: #1f2937;
+      --terminal-green: #10b981;
+
       --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      --font-mono: 'JetBrains Mono', 'Consolas', monospace;
     }
 
     * {
@@ -34,35 +48,64 @@
 
     body {
       font-family: var(--font-sans);
-      background-color: var(--bg);
-      color: var(--text);
+      background-color: var(--bg-page);
+      color: var(--text-body);
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
-      background-image: 
-        radial-gradient(circle at 10% 20%, rgba(119, 33, 111, 0.14) 0%, transparent 45%),
-        radial-gradient(circle at 90% 60%, rgba(233, 84, 32, 0.1) 0%, transparent 45%),
-        linear-gradient(180deg, #0e0d14 0%, #15121e 100%);
-      background-attachment: fixed;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
     }
 
     .container {
-      max-width: 980px;
+      max-width: 1180px;
       margin: 0 auto;
       padding: 0 24px;
       width: 100%;
     }
 
-    /* Sticky Top Navigation Bar (Identical across all pages) */
+    /* TOP POSTGRESQL BANNER BAR */
+    .pg-top-bar {
+      background: var(--pg-blue-dark);
+      color: #ffffff;
+      font-size: 0.78rem;
+      padding: 6px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .pg-top-bar-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .pg-top-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-family: var(--font-mono);
+      font-size: 0.74rem;
+      color: #bfdbfe;
+    }
+
+    .pg-top-badge i {
+      color: #60a5fa;
+    }
+
+    .pg-top-version {
+      font-family: var(--font-mono);
+      color: #93c5fd;
+      font-size: 0.72rem;
+    }
+
+    /* Sticky Top Navigation Bar (Identical layout across portfolio) */
     nav {
       position: sticky;
       top: 0;
       z-index: 100;
-      background: rgba(14, 13, 20, 0.94);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border);
+      background: #ffffff;
+      border-bottom: 1px solid var(--border-color);
+      box-shadow: 0 2px 10px rgba(15, 23, 42, 0.05);
     }
 
     .nav-inner {
@@ -72,7 +115,7 @@
       height: 64px;
     }
 
-    /* Software Page Brand: Programming / PowerShell Font */
+    /* Brand with PowerShell/Programming font as requested */
     .nav-brand {
       display: flex;
       align-items: center;
@@ -84,7 +127,7 @@
       font-family: 'Consolas', 'Cascadia Code', 'Lucida Console', monospace !important;
       font-size: 0.95rem;
       font-weight: 700;
-      color: #38bdf8;
+      color: var(--pg-blue-primary);
       letter-spacing: 0.5px;
     }
 
@@ -92,17 +135,13 @@
       font-family: 'Consolas', 'Cascadia Code', 'Lucida Console', monospace !important;
       font-size: 0.95rem;
       font-weight: 600;
-      color: #f1f0f5;
+      color: var(--text-main);
       letter-spacing: 0px;
       transition: color 0.2s ease;
     }
 
-    .nav-brand:hover .powershell-prompt {
-      color: #7dd3fc;
-    }
-
     .nav-brand:hover .brand-title-code {
-      color: #38bdf8;
+      color: var(--pg-blue-primary);
     }
 
     .nav-actions {
@@ -128,21 +167,22 @@
       display: inline-flex;
       align-items: center;
       gap: 7px;
-      border: 1px solid var(--border);
-      background: var(--surface);
+      border: 1px solid var(--border-color);
+      background: #ffffff;
     }
 
     .nav-link:hover {
-      color: var(--text);
-      background: rgba(255, 255, 255, 0.08);
-      border-color: rgba(255, 255, 255, 0.2);
+      color: var(--text-main);
+      background: var(--pg-blue-light);
+      border-color: var(--pg-blue-border);
     }
 
     .nav-link.active {
       color: #ffffff;
-      background: rgba(233, 84, 32, 0.18);
-      border-color: var(--ubuntu-orange);
-      box-shadow: 0 0 12px rgba(233, 84, 32, 0.25);
+      background: var(--pg-blue-primary);
+      border-color: var(--pg-blue-primary);
+      box-shadow: 0 2px 8px rgba(51, 103, 145, 0.3);
+      font-weight: 600;
     }
 
     .nav-link.nav-link-graph:hover {
@@ -153,8 +193,8 @@
     /* Language Switcher */
     .lang-toggle {
       display: inline-flex;
-      background: var(--surface);
-      border: 1px solid var(--border);
+      background: #ffffff;
+      border: 1px solid var(--border-color);
       border-radius: 6px;
       padding: 2px;
     }
@@ -173,310 +213,595 @@
     }
 
     .lang-btn.active {
-      background: var(--ubuntu-orange);
+      background: var(--pg-blue-primary);
       color: #ffffff;
     }
 
-    /* Hero / Terminal Header (Focused purely on Track - No personal photo or general bio) */
+    /* HERO HEADER: PostgreSQL Documentation / Enterprise Portal Look */
     .hero {
-      padding: 45px 0 35px;
-      border-bottom: 1px solid var(--border);
+      background: linear-gradient(180deg, #ffffff 0%, var(--bg-page) 100%);
+      border-bottom: 1px solid var(--border-color);
+      padding: 38px 0 32px;
     }
 
-    .terminal-window {
-      background: #1e1b24;
-      border: 1px solid rgba(233, 84, 32, 0.35);
+    .hero-box {
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-top: 4px solid var(--pg-blue-primary);
       border-radius: 10px;
-      overflow: hidden;
-      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
+      padding: 28px 32px;
+      box-shadow: 0 4px 20px rgba(15, 23, 42, 0.04);
     }
 
-    .terminal-titlebar {
-      background: var(--ubuntu-aubergine);
-      padding: 10px 18px;
+    .hero-meta-strip {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-    }
-
-    .terminal-dots {
-      display: flex;
-      gap: 8px;
-    }
-
-    .dot {
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-    }
-
-    .dot-close { background: #e95420; }
-    .dot-min { background: #5c556b; }
-    .dot-max { background: #77216f; }
-
-    .terminal-title {
-      font-family: var(--font-mono);
-      font-size: 0.76rem;
-      color: #d1cbdc;
-    }
-
-    .terminal-body {
-      padding: 32px 30px;
-    }
-
-    .hero-prompt {
-      font-family: var(--font-mono);
-      font-size: 0.82rem;
-      color: #87e076;
-      margin-bottom: 10px;
-    }
-
-    .hero-prompt span.user { color: var(--ubuntu-orange); font-weight: 600; }
-    .hero-prompt span.path { color: #a78bfa; }
-
-    .hero-title {
-      font-size: 1.85rem;
-      font-weight: 700;
-      color: #ffffff;
-      margin-bottom: 6px;
-      letter-spacing: -0.4px;
-    }
-
-    .hero-subtitle {
-      font-family: var(--font-mono);
-      font-size: 0.92rem;
-      color: #fb923c;
+      flex-wrap: wrap;
+      gap: 12px;
       margin-bottom: 16px;
     }
 
-    .track-desc {
-      font-size: 0.96rem;
-      color: #c4bfd2;
-      max-width: 820px;
-      line-height: 1.6;
-      margin-bottom: 24px;
-    }
-
-    .hero-links {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-
-    .btn-ubuntu {
+    .hero-tag {
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      padding: 9px 18px;
-      border-radius: 6px;
-      font-size: 0.86rem;
+      background: var(--pg-blue-light);
+      color: var(--pg-blue-primary);
+      border: 1px solid var(--pg-blue-border);
+      font-family: var(--font-mono);
+      font-size: 0.74rem;
       font-weight: 600;
-      text-decoration: none;
-      background: var(--ubuntu-orange);
-      color: #ffffff;
-      border: 1px solid var(--ubuntu-orange);
-      transition: all 0.2s ease;
+      padding: 4px 10px;
+      border-radius: 4px;
     }
 
-    .btn-ubuntu:hover {
-      background: #ff6832;
-      box-shadow: 0 4px 15px rgba(233, 84, 32, 0.4);
-    }
-
-    .btn-secondary {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 9px 18px;
-      border-radius: 6px;
-      font-size: 0.86rem;
-      font-weight: 500;
-      text-decoration: none;
-      background: var(--surface-subtle);
-      border: 1px solid var(--border);
-      color: var(--text);
-      transition: all 0.2s ease;
-    }
-
-    .btn-secondary:hover {
-      background: #2a263a;
-      border-color: var(--border-hover);
-      color: #ffffff;
-    }
-
-    /* Section Styling */
-    main {
-      padding: 40px 0;
-      flex-grow: 1;
-    }
-
-    .section-head {
-      margin-bottom: 28px;
-      border-left: 4px solid var(--ubuntu-orange);
-      padding-left: 14px;
-    }
-
-    .section-label {
+    .hero-sql-banner {
       font-family: var(--font-mono);
       font-size: 0.8rem;
-      color: var(--ubuntu-orange);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      margin-bottom: 4px;
+      background: var(--terminal-bg);
+      color: #e2e8f0;
+      padding: 6px 14px;
+      border-radius: 6px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .hero-sql-banner .pg-prompt {
+      color: #60a5fa;
+      font-weight: bold;
+    }
+
+    .hero-sql-banner .pg-kw {
+      color: #f472b6;
+      font-weight: bold;
+    }
+
+    .hero-title {
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--text-main);
+      letter-spacing: -0.5px;
+      margin-bottom: 8px;
+    }
+
+    .hero-subtitle {
+      font-size: 1.02rem;
+      font-weight: 500;
+      color: var(--pg-blue-primary);
+      margin-bottom: 14px;
+    }
+
+    .hero-desc {
+      font-size: 0.94rem;
+      color: var(--text-body);
+      max-width: 960px;
+      line-height: 1.65;
+    }
+
+    /* MAIN POSTGRESQL TWO-COLUMN LAYOUT WITH LEFT SIDEBAR */
+    .pg-layout {
+      display: grid;
+      grid-template-columns: 290px 1fr;
+      gap: 32px;
+      padding: 36px 0 60px;
+      align-items: start;
+    }
+
+    /* LEFT SIDEBAR (Postgres style docs list) */
+    .pg-sidebar {
+      position: sticky;
+      top: 96px;
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(15, 23, 42, 0.04);
+    }
+
+    .pg-sidebar-header {
+      background: var(--pg-blue-dark);
+      color: #ffffff;
+      padding: 14px 18px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      letter-spacing: 0.3px;
+    }
+
+    .pg-sidebar-header i {
+      color: #93c5fd;
+    }
+
+    .pg-sidebar-nav {
+      list-style: none;
+      padding: 10px 0;
+    }
+
+    .pg-sidebar-item {
+      position: relative;
+    }
+
+    .pg-sidebar-btn {
+      width: 100%;
+      text-align: left;
+      background: transparent;
+      border: none;
+      padding: 13px 18px;
+      font-family: var(--font-sans);
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--text-body);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      transition: all 0.2s ease;
+      border-left: 3px solid transparent;
+    }
+
+    .pg-sidebar-btn:hover {
+      background: var(--pg-blue-light);
+      color: var(--pg-blue-dark);
+      border-left-color: var(--pg-blue-border);
+    }
+
+    .pg-sidebar-btn.active {
+      background: var(--pg-blue-subtle);
+      color: var(--pg-blue-primary);
+      border-left-color: var(--pg-blue-primary);
+      font-weight: 700;
+    }
+
+    .pg-sidebar-btn i {
+      font-size: 0.95rem;
+      width: 20px;
+      text-align: center;
+      color: var(--text-muted);
+      transition: color 0.2s ease;
+    }
+
+    .pg-sidebar-btn.active i {
+      color: var(--pg-blue-primary);
+    }
+
+    .pg-badge-count {
+      margin-left: auto;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 600;
+      background: var(--border-color);
+      color: var(--text-muted);
+      padding: 2px 7px;
+      border-radius: 12px;
+    }
+
+    .pg-sidebar-btn.active .pg-badge-count {
+      background: var(--pg-blue-light);
+      color: var(--pg-blue-primary);
+    }
+
+    .pg-sidebar-footer {
+      border-top: 1px solid var(--border-color);
+      padding: 14px 18px;
+      background: #fafbfc;
+      font-size: 0.76rem;
+      color: var(--text-muted);
+    }
+
+    .pg-server-status {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-mono);
+    }
+
+    .status-dot-active {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--terminal-green);
+      box-shadow: 0 0 8px rgba(16, 185, 129, 0.6);
+    }
+
+    /* RIGHT CONTENT PANE */
+    .pg-content {
+      min-width: 0;
+    }
+
+    .pg-tab-pane {
+      display: none;
+      animation: fadeIn 0.25s ease forwards;
+    }
+
+    .pg-tab-pane.active {
       display: block;
     }
 
-    .section-heading {
-      font-size: 1.45rem;
-      font-weight: 700;
-      color: #ffffff;
-      letter-spacing: -0.3px;
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
-    /* Project Cards */
-    .project-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 28px;
+    /* Section Header inside Panes */
+    .pane-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      padding-bottom: 16px;
       margin-bottom: 24px;
-      transition: border-color 0.2s ease, transform 0.2s ease;
+      border-bottom: 2px solid var(--pg-blue-border);
     }
 
-    .project-card:hover {
-      border-color: var(--ubuntu-orange);
+    .pane-title-group h2 {
+      font-size: 1.55rem;
+      font-weight: 800;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .pane-title-group h2 i {
+      color: var(--pg-blue-primary);
+    }
+
+    .pane-title-group p {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      margin-top: 3px;
+    }
+
+    .pane-action-pill {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      padding: 5px 12px;
+      border-radius: 6px;
+      color: var(--text-muted);
+    }
+
+    /* CARDS: PostgreSQL Doc / Enterprise Schema Style */
+    .pg-card {
+      background: var(--surface-card);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 26px 28px;
+      margin-bottom: 24px;
+      box-shadow: 0 4px 16px rgba(15, 23, 42, 0.03);
+      transition: all 0.25s ease;
+      position: relative;
+    }
+
+    .pg-card:hover {
+      border-color: var(--pg-blue-primary);
+      box-shadow: 0 8px 24px rgba(51, 103, 145, 0.09);
       transform: translateY(-2px);
     }
 
-    .project-header {
+    .pg-card-header {
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
-      margin-bottom: 12px;
       gap: 16px;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
     }
 
-    .project-title {
-      font-size: 1.22rem;
-      font-weight: 600;
-      color: #ffffff;
+    .pg-card-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--text-main);
+      line-height: 1.35;
     }
 
-    .project-meta {
+    .pg-card-context {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
       font-family: var(--font-mono);
       font-size: 0.78rem;
+      color: var(--pg-blue-primary);
+      background: var(--pg-blue-light);
+      padding: 3px 9px;
+      border-radius: 4px;
+      border: 1px solid var(--pg-blue-border);
+      margin-top: 5px;
+      font-weight: 600;
+    }
+
+    .pg-card-badge {
+      font-family: var(--font-mono);
+      font-size: 0.76rem;
+      font-weight: 600;
       color: var(--text-muted);
+      background: var(--surface-subtle);
+      border: 1px solid var(--border-color);
+      padding: 4px 10px;
+      border-radius: 4px;
       white-space: nowrap;
     }
 
-    .project-desc {
-      font-size: 0.93rem;
-      color: #c4bfd2;
+    .pg-card-desc {
+      font-size: 0.92rem;
+      color: var(--text-body);
+      line-height: 1.65;
       margin-bottom: 18px;
-      line-height: 1.6;
     }
 
-    /* Technical Dossier Grid */
-    .tech-dossier {
-      background: rgba(0, 0, 0, 0.35);
-      border: 1px solid rgba(255, 255, 255, 0.05);
-      border-radius: 6px;
+    /* Technical Dossier Grid (Light & Clean) */
+    .pg-dossier {
+      background: var(--bg-page);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
       padding: 16px;
-      margin-bottom: 18px;
+      margin-bottom: 20px;
     }
 
-    .tech-dossier-grid {
+    .pg-dossier-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
       gap: 14px;
     }
 
-    .dossier-item h4 {
+    .pg-dossier-item h4 {
       font-family: var(--font-mono);
-      font-size: 0.75rem;
-      color: #fb923c;
+      font-size: 0.74rem;
+      color: var(--pg-blue-primary);
       text-transform: uppercase;
-      margin-bottom: 3px;
+      font-weight: 700;
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
     }
 
-    .dossier-item p {
-      font-size: 0.84rem;
-      color: #d1cbdc;
+    .pg-dossier-item p {
+      font-size: 0.83rem;
+      color: var(--text-body);
       line-height: 1.45;
     }
 
-    .tag-list {
+    /* Tag List */
+    .pg-tag-list {
       display: flex;
       flex-wrap: wrap;
       gap: 6px;
     }
 
-    .tag {
+    .pg-tag {
       font-family: var(--font-mono);
-      font-size: 0.74rem;
-      padding: 3px 8px;
-      background: rgba(233, 84, 32, 0.1);
-      border: 1px solid rgba(233, 84, 32, 0.25);
+      font-size: 0.73rem;
+      font-weight: 500;
+      padding: 4px 9px;
+      background: #ffffff;
+      border: 1px solid var(--border-color);
       border-radius: 4px;
-      color: #ff9b71;
+      color: var(--text-body);
     }
 
-    /* Technical Stack Grid */
-    .skills-block {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-      gap: 20px;
+    .pg-tag.highlight {
+      background: var(--pg-blue-light);
+      border-color: var(--pg-blue-border);
+      color: var(--pg-blue-dark);
+      font-weight: 600;
     }
 
-    .skill-group {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 22px;
-      transition: border-color 0.2s ease;
+    /* TAB 2: WORK EXPERIENCE */
+    .exp-list {
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
     }
 
-    .skill-group:hover {
-      border-color: rgba(233, 84, 32, 0.5);
+    .exp-card {
+      background: var(--surface-card);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 26px 28px;
+      box-shadow: 0 4px 16px rgba(15, 23, 42, 0.03);
+      transition: all 0.2s ease;
     }
 
-    .skill-group h4 {
-      font-family: var(--font-mono);
-      font-size: 0.8rem;
-      color: var(--text);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
+    .exp-card:hover {
+      border-color: var(--pg-blue-primary);
+      box-shadow: 0 8px 24px rgba(51, 103, 145, 0.08);
+    }
+
+    .exp-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 10px;
       margin-bottom: 12px;
     }
 
-    .skill-items {
-      display: flex;
-      flex-direction: column;
-      gap: 7px;
+    .exp-role-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 4px;
     }
 
-    .skill-item {
-      font-size: 0.86rem;
+    .exp-company {
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: var(--pg-blue-primary);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .exp-period {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--text-body);
+      background: var(--pg-blue-light);
+      border: 1px solid var(--pg-blue-border);
+      padding: 4px 10px;
+      border-radius: 4px;
+      white-space: nowrap;
+    }
+
+    .exp-responsibilities {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin: 16px 0 20px;
+    }
+
+    .exp-responsibilities li {
+      font-size: 0.89rem;
+      color: var(--text-body);
+      line-height: 1.6;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .exp-bullet {
+      color: var(--pg-blue-primary);
+      font-size: 0.85rem;
+      margin-top: 4px;
+      flex-shrink: 0;
+    }
+
+    /* MODULAR UPCOMING PROJECT SLOT */
+    .pg-modular-slot {
+      background: #ffffff;
+      border: 2px dashed var(--pg-blue-border);
+      border-radius: 10px;
+      padding: 28px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 160px;
+      transition: all 0.2s ease;
+    }
+
+    .pg-modular-slot:hover {
+      border-color: var(--pg-blue-primary);
+      background: var(--pg-blue-subtle);
+    }
+
+    .slot-icon {
+      font-size: 1.75rem;
+      color: var(--pg-blue-primary);
+      margin-bottom: 8px;
+    }
+
+    .slot-title {
+      font-size: 0.98rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 4px;
+    }
+
+    .slot-desc {
+      font-size: 0.83rem;
       color: var(--text-muted);
+      max-width: 420px;
+    }
+
+    /* TAB 3: STACK & DATA ARCHITECTURE GRID */
+    .stack-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+
+    .stack-col {
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 22px;
+      box-shadow: 0 3px 12px rgba(15, 23, 42, 0.03);
+      transition: border-color 0.2s ease;
+    }
+
+    .stack-col:hover {
+      border-color: var(--pg-blue-primary);
+    }
+
+    .stack-col h4 {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--text-main);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 14px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid var(--pg-blue-light);
       display: flex;
       align-items: center;
       gap: 8px;
     }
 
-    .skill-item::before {
+    .stack-col h4 i {
+      color: var(--pg-blue-primary);
+      font-size: 0.9rem;
+    }
+
+    .stack-items {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .stack-item {
+      font-size: 0.86rem;
+      color: var(--text-body);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .stack-item::before {
       content: "›";
-      color: var(--ubuntu-orange);
+      color: var(--pg-blue-primary);
       font-weight: bold;
+      font-size: 1rem;
     }
 
     /* Footer */
     footer {
-      border-top: 1px solid var(--border);
+      border-top: 1px solid var(--border-color);
       padding: 35px 0 45px;
       font-size: 0.85rem;
       color: var(--text-muted);
       margin-top: auto;
+      background: #ffffff;
     }
 
     .footer-content {
@@ -496,25 +821,38 @@
       color: var(--text-muted);
       text-decoration: none;
       transition: color 0.15s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
     }
 
     .footer-links a:hover {
-      color: var(--ubuntu-orange);
+      color: var(--pg-blue-primary);
     }
 
-    @media (max-width: 768px) {
-      .project-header {
-        flex-direction: column;
-        gap: 4px;
+    /* RESPONSIVE DESIGN */
+    @media (max-width: 900px) {
+      .pg-layout {
+        grid-template-columns: 1fr;
       }
+      .pg-sidebar {
+        position: static;
+        margin-bottom: 24px;
+      }
+      .stack-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 600px) {
       .nav-inner {
         flex-direction: column;
-        gap: 10px;
         height: auto;
         padding: 12px 0;
+        gap: 10px;
       }
-      .brand-title-code {
-        font-size: 0.8rem;
+      .hero-title {
+        font-size: 1.6rem;
       }
       .footer-content {
         flex-direction: column;
@@ -525,11 +863,24 @@
 </head>
 <body>
 
-  <!-- Sticky Top Navigation (Consistent across all pages) -->
+  <!-- Top PostgreSQL Themed Info Bar -->
+  <div class="pg-top-bar">
+    <div class="container pg-top-bar-inner">
+      <div class="pg-top-badge">
+        <i class="fa-solid fa-database"></i>
+        <span>PostgreSQL & Enterprise Backend Architecture</span>
+      </div>
+      <div class="pg-top-version">
+        <span>psql v16.x · Industrial Systems</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sticky Top Navigation Bar -->
   <nav>
     <div class="container nav-inner">
       <a href="./index.html" class="nav-brand">
-        <span class="powershell-prompt">PS &gt;</span>
+        <span class="powershell-prompt">PS&gt;</span>
         <span class="brand-title-code" data-i18n="brand_title">Portfolio de Iván Alejos</span>
       </a>
 
@@ -542,8 +893,8 @@
             </a>
           </li>
           <li>
-            <a href="./software.html" class="nav-link nav-link-soft active" id="nav-software">
-              <i class="fa-solid fa-terminal" style="color: var(--ubuntu-orange);"></i>
+            <a href="./software.html" class="nav-link active" id="nav-software">
+              <i class="fa-solid fa-database" style="color: #ffffff;"></i>
               <span data-i18n="nav_software">Software & Sistemas</span>
             </a>
           </li>
@@ -561,7 +912,7 @@
           </li>
         </ul>
 
-        <!-- Language Toggle -->
+        <!-- Language Switcher -->
         <div class="lang-toggle">
           <button class="lang-btn active" id="btn-es" onclick="setLanguage('es')">ES</button>
           <button class="lang-btn" id="btn-en" onclick="setLanguage('en')">EN</button>
@@ -570,218 +921,348 @@
     </div>
   </nav>
 
-  <!-- Hero Header / Ubuntu Terminal (Focused on Track Content - No photo or general bio) -->
+  <!-- Hero / PostgreSQL Documentation Portal Header -->
   <header class="hero">
     <div class="container">
-      <div class="terminal-window">
-        <div class="terminal-titlebar">
-          <div class="terminal-dots">
-            <span class="dot dot-close"></span>
-            <span class="dot dot-min"></span>
-            <span class="dot dot-max"></span>
+      <div class="hero-box">
+        <div class="hero-meta-strip">
+          <div class="hero-tag">
+            <i class="fa-solid fa-database"></i>
+            <span data-i18n="hero_badge">RELATIONAL DATABASES & ENTERPRISE SYSTEMS</span>
           </div>
-          <span class="terminal-title">ivan@systems-workstation: ~/portfolio/software-engineering</span>
-          <span style="color: var(--ubuntu-orange); font-size: 0.8rem;"><i class="fa-brands fa-ubuntu"></i></span>
-        </div>
 
-        <div class="terminal-body">
-          <div class="hero-prompt">
-            <span class="user">ivan@systems</span>:<span class="path">~/software</span>$ ./display_track_info.sh
-          </div>
-          <h1 class="hero-title" data-i18n="track_title">Software Empresarial & Sistemas</h1>
-          <div class="hero-subtitle" data-i18n="track_subtitle">Arquitecturas Backend · SCADA & Automatización Industrial · Bases de Datos</div>
-
-          <p class="track-desc" data-i18n="track_desc">
-            Especialización en desarrollo de servicios backend en Python y C# (.NET), automatización y supervisión en tiempo real con Ignition SCADA, integración con ERP Odoo, analítica de vídeo y gestión de bases de datos relacionales (SQL Server, PostgreSQL) en entornos Linux y Windows.
-          </p>
-
-          <div class="hero-links">
-            <a href="https://github.com/ivanalejosgomez" target="_blank" class="btn-secondary">
-              <i class="fa-brands fa-github"></i> GitHub
-            </a>
+          <div class="hero-sql-banner">
+            <span class="pg-prompt">postgres=#</span>
+            <span class="pg-kw">SELECT</span>
+            <span>*</span>
+            <span class="pg-kw">FROM</span>
+            <span>software_architecture;</span>
           </div>
         </div>
+
+        <h1 class="hero-title" data-i18n="track_title">Software Empresarial, Sistemas & Bases de Datos</h1>
+        <div class="hero-subtitle" data-i18n="track_subtitle">Arquitecturas Backend · SCADA & Automatización Industrial · Modelado Relacional (PostgreSQL)</div>
+        <p class="hero-desc" data-i18n="track_desc">
+          Especialización en desarrollo de servicios backend en Python y C# (.NET), automatización y supervisión en tiempo real con Ignition SCADA, integración con ERP Odoo, analítica de vídeo y modelado de datos de alta concurrencia sobre PostgreSQL y SQL Server en entornos Linux y Windows.
+        </p>
       </div>
     </div>
   </header>
 
+  <!-- TWO-COLUMN MAIN INTERFACE: LEFT SIDEBAR + TAB PANES -->
   <main class="container">
+    <div class="pg-layout">
 
-    <!-- Section 1: Enterprise Projects -->
-    <section>
-      <div class="section-head">
-        <span class="section-label" data-i18n="section_projects_label">01. Proyectos de Producción</span>
-        <h2 class="section-heading" data-i18n="section_projects_heading">Software Industrial, Backend & Telemetría</h2>
-      </div>
-
-      <!-- Project 1: SCADA / Odoo / CCTV -->
-      <article class="project-card">
-        <div class="project-header">
-          <div>
-            <h3 class="project-title" data-i18n="scada_title">Plataforma SCADA, Integración ERP Odoo y Analítica de Vídeo</h3>
-            <div style="font-size: 0.8rem; color: #fb923c; margin-top: 3px;" data-i18n="scada_context">Diseño e Innovación Técnica SL · 2021 - 2024</div>
-          </div>
-          <span class="project-meta">Producción en Planta</span>
+      <!-- LEFT SIDEBAR: POSTGRESQL DOCS / SCHEMA NAVIGATOR -->
+      <aside class="pg-sidebar">
+        <div class="pg-sidebar-header">
+          <span><i class="fa-solid fa-server"></i> &nbsp;EXPLORADOR DE SISTEMAS</span>
+          <span style="font-family: var(--font-mono); font-size: 0.72rem; color: #93c5fd;">[3 PANELES]</span>
         </div>
 
-        <p class="project-desc" data-i18n="scada_desc">
-          Diseño y desarrollo integral de soluciones de control y supervisión para plantas industriales. Programación de lógicas en Python para ingesta y telemetría de sensores en Ignition SCADA, interconexión bidireccional mediante APIs con el ERP Odoo, y persistencia de eventos en SQL Server y PostgreSQL. Módulo automatizado de almacenamiento y etiquetado de fragmentos de vídeo de cámaras industriales ante alertas de anomalías.
-        </p>
+        <ul class="pg-sidebar-nav">
+          <li class="pg-sidebar-item">
+            <button class="pg-sidebar-btn active" id="tab-btn-projects" onclick="switchTab('projects')">
+              <i class="fa-solid fa-folder-open"></i>
+              <span data-i18n="sidebar_projects">01. Proyectos de Software</span>
+              <span class="pg-badge-count">2</span>
+            </button>
+          </li>
+          <li class="pg-sidebar-item">
+            <button class="pg-sidebar-btn" id="tab-btn-experience" onclick="switchTab('experience')">
+              <i class="fa-solid fa-briefcase"></i>
+              <span data-i18n="sidebar_experience">02. Experiencia Laboral</span>
+              <span class="pg-badge-count">2</span>
+            </button>
+          </li>
+          <li class="pg-sidebar-item">
+            <button class="pg-sidebar-btn" id="tab-btn-stack" onclick="switchTab('stack')">
+              <i class="fa-solid fa-layer-group"></i>
+              <span data-i18n="sidebar_stack">03. Stack Tecnológico & Datos</span>
+              <span class="pg-badge-count">4</span>
+            </button>
+          </li>
+        </ul>
 
-        <div class="tech-dossier">
-          <div class="tech-dossier-grid">
-            <div class="dossier-item">
-              <h4 data-i18n="scada_f1_h">Arquitectura SCADA</h4>
-              <p data-i18n="scada_f1_p">Módulos de visualización y control con Ignition, enlace de tags OPC-UA y telemetría continua.</p>
+        <div class="pg-sidebar-footer">
+          <div class="pg-server-status">
+            <span class="status-dot-active"></span>
+            <span>Cluster: ONLINE (Ready)</span>
+          </div>
+        </div>
+      </aside>
+
+      <!-- RIGHT CONTENT AREA: TAB PANES -->
+      <section class="pg-content">
+
+        <!-- PANE 1: PROYECTOS DE SOFTWARE -->
+        <div class="pg-tab-pane active" id="pane-projects">
+          <div class="pane-header">
+            <div class="pane-title-group">
+              <h2><i class="fa-solid fa-folder-open"></i> <span data-i18n="pane_projects_title">Proyectos de Producción e Ingeniería</span></h2>
+              <p data-i18n="pane_projects_desc">Desarrollos de software en producción, plataformas SCADA, visión industrial e ingesta de datos.</p>
             </div>
-            <div class="dossier-item">
-              <h4 data-i18n="scada_f2_h">Integración ERP Odoo</h4>
-              <p data-i18n="scada_f2_p">Sincronización automatizada de órdenes de fabricación, tiempos de parada y trazabilidad de materiales.</p>
+            <span class="pane-action-pill"><i class="fa-solid fa-code-branch"></i> production/release</span>
+          </div>
+
+          <!-- Project 1: SCADA, Odoo ERP & Video Analytics -->
+          <article class="pg-card">
+            <div class="pg-card-header">
+              <div>
+                <h3 class="pg-card-title" data-i18n="scada_title">Plataforma SCADA Industrial, Integración ERP Odoo y Analítica de Vídeo</h3>
+                <div class="pg-card-context" data-i18n="scada_context">
+                  <i class="fa-solid fa-building"></i> Diseño e Innovación Técnica SL · 2021 - 2024
+                </div>
+              </div>
+              <span class="pg-card-badge">Industrial & Backend</span>
             </div>
-            <div class="dossier-item">
-              <h4 data-i18n="scada_f3_h">Ingeniería de Datos</h4>
-              <p data-i18n="scada_f3_p">Modelado relacional y consultas analíticas de alto rendimiento sobre bases de datos SQL Server y PostgreSQL.</p>
+
+            <p class="pg-card-desc" data-i18n="scada_desc">
+              Diseño y desarrollo integral de soluciones de control y supervisión para plantas industriales. Programación de lógicas en Python para ingesta y telemetría de sensores en Ignition SCADA, interconexión bidireccional mediante APIs con el ERP Odoo, y persistencia de eventos en SQL Server y PostgreSQL. Módulo automatizado de almacenamiento y etiquetado de fragmentos de vídeo de cámaras industriales ante alertas de anomalías.
+            </p>
+
+            <div class="pg-dossier">
+              <div class="pg-dossier-grid">
+                <div class="pg-dossier-item">
+                  <h4 data-i18n="scada_f1_h"><i class="fa-solid fa-chart-line"></i> Arquitectura SCADA</h4>
+                  <p data-i18n="scada_f1_p">Módulos de visualización y control con Ignition, enlace de tags OPC-UA y telemetría continua.</p>
+                </div>
+                <div class="pg-dossier-item">
+                  <h4 data-i18n="scada_f2_h"><i class="fa-solid fa-arrows-split-up-and-left"></i> Integración ERP Odoo</h4>
+                  <p data-i18n="scada_f2_p">Sincronización automatizada de órdenes de fabricación, tiempos de parada y trazabilidad de materiales.</p>
+                </div>
+                <div class="pg-dossier-item">
+                  <h4 data-i18n="scada_f3_h"><i class="fa-solid fa-database"></i> Bases de Datos & Datos</h4>
+                  <p data-i18n="scada_f3_p">Modelado relacional y consultas analíticas de alto rendimiento sobre bases de datos SQL Server y PostgreSQL.</p>
+                </div>
+                <div class="pg-dossier-item">
+                  <h4 data-i18n="scada_f4_h"><i class="fa-solid fa-video"></i> Analítica de Vídeo</h4>
+                  <p data-i18n="scada_f4_p">Captura programada de streams CCTV IP vinculados a eventos y diagnósticos en tiempo real.</p>
+                </div>
+              </div>
             </div>
-            <div class="dossier-item">
-              <h4 data-i18n="scada_f4_h">Analítica de Vídeo</h4>
-              <p data-i18n="scada_f4_p">Captura programada de streams CCTV IP vinculados a eventos y diagnósticos en tiempo real.</p>
+
+            <div class="pg-tag-list">
+              <span class="pg-tag highlight">PostgreSQL</span>
+              <span class="pg-tag highlight">SQL Server</span>
+              <span class="pg-tag highlight">Python</span>
+              <span class="pg-tag">Ignition SCADA</span>
+              <span class="pg-tag">Odoo ERP</span>
+              <span class="pg-tag">OPC-UA</span>
+              <span class="pg-tag">Streaming CCTV IP</span>
+            </div>
+          </article>
+
+          <!-- Project 2: Real-Time Computer Vision & Tracking (TFG) -->
+          <article class="pg-card">
+            <div class="pg-card-header">
+              <div>
+                <h3 class="pg-card-title" data-i18n="cv_title">Sistema de Visión Artificial y Tracking en Tiempo Real para Cámaras Industriales</h3>
+                <div class="pg-card-context" data-i18n="cv_context">
+                  <i class="fa-solid fa-graduation-cap"></i> Trabajo de Fin de Grado (TFG) · Universitat de València · 2021 - 2022
+                </div>
+              </div>
+              <span class="pg-card-badge">Computer Vision</span>
+            </div>
+
+            <p class="pg-card-desc" data-i18n="cv_desc">
+              Investigación y desarrollo de un software de procesamiento de señal visual en directo para inspección técnica. Implementación de algoritmos de segmentación espacial y seguimiento cinemático de objetos industriales con tolerancias estrictas de latencia. Diseño de la aplicación gráfica y optimización del pipeline de fotogramas mediante OpenCV y C++.
+            </p>
+
+            <div class="pg-dossier">
+              <div class="pg-dossier-grid">
+                <div class="pg-dossier-item">
+                  <h4 data-i18n="cv_f1_h"><i class="fa-solid fa-eye"></i> Procesamiento de Fotogramas</h4>
+                  <p data-i18n="cv_f1_p">Filtrado espacial, detección de bordes y cálculo de centroides en tiempo real a alta velocidad.</p>
+                </div>
+                <div class="pg-dossier-item">
+                  <h4 data-i18n="cv_f2_h"><i class="fa-solid fa-route"></i> Seguimiento Cinemático</h4>
+                  <p data-i18n="cv_f2_p">Modelado de trayectorias y corrección predictiva de movimiento para inspección continua.</p>
+                </div>
+                <div class="pg-dossier-item">
+                  <h4 data-i18n="cv_f3_h"><i class="fa-solid fa-bolt"></i> Rendimiento C++ / Python</h4>
+                  <p data-i18n="cv_f3_p">Optimización de memoria en bucle de captura para garantizar tasa constante de fotogramas.</p>
+                </div>
+                <div class="pg-dossier-item">
+                  <h4 data-i18n="cv_f4_h"><i class="fa-solid fa-sliders"></i> Panel de Calibración</h4>
+                  <p data-i18n="cv_f4_p">Interfaz gráfica interactiva para ajuste dinámico de umbrales morfológicos y métricas en vivo.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="pg-tag-list">
+              <span class="pg-tag highlight">C++</span>
+              <span class="pg-tag highlight">OpenCV</span>
+              <span class="pg-tag highlight">Python</span>
+              <span class="pg-tag">Image Processing</span>
+              <span class="pg-tag">Tracking Algorítmico</span>
+              <span class="pg-tag">Zero-Copy Memory</span>
+            </div>
+          </article>
+
+          <!-- Modular Slot for Upcoming Software Projects -->
+          <div class="pg-modular-slot">
+            <div class="slot-icon"><i class="fa-solid fa-folder-plus"></i></div>
+            <h4 class="slot-title" data-i18n="slot_software_title">Próximos Proyectos de Software en Preparación</h4>
+            <p class="slot-desc" data-i18n="slot_software_desc">Espacio modular preparado para incorporar nuevas implementaciones de backend, microservicios distribuidos y pipelines de datos.</p>
+          </div>
+        </div>
+
+        <!-- PANE 2: EXPERIENCIA LABORAL -->
+        <div class="pg-tab-pane" id="pane-experience">
+          <div class="pane-header">
+            <div class="pane-title-group">
+              <h2><i class="fa-solid fa-briefcase"></i> <span data-i18n="pane_exp_title">Trayectoria Profesional en Software y Sistemas</span></h2>
+              <p data-i18n="pane_exp_desc">Experiencia profesional en empresas del sector tecnológico e industrial.</p>
+            </div>
+            <span class="pane-action-pill"><i class="fa-solid fa-history"></i> 2021 — 2026</span>
+          </div>
+
+          <div class="exp-list">
+            <!-- Job 1: Diseño e Innovación Técnica SL -->
+            <article class="exp-card">
+              <div class="exp-header">
+                <div>
+                  <h3 class="exp-role-title" data-i18n="dit_role">Desarrollador de Software, Automatización y Bases de Datos</h3>
+                  <div class="exp-company">
+                    <i class="fa-solid fa-building"></i> Diseño e Innovación Técnica SL
+                  </div>
+                </div>
+                <span class="exp-period" data-i18n="dit_period">Abr. 2021 — Mar. 2024 · 3 años</span>
+              </div>
+
+              <ul class="exp-responsibilities">
+                <li>
+                  <i class="fa-solid fa-database exp-bullet"></i>
+                  <span data-i18n="dit_resp_1">Modelado, indexación y optimización de bases de datos relacionales en <strong>PostgreSQL</strong> y <strong>Microsoft SQL Server</strong> para registro continuo de eventos de planta, auditoría y trazabilidad.</span>
+                </li>
+                <li>
+                  <i class="fa-solid fa-microchip exp-bullet"></i>
+                  <span data-i18n="dit_resp_2">Desarrollo de módulos lógicos en Python y pantallas de control para <strong>Ignition SCADA</strong>, conectando tags industriales bajo estándares OPC-UA para monitorización en tiempo real.</span>
+                </li>
+                <li>
+                  <i class="fa-solid fa-network-wired exp-bullet"></i>
+                  <span data-i18n="dit_resp_3">Integración de sistemas backend con <strong>ERP Odoo</strong> mediante APIs RESTful para sincronización automática de órdenes de trabajo, stocks y métricas de producción.</span>
+                </li>
+                <li>
+                  <i class="fa-solid fa-video exp-bullet"></i>
+                  <span data-i18n="dit_resp_4">Diseño del sistema de analítica de vídeo sobre cámaras CCTV IP, grabando y clasificando automáticamente fragmentos críticos vinculados a eventos de alarma de planta.</span>
+                </li>
+              </ul>
+
+              <div class="pg-tag-list">
+                <span class="pg-tag highlight">PostgreSQL</span>
+                <span class="pg-tag highlight">SQL Server</span>
+                <span class="pg-tag highlight">Python</span>
+                <span class="pg-tag">Ignition SCADA</span>
+                <span class="pg-tag">Odoo ERP</span>
+                <span class="pg-tag">Linux Server</span>
+                <span class="pg-tag">OPC-UA</span>
+              </div>
+            </article>
+
+            <!-- Job 2: SIMODAR Training Solutions SL -->
+            <article class="exp-card">
+              <div class="exp-header">
+                <div>
+                  <h3 class="exp-role-title" data-i18n="sim_role">Integración de Hardware de Simulación y Soporte de Software en Planta</h3>
+                  <div class="exp-company">
+                    <i class="fa-solid fa-vr-cardboard"></i> SIMODAR Training Solutions SL
+                  </div>
+                </div>
+                <span class="exp-period" data-i18n="sim_period">Jul. 2024 — Jul. 2026 · 2 años</span>
+              </div>
+
+              <ul class="exp-responsibilities">
+                <li>
+                  <i class="fa-solid fa-microchip exp-bullet"></i>
+                  <span data-i18n="sim_resp_1">Enlace e integración técnica entre instrumentación física de simuladores de alta fidelidad y motores de simulación en red de área local.</span>
+                </li>
+                <li>
+                  <i class="fa-solid fa-screwdriver-wrench exp-bullet"></i>
+                  <span data-i18n="sim_resp_2">Resolución y diagnóstico avanzado de incidencias críticas de software (Nivel 3) en despliegues reales de clientes en tiempo real.</span>
+                </li>
+                <li>
+                  <i class="fa-solid fa-terminal exp-bullet"></i>
+                  <span data-i18n="sim_resp_3">Automatización de pruebas de estrés, calibración de hardware y despliegue de paquetes en entornos operativos <strong>Linux</strong> y <strong>Windows Server</strong>.</span>
+                </li>
+                <li>
+                  <i class="fa-solid fa-server exp-bullet"></i>
+                  <span data-i18n="sim_resp_4">Configuración de redes de comunicaciones de baja latencia mediante sockets TCP/IP y supervisión de servidores de planta.</span>
+                </li>
+              </ul>
+
+              <div class="pg-tag-list">
+                <span class="pg-tag highlight">C++</span>
+                <span class="pg-tag highlight">Linux / Windows Server</span>
+                <span class="pg-tag highlight">TCP/IP Sockets</span>
+                <span class="pg-tag">Hardware Interfacing</span>
+                <span class="pg-tag">Soporte N3</span>
+                <span class="pg-tag">Automatización</span>
+              </div>
+            </article>
+          </div>
+        </div>
+
+        <!-- PANE 3: STACK TECNOLÓGICO & DATOS -->
+        <div class="pg-tab-pane" id="pane-stack">
+          <div class="pane-header">
+            <div class="pane-title-group">
+              <h2><i class="fa-solid fa-layer-group"></i> <span data-i18n="pane_stack_title">Stack Tecnológico & Arquitectura de Datos</span></h2>
+              <p data-i18n="pane_stack_desc">Inventario estructurado de tecnologías, motores de persistencia y entornos de desarrollo.</p>
+            </div>
+            <span class="pane-action-pill"><i class="fa-solid fa-microchip"></i> enterprise-grade</span>
+          </div>
+
+          <div class="stack-grid">
+            <div class="stack-col">
+              <h4><i class="fa-solid fa-database"></i> <span data-i18n="stack_db_title">Bases de Datos & Datos</span></h4>
+              <div class="stack-items">
+                <span class="stack-item" data-i18n="stack_db_1">PostgreSQL (Modelado, Indexación & Queries)</span>
+                <span class="stack-item" data-i18n="stack_db_2">Microsoft SQL Server (Transact-SQL & Stored Procedures)</span>
+                <span class="stack-item" data-i18n="stack_db_3">Optimización y Análisis de Planes de Consulta (EXPLAIN)</span>
+                <span class="stack-item" data-i18n="stack_db_4">Modelado Entidad-Relación y Normalización</span>
+                <span class="stack-item" data-i18n="stack_db_5">Ingesta de Telemetría Time-Series</span>
+              </div>
+            </div>
+
+            <div class="stack-col">
+              <h4><i class="fa-solid fa-code"></i> <span data-i18n="stack_be_title">Backend & Lenguajes</span></h4>
+              <div class="stack-items">
+                <span class="stack-item" data-i18n="stack_be_1">Python (Servicios, APIs, Automatización)</span>
+                <span class="stack-item" data-i18n="stack_be_2">C# (.NET / Integraciones de Sistema)</span>
+                <span class="stack-item" data-i18n="stack_be_3">C++ (OOP, Concurrencia & Memoria Eficiente)</span>
+                <span class="stack-item" data-i18n="stack_be_4">APIs RESTful & Comunicación WebSockets</span>
+                <span class="stack-item" data-i18n="stack_be_5">Bash / Shell Scripting & PowerShell</span>
+              </div>
+            </div>
+
+            <div class="stack-col">
+              <h4><i class="fa-solid fa-industry"></i> <span data-i18n="stack_ind_title">Software Industrial & Visión</span></h4>
+              <div class="stack-items">
+                <span class="stack-item" data-i18n="stack_ind_1">Ignition SCADA (Vision & Perspective)</span>
+                <span class="stack-item" data-i18n="stack_ind_2">ERP Odoo (Módulos & Sincronización)</span>
+                <span class="stack-item" data-i18n="stack_ind_3">OpenCV (Visión por Computador & Tracking)</span>
+                <span class="stack-item" data-i18n="stack_ind_4">Protocolos CCTV / Streaming IP (RTSP)</span>
+                <span class="stack-item" data-i18n="stack_ind_5">Enlace Tags Industriales (OPC-UA)</span>
+              </div>
+            </div>
+
+            <div class="stack-col">
+              <h4><i class="fa-solid fa-network-wired"></i> <span data-i18n="stack_sys_title">Sistemas & Operaciones</span></h4>
+              <div class="stack-items">
+                <span class="stack-item" data-i18n="stack_sys_1">Linux (Ubuntu, Debian Server)</span>
+                <span class="stack-item" data-i18n="stack_sys_2">Administración de Windows Server</span>
+                <span class="stack-item" data-i18n="stack_sys_3">Git & Control de Versiones</span>
+                <span class="stack-item" data-i18n="stack_sys_4">Redes Locales, TCP/IP & Enrutado</span>
+                <span class="stack-item" data-i18n="stack_sys_5">Diagnóstico y Soporte Técnico N1-N3</span>
+              </div>
             </div>
           </div>
         </div>
 
-        <div class="tag-list">
-          <span class="tag">Ignition SCADA</span>
-          <span class="tag">Odoo ERP</span>
-          <span class="tag">Python</span>
-          <span class="tag">SQL Server</span>
-          <span class="tag">PostgreSQL</span>
-          <span class="tag">OPC-UA</span>
-          <span class="tag">CCTV IP</span>
-        </div>
-      </article>
-
-      <!-- Project 2: Real-time Computer Vision (TFG) -->
-      <article class="project-card">
-        <div class="project-header">
-          <div>
-            <h3 class="project-title" data-i18n="cv_title">Sistema de Visión Artificial y Tracking en Tiempo Real para Cámaras Industriales</h3>
-            <div style="font-size: 0.8rem; color: #fb923c; margin-top: 3px;" data-i18n="cv_context">Trabajo de Fin de Grado (TFG) · Universitat de València · 2021 - 2022</div>
-          </div>
-          <span class="project-meta">Investigación Aplicada</span>
-        </div>
-
-        <p class="project-desc" data-i18n="cv_desc">
-          Investigación y desarrollo de un software de procesamiento de señal visual en directo para inspección técnica. Implementación de algoritmos de segmentación espacial y seguimiento cinemático de objetos industriales con tolerancias estrictas de latencia. Diseño de la aplicación gráfica y optimización del pipeline de fotogramas mediante OpenCV y C++.
-        </p>
-
-        <div class="tech-dossier">
-          <div class="tech-dossier-grid">
-            <div class="dossier-item">
-              <h4 data-i18n="cv_f1_h">Procesamiento de Fotogramas</h4>
-              <p data-i18n="cv_f1_p">Filtrado espacial, detección de bordes y cálculo de centroides en tiempo real a alta velocidad.</p>
-            </div>
-            <div class="dossier-item">
-              <h4 data-i18n="cv_f2_h">Seguimiento Cinemático</h4>
-              <p data-i18n="cv_f2_p">Modelado de trayectorias y corrección predictiva de movimiento para inspección sin saltos.</p>
-            </div>
-            <div class="dossier-item">
-              <h4 data-i18n="cv_f3_h">Rendimiento C++ / Python</h4>
-              <p data-i18n="cv_f3_p">Optimización de memoria en bucle de captura para garantizar tasa constante de fotogramas.</p>
-            </div>
-            <div class="dossier-item">
-              <h4 data-i18n="cv_f4_h">Interfaz de Operador</h4>
-              <p data-i18n="cv_f4_p">Panel de calibración interactiva de umbrales morfológicos y métricas espaciales en vivo.</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="tag-list">
-          <span class="tag">OpenCV</span>
-          <span class="tag">Python</span>
-          <span class="tag">C++</span>
-          <span class="tag">Image Processing</span>
-          <span class="tag">Tracking Algorítmico</span>
-        </div>
-      </article>
-
-      <!-- Project 3: SIMODAR Simulation Systems -->
-      <article class="project-card">
-        <div class="project-header">
-          <div>
-            <h3 class="project-title" data-i18n="sim_title">Integración de Hardware de Simulación y Soporte de Software en Planta</h3>
-            <div style="font-size: 0.8rem; color: #fb923c; margin-top: 3px;" data-i18n="sim_context">SIMODAR Training Solutions SL · 2024 - 2026</div>
-          </div>
-          <span class="project-meta">Sistemas & Planta</span>
-        </div>
-
-        <p class="project-desc" data-i18n="sim_desc">
-          Enlace entre hardware de simulación física de alta fidelidad y servidores de control en red. Diagnóstico avanzado de incidentes de software en entornos cliente, automatización de pruebas de esfuerzo de instrumentación y despliegue de soluciones en sistemas operativos Linux y Windows Server.
-        </p>
-
-        <div class="tag-list">
-          <span class="tag">C++</span>
-          <span class="tag">Linux / Windows Server</span>
-          <span class="tag">TCP/IP Sockets</span>
-          <span class="tag">Hardware Interfacing</span>
-          <span class="tag">Soporte Técnico N3</span>
-        </div>
-      </article>
-    </section>
-
-    <!-- Section 2: Technical Stack -->
-    <section style="margin-top: 35px;">
-      <div class="section-head">
-        <span class="section-label" data-i18n="section_stack_label">02. Habilidades & Entornos</span>
-        <h2 class="section-heading" data-i18n="section_stack_heading">Stack Tecnológico Empresarial</h2>
-      </div>
-
-      <div class="skills-block">
-        <div class="skill-group">
-          <h4 data-i18n="stack_backend">Backend & Lenguajes</h4>
-          <div class="skill-items">
-            <span class="skill-item">Python (Servicios, APIs, Scripts)</span>
-            <span class="skill-item">C# (.NET / Integraciones)</span>
-            <span class="skill-item">C++ (OOP & Concurrencia)</span>
-            <span class="skill-item">APIs RESTful & WebSockets</span>
-            <span class="skill-item">Bash / Shell Scripting</span>
-          </div>
-        </div>
-
-        <div class="skill-group">
-          <h4 data-i18n="stack_db">Bases de Datos & Datos</h4>
-          <div class="skill-items">
-            <span class="skill-item">PostgreSQL (Modelado & Queries)</span>
-            <span class="skill-item">Microsoft SQL Server</span>
-            <span class="skill-item">Optimización de Consultas SQL</span>
-            <span class="skill-item">Modelado Entidad-Relación</span>
-            <span class="skill-item">Ingesta de Telemetría Time-Series</span>
-          </div>
-        </div>
-
-        <div class="skill-group">
-          <h4 data-i18n="stack_industrial">Software Industrial</h4>
-          <div class="skill-items">
-            <span class="skill-item">Ignition SCADA (Vision & Perspective)</span>
-            <span class="skill-item">ERP Odoo (Módulos & Sincronización)</span>
-            <span class="skill-item">OpenCV (Visión por Computador)</span>
-            <span class="skill-item">Protocolos CCTV / Streaming IP</span>
-            <span class="skill-item">Enlace Tags Industriales (OPC-UA)</span>
-          </div>
-        </div>
-
-        <div class="skill-group">
-          <h4 data-i18n="stack_infra">Sistemas & Operaciones</h4>
-          <div class="skill-items">
-            <span class="skill-item">Linux (Ubuntu, Debian Server)</span>
-            <span class="skill-item">Windows Server Administration</span>
-            <span class="skill-item">Git & Control de Versiones</span>
-            <span class="skill-item">Redes Locales, TCP/IP & Enrutado</span>
-            <span class="skill-item">Resolución de Incidencias N1-N3</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
+      </section>
+    </div>
   </main>
 
   <!-- Footer -->
@@ -789,7 +1270,7 @@
     <div class="container footer-content">
       <div>
         <span>© 2026 Iván Alejos Gómez</span>
-        <span style="margin: 0 8px; color: var(--border);">·</span>
+        <span style="margin: 0 8px; color: var(--border-color);">·</span>
         <span data-i18n="footer_location">Valencia, España</span>
       </div>
 
@@ -802,7 +1283,23 @@
   </footer>
 
   <script>
-    // Bilingual Dictionary
+    // Tab Switching Logic with History Support
+    function switchTab(tabKey) {
+      // Buttons
+      document.getElementById('tab-btn-projects').classList.toggle('active', tabKey === 'projects');
+      document.getElementById('tab-btn-experience').classList.toggle('active', tabKey === 'experience');
+      document.getElementById('tab-btn-stack').classList.toggle('active', tabKey === 'stack');
+
+      // Panes
+      document.getElementById('pane-projects').classList.toggle('active', tabKey === 'projects');
+      document.getElementById('pane-experience').classList.toggle('active', tabKey === 'experience');
+      document.getElementById('pane-stack').classList.toggle('active', tabKey === 'stack');
+
+      // Update hash without jump
+      history.replaceState(null, null, '#' + tabKey);
+    }
+
+    // Bilingual Translation Dictionary
     const i18n = {
       es: {
         brand_title: "Portfolio de Iván Alejos",
@@ -810,44 +1307,93 @@
         nav_software: "Software & Sistemas",
         nav_graphics: "Simulación & Gráficos",
         nav_contact: "Contacto",
-        track_title: "Software Empresarial & Sistemas",
-        track_subtitle: "Arquitecturas Backend · SCADA & Automatización Industrial · Bases de Datos",
-        track_desc: "Especialización en desarrollo de servicios backend en Python y C# (.NET), automatización y supervisión en tiempo real con Ignition SCADA, integración con ERP Odoo, analítica de vídeo y gestión de bases de datos relacionales (SQL Server, PostgreSQL) en entornos Linux y Windows.",
-        btn_contact: "Contactar",
-        btn_cv: "Currículum Vitae (PDF)",
-        section_projects_label: "01. Proyectos de Producción",
-        section_projects_heading: "Software Industrial, Backend & Telemetría",
-        scada_title: "Plataforma SCADA, Integración ERP Odoo y Analítica de Vídeo",
+        hero_badge: "BASES DE DATOS RELACIONALES & ARQUITECTURAS ENTERPRISE",
+        track_title: "Software Empresarial, Sistemas & Bases de Datos",
+        track_subtitle: "Arquitecturas Backend · SCADA & Automatización Industrial · Modelado Relacional (PostgreSQL)",
+        track_desc: "Especialización en desarrollo de servicios backend en Python y C# (.NET), automatización y supervisión en tiempo real con Ignition SCADA, integración con ERP Odoo, analítica de vídeo y modelado de datos de alta concurrencia sobre PostgreSQL y SQL Server en entornos Linux y Windows.",
+        
+        sidebar_projects: "01. Proyectos de Software",
+        sidebar_experience: "02. Experiencia Laboral",
+        sidebar_stack: "03. Stack Tecnológico & Datos",
+
+        pane_projects_title: "Proyectos de Producción e Ingeniería",
+        pane_projects_desc: "Desarrollos de software en producción, plataformas SCADA, visión industrial e ingesta de datos.",
+
+        scada_title: "Plataforma SCADA Industrial, Integración ERP Odoo y Analítica de Vídeo",
         scada_context: "Diseño e Innovación Técnica SL · 2021 - 2024",
         scada_desc: "Diseño y desarrollo integral de soluciones de control y supervisión para plantas industriales. Programación de lógicas en Python para ingesta y telemetría de sensores en Ignition SCADA, interconexión bidireccional mediante APIs con el ERP Odoo, y persistencia de eventos en SQL Server y PostgreSQL. Módulo automatizado de almacenamiento y etiquetado de fragmentos de vídeo de cámaras industriales ante alertas de anomalías.",
         scada_f1_h: "Arquitectura SCADA",
         scada_f1_p: "Módulos de visualización y control con Ignition, enlace de tags OPC-UA y telemetría continua.",
         scada_f2_h: "Integración ERP Odoo",
         scada_f2_p: "Sincronización automatizada de órdenes de fabricación, tiempos de parada y trazabilidad de materiales.",
-        scada_f3_h: "Ingeniería de Datos",
+        scada_f3_h: "Bases de Datos & Datos",
         scada_f3_p: "Modelado relacional y consultas analíticas de alto rendimiento sobre bases de datos SQL Server y PostgreSQL.",
         scada_f4_h: "Analítica de Vídeo",
         scada_f4_p: "Captura programada de streams CCTV IP vinculados a eventos y diagnósticos en tiempo real.",
+
         cv_title: "Sistema de Visión Artificial y Tracking en Tiempo Real para Cámaras Industriales",
         cv_context: "Trabajo de Fin de Grado (TFG) · Universitat de València · 2021 - 2022",
         cv_desc: "Investigación y desarrollo de un software de procesamiento de señal visual en directo para inspección técnica. Implementación de algoritmos de segmentación espacial y seguimiento cinemático de objetos industriales con tolerancias estrictas de latencia. Diseño de la aplicación gráfica y optimización del pipeline de fotogramas mediante OpenCV y C++.",
         cv_f1_h: "Procesamiento de Fotogramas",
         cv_f1_p: "Filtrado espacial, detección de bordes y cálculo de centroides en tiempo real a alta velocidad.",
         cv_f2_h: "Seguimiento Cinemático",
-        cv_f2_p: "Modelado de trayectorias y corrección predictiva de movimiento para inspección sin saltos.",
+        cv_f2_p: "Modelado de trayectorias y corrección predictiva de movimiento para inspección continua.",
         cv_f3_h: "Rendimiento C++ / Python",
         cv_f3_p: "Optimización de memoria en bucle de captura para garantizar tasa constante de fotogramas.",
-        cv_f4_h: "Interfaz de Operador",
-        cv_f4_p: "Panel de calibración interactiva de umbrales morfológicos y métricas espaciales en vivo.",
-        sim_title: "Integración de Hardware de Simulación y Soporte de Software en Planta",
-        sim_context: "SIMODAR Training Solutions SL · 2024 - 2026",
-        sim_desc: "Enlace entre hardware de simulación física de alta fidelidad y servidores de control en red. Diagnóstico avanzado de incidentes de software en entornos cliente, automatización de pruebas de esfuerzo de instrumentación y despliegue de soluciones en sistemas operativos Linux y Windows Server.",
-        section_stack_label: "02. Habilidades & Entornos",
-        section_stack_heading: "Stack Tecnológico Empresarial",
-        stack_backend: "Backend & Lenguajes",
-        stack_db: "Bases de Datos & Datos",
-        stack_industrial: "Software Industrial",
-        stack_infra: "Sistemas & Operaciones",
+        cv_f4_h: "Panel de Calibración",
+        cv_f4_p: "Interfaz gráfica interactiva para ajuste dinámico de umbrales morfológicos y métricas en vivo.",
+
+        slot_software_title: "Próximos Proyectos de Software en Preparación",
+        slot_software_desc: "Espacio modular preparado para incorporar nuevas implementaciones de backend, microservicios distribuidos y pipelines de datos.",
+
+        pane_exp_title: "Trayectoria Profesional en Software y Sistemas",
+        pane_exp_desc: "Experiencia profesional en empresas del sector tecnológico e industrial.",
+
+        dit_role: "Desarrollador de Software, Automatización y Bases de Datos",
+        dit_period: "Abr. 2021 — Mar. 2024 · 3 años",
+        dit_resp_1: "Modelado, indexación y optimización de bases de datos relacionales en PostgreSQL y Microsoft SQL Server para registro continuo de eventos de planta, auditoría y trazabilidad.",
+        dit_resp_2: "Desarrollo de módulos lógicos en Python y pantallas de control para Ignition SCADA, conectando tags industriales bajo estándares OPC-UA para monitorización en tiempo real.",
+        dit_resp_3: "Integración de sistemas backend con ERP Odoo mediante APIs RESTful para sincronización automática de órdenes de trabajo, stocks y métricas de producción.",
+        dit_resp_4: "Diseño del sistema de analítica de vídeo sobre cámaras CCTV IP, grabando y clasificando automáticamente fragmentos críticos vinculados a eventos de alarma de planta.",
+
+        sim_role: "Integración de Hardware de Simulación y Soporte de Software en Planta",
+        sim_period: "Jul. 2024 — Jul. 2026 · 2 años",
+        sim_resp_1: "Enlace e integración técnica entre instrumentación física de simuladores de alta fidelidad y motores de simulación en red de área local.",
+        sim_resp_2: "Resolución y diagnóstico avanzado de incidencias críticas de software (Nivel 3) en despliegues reales de clientes en tiempo real.",
+        sim_resp_3: "Automatización de pruebas de estrés, calibración de hardware y despliegue de paquetes en entornos operativos Linux y Windows Server.",
+        sim_resp_4: "Configuración de redes de comunicaciones de baja latencia mediante sockets TCP/IP y supervisión de servidores de planta.",
+
+        pane_stack_title: "Stack Tecnológico & Arquitectura de Datos",
+        pane_stack_desc: "Inventario estructurado de tecnologías, motores de persistencia y entornos de desarrollo.",
+
+        stack_db_title: "Bases de Datos & Datos",
+        stack_db_1: "PostgreSQL (Modelado, Indexación & Queries)",
+        stack_db_2: "Microsoft SQL Server (Transact-SQL & Stored Procedures)",
+        stack_db_3: "Optimización y Análisis de Planes de Consulta (EXPLAIN)",
+        stack_db_4: "Modelado Entidad-Relación y Normalización",
+        stack_db_5: "Ingesta de Telemetría Time-Series",
+
+        stack_be_title: "Backend & Lenguajes",
+        stack_be_1: "Python (Servicios, APIs, Automatización)",
+        stack_be_2: "C# (.NET / Integraciones de Sistema)",
+        stack_be_3: "C++ (OOP, Concurrencia & Memoria Eficiente)",
+        stack_be_4: "APIs RESTful & Comunicación WebSockets",
+        stack_be_5: "Bash / Shell Scripting & PowerShell",
+
+        stack_ind_title: "Software Industrial & Visión",
+        stack_ind_1: "Ignition SCADA (Vision & Perspective)",
+        stack_ind_2: "ERP Odoo (Módulos & Sincronización)",
+        stack_ind_3: "OpenCV (Visión por Computador & Tracking)",
+        stack_ind_4: "Protocolos CCTV / Streaming IP (RTSP)",
+        stack_ind_5: "Enlace Tags Industriales (OPC-UA)",
+
+        stack_sys_title: "Sistemas & Operaciones",
+        stack_sys_1: "Linux (Ubuntu, Debian Server)",
+        stack_sys_2: "Administración de Windows Server",
+        stack_sys_3: "Git & Control de Versiones",
+        stack_sys_4: "Redes Locales, TCP/IP & Enrutado",
+        stack_sys_5: "Diagnóstico y Soporte Técnico N1-N3",
+
         footer_location: "Valencia, España"
       },
       en: {
@@ -856,24 +1402,30 @@
         nav_software: "Software & Systems",
         nav_graphics: "Simulation & Graphics",
         nav_contact: "Contact",
-        track_title: "Enterprise Software & Systems",
-        track_subtitle: "Backend Architectures · Industrial SCADA Automation · Relational Databases",
-        track_desc: "Specialized in backend service engineering in Python and C# (.NET), real-time supervision with Ignition SCADA, Odoo ERP integration, video stream analytics, and relational database administration (SQL Server, PostgreSQL) across Linux and Windows Server environments.",
-        btn_contact: "Contact",
-        btn_cv: "Resume (PDF)",
-        section_projects_label: "01. Production Projects",
-        section_projects_heading: "Industrial Software, Backend & Telemetry",
+        hero_badge: "RELATIONAL DATABASES & ENTERPRISE ARCHITECTURES",
+        track_title: "Enterprise Software, Systems & Databases",
+        track_subtitle: "Backend Architectures · Industrial SCADA Automation · Relational Modeling (PostgreSQL)",
+        track_desc: "Specialized in backend service engineering in Python and C# (.NET), real-time supervision with Ignition SCADA, Odoo ERP integration, video stream analytics, and high-concurrency relational data modeling over PostgreSQL and SQL Server across Linux and Windows environments.",
+        
+        sidebar_projects: "01. Software Projects",
+        sidebar_experience: "02. Work Experience",
+        sidebar_stack: "03. Tech Stack & Data",
+
+        pane_projects_title: "Production Projects & Engineering",
+        pane_projects_desc: "Production software implementations, SCADA systems, industrial vision, and data ingestion.",
+
         scada_title: "SCADA Industrial Platform, Odoo ERP Integration & Video Analytics",
         scada_context: "Diseño e Innovación Técnica SL · 2021 - 2024",
         scada_desc: "Full-cycle engineering of control and supervision platforms for industrial plants. Programmed Python daemons for telemetry ingestion in Ignition SCADA, bidirectional ERP Odoo synchronization, and high-volume event logging in SQL Server and PostgreSQL. Automated IP CCTV stream recording and tagging triggered by real-time plant anomalies.",
         scada_f1_h: "SCADA Architecture",
         scada_f1_p: "Ignition operator interfaces, real-time tag linking, and OPC-UA connectivity.",
-        scada_f2_h: "ERP Integration",
+        scada_f2_h: "Odoo ERP Integration",
         scada_f2_p: "Automated sync for production work orders, machine downtime, and material traceability.",
-        scada_f3_h: "Data Engineering",
+        scada_f3_h: "Databases & Data",
         scada_f3_p: "Relational database schema modeling and high-throughput query optimization on SQL Server & PostgreSQL.",
         scada_f4_h: "Video Analytics",
         scada_f4_p: "Automated IP camera stream clipping and historical audit logging tied to plant alarm triggers.",
+
         cv_title: "Real-Time Computer Vision & Tracking System for Industrial Inspection",
         cv_context: "Bachelor's Thesis (BSc) · Universitat de València · 2021 - 2022",
         cv_desc: "Research and engineering of a live computer vision inspection system. Implemented spatial geometry segmentation and kinematic tracking algorithms with strict low-latency requirements. Built the operator calibration GUI and optimized frame processing pipelines in OpenCV and C++.",
@@ -883,17 +1435,60 @@
         cv_f2_p: "Trajectory computation and predictive tracking routines for continuous quality monitoring.",
         cv_f3_h: "C++ / Python Performance",
         cv_f3_p: "Zero-copy memory optimization within the frame capture loop ensuring solid frame rates.",
-        cv_f4_h: "Operator Dashboard",
+        cv_f4_h: "Calibration GUI",
         cv_f4_p: "Interactive GUI for live parameter threshold adjustment and real-time dimension metrics.",
-        sim_title: "Simulation Hardware Integration & Plant Software Support",
-        sim_context: "SIMODAR Training Solutions SL · 2024 - 2026",
-        sim_desc: "Bridging physical simulator instrumentation with networked simulation engines. Handled Tier-3 technical troubleshooting for enterprise clients, instrumentation stress automation, and field deployment on Linux and Windows Server environments.",
-        section_stack_label: "02. Skills & Tooling",
-        section_stack_heading: "Enterprise Technical Stack",
-        stack_backend: "Backend & Languages",
-        stack_db: "Databases & Data",
-        stack_industrial: "Industrial Software",
-        stack_infra: "Systems & DevOps",
+
+        slot_software_title: "Upcoming Software Projects in Preparation",
+        slot_software_desc: "Modular slot ready to incorporate upcoming backend services, distributed architectures, and data engineering pipelines.",
+
+        pane_exp_title: "Professional Experience in Software & Systems",
+        pane_exp_desc: "Hands-on industry experience in technology and industrial automation companies.",
+
+        dit_role: "Software Developer, Automation & Database Engineer",
+        dit_period: "Apr. 2021 — Mar. 2024 · 3 yrs",
+        dit_resp_1: "Data modeling, indexing, and high-performance tuning on PostgreSQL and Microsoft SQL Server for plant event auditing and continuous traceability.",
+        dit_resp_2: "Engineered Python business logic and operator visualization dashboards for Ignition SCADA, linking industrial tags via OPC-UA protocols.",
+        dit_resp_3: "Integrated backend microservices with Odoo ERP through RESTful APIs for real-time manufacturing order and material synchronization.",
+        dit_resp_4: "Architected live CCTV IP video capture pipelines, automatically archiving and tagging incident clips triggered by plant fault thresholds.",
+
+        sim_role: "Simulation Hardware Integration & Plant Software Support",
+        sim_period: "Jul. 2024 — Jul. 2026 · 2 yrs",
+        sim_resp_1: "Bridging physical flight/vehicle simulator hardware with real-time networked simulation runtime engines.",
+        sim_resp_2: "Tier-3 technical troubleshooting and incident resolution on production client simulator deployments.",
+        sim_resp_3: "Automated instrumentation stress testing and package deployment across Linux and Windows Server environments.",
+        sim_resp_4: "Configured low-latency TCP/IP socket communications and plant server infrastructure monitoring.",
+
+        pane_stack_title: "Technical Stack & Data Architecture",
+        pane_stack_desc: "Comprehensive inventory of technologies, database engines, and operational environments.",
+
+        stack_db_title: "Databases & Data",
+        stack_db_1: "PostgreSQL (Schema Modeling, Indexing & Queries)",
+        stack_db_2: "Microsoft SQL Server (Transact-SQL & Stored Procedures)",
+        stack_db_3: "Query Plan Optimization & Diagnostics (EXPLAIN)",
+        stack_db_4: "Entity-Relationship Modeling & Normalization",
+        stack_db_5: "Time-Series Telemetry & Sensor Ingestion",
+
+        stack_be_title: "Backend & Languages",
+        stack_be_1: "Python (Services, APIs, Automation Scripts)",
+        stack_be_2: "C# (.NET / Systems Integration)",
+        stack_be_3: "C++ (OOP, Concurrency & High-Efficiency Memory)",
+        stack_be_4: "RESTful APIs & WebSocket Communication",
+        stack_be_5: "Bash / Shell Scripting & PowerShell",
+
+        stack_ind_title: "Industrial Software & Vision",
+        stack_ind_1: "Ignition SCADA (Vision & Perspective)",
+        stack_ind_2: "Odoo ERP (Modules & Integration)",
+        stack_ind_3: "OpenCV (Computer Vision & Object Tracking)",
+        stack_ind_4: "CCTV Protocols & IP Streaming (RTSP)",
+        stack_ind_5: "Industrial Tag Interfacing (OPC-UA)",
+
+        stack_sys_title: "Systems & DevOps",
+        stack_sys_1: "Linux (Ubuntu, Debian Server)",
+        stack_sys_2: "Windows Server Administration",
+        stack_sys_3: "Git & Version Control Workflows",
+        stack_sys_4: "Local Area Networks, TCP/IP & Routing",
+        stack_sys_5: "Tier 1 - Tier 3 Technical Incident Diagnostics",
+
         footer_location: "Valencia, Spain"
       }
     };
@@ -916,6 +1511,12 @@
     document.addEventListener('DOMContentLoaded', () => {
       const savedLang = localStorage.getItem('portfolio_lang') || 'es';
       setLanguage(savedLang);
+
+      // Handle hash-based tab navigation
+      const hash = window.location.hash.replace('#', '');
+      if (['projects', 'experience', 'stack'].includes(hash)) {
+        switchTab(hash);
+      }
     });
   </script>
 </body>
