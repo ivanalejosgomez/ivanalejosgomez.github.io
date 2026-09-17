@@ -1977,10 +1977,6 @@
         txt.setAttribute('data-i18n', 'tfm_toggle_collapse');
         txt.textContent = currentLang === 'es' ? 'Comprimir Documentación del Proyecto' : 'Collapse Project Documentation';
       }
-    } else {
-        txtAll.setAttribute('data-i18n', 'tfm_expand_all');
-        txtAll.textContent = currentLang === 'es' ? 'Desplegar Todo' : 'Expand All';
-      }
     }
 
     // LIGHTBOX PREVIEW LOGIC
@@ -2254,12 +2250,19 @@
         }
       });
 
-      // Also refresh active accordion button texts
-      const m1Open = document.getElementById('module-part1') ? document.getElementById('module-part1').classList.contains('is-open') : false;
-      const m2Open = document.getElementById('module-part2') ? document.getElementById('module-part2').classList.contains('is-open') : false;
-      updatePillLabel('part1', m1Open, lang);
-      updatePillLabel('part2', m2Open, lang);
-      checkMasterButtonState();
+      // Update TFM toggle button text on language change
+      const tfmContent = document.getElementById('tfm-expanded-content');
+      const tfmTxt = document.getElementById('txtToggleTfm');
+      if (tfmContent && tfmTxt) {
+        const isOpen = tfmContent.classList.contains('is-open');
+        if (isOpen) {
+          tfmTxt.textContent = lang === 'es' ? 'Comprimir Documentación del Proyecto' : 'Collapse Project Documentation';
+          tfmTxt.setAttribute('data-i18n', 'tfm_toggle_collapse');
+        } else {
+          tfmTxt.textContent = lang === 'es' ? 'Ver Documentación Técnica y Pruebas del Plugin' : 'View Technical Docs & Plugin Tests';
+          tfmTxt.setAttribute('data-i18n', 'tfm_toggle_expand');
+        }
+      }
     }
 
     document.addEventListener('DOMContentLoaded', () => {
