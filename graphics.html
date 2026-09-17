@@ -246,6 +246,7 @@
 
     .tabs-nav {
       display: flex;
+      flex-wrap: wrap;
       gap: 12px;
       border-bottom: 2px solid var(--border);
       padding-bottom: 0;
@@ -1368,6 +1369,11 @@
           <i class="fa-solid fa-briefcase tab-icon"></i>
           <span data-i18n="tab_experience">02. Experiencia Laboral en el Sector</span>
         </button>
+
+        <button class="tab-trigger" id="tab-btn-skills" onclick="switchTab('skills')">
+          <i class="fa-solid fa-screwdriver-wrench tab-icon"></i>
+          <span data-i18n="tab_skills">03. Stack Tecnológico & Herramientas</span>
+        </button>
       </div>
 
             <!-- PESTAÑA 1: PROYECTOS (UN ÚNICO PROYECTO: PLUGIN DE HOUDINI - TFM) -->
@@ -1850,62 +1856,64 @@
             </ul>
           </article>
         </div>
+      
+      <!-- PESTAÑA 3: STACK TECNOLÓGICO & HERRAMIENTAS -->
+      <div class="tab-pane" id="pane-skills">
+        <div class="section-header-compact">
+          <div class="section-label" data-i18n="label_stack">COMPETENCIAS TÉCNICAS & HERRAMIENTAS</div>
+          <h2 class="section-heading" data-i18n="heading_stack">Stack Tecnológico en Simulación, Gráficos & Pipeline</h2>
+        </div>
+
+        <div class="stack-section">
+          <div class="stack-grid">
+            <div class="stack-col">
+              <h4><i class="fa-solid fa-droplet"></i> <span data-i18n="stack_s1">Fluidos & VFX</span></h4>
+              <div class="stack-items">
+                <div class="stack-item">SideFX Houdini (DOPs/SOPs)</div>
+                <div class="stack-item">APIC & IPIC Custom Solvers</div>
+                <div class="stack-item">PIC / FLIP Physics Solvers</div>
+                <div class="stack-item">VEX Procedural Scripting</div>
+                <div class="stack-item">OpenVDB Sparse Grids</div>
+                <div class="stack-item">Karma / Solaris PBR</div>
+              </div>
+            </div>
+
+            <div class="stack-col">
+              <h4><i class="fa-solid fa-code"></i> <span data-i18n="stack_s2">Programación Gráfica</span></h4>
+              <div class="stack-items">
+                <div class="stack-item">C++ Moderno (C++17/20)</div>
+                <div class="stack-item">OpenGL 4.6 & GLSL</div>
+                <div class="stack-item">Houdini HDK (C++ API)</div>
+                <div class="stack-item">Python 3 (NumPy / SciPy)</div>
+                <div class="stack-item">OpenCV & Visión Artificial</div>
+              </div>
+            </div>
+
+            <div class="stack-col">
+              <h4><i class="fa-solid fa-screwdriver-wrench"></i> <span data-i18n="stack_s3">Pipeline & Tools</span></h4>
+              <div class="stack-items">
+                <div class="stack-item">Qt / PySide GUIs</div>
+                <div class="stack-item">Redes UDP / TCP Sockets</div>
+                <div class="stack-item">Git & GitLab CI/CD</div>
+                <div class="stack-item">Linux (Ubuntu/Debian)</div>
+                <div class="stack-item">Windows Server / Desktop</div>
+              </div>
+            </div>
+
+            <div class="stack-col">
+              <h4><i class="fa-solid fa-square-root-variable"></i> <span data-i18n="stack_s4">Matemáticas Aplicadas</span></h4>
+              <div class="stack-items">
+                <div class="stack-item">Ecuaciones Navier-Stokes</div>
+                <div class="stack-item">Álgebra Lineal & Tensores Afines</div>
+                <div class="stack-item">Variable de Impulso de Clebsch</div>
+                <div class="stack-item">Proyección Helmholtz-Hodge</div>
+                <div class="stack-item">Métodos Runge-Kutta (RK4)</div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-  </section>
-
-  <!-- Technical Stack Inventory -->
-  <section class="container">
-    <div class="stack-section">
-      <div class="section-label" data-i18n="label_stack">INVENTARIO TECNOLÓGICO</div>
-      <h3 class="section-heading" data-i18n="heading_stack">Herramientas de Simulación, Gráficos & Pipeline</h3>
-
-      <div class="stack-grid">
-        <div class="stack-col">
-          <h4><i class="fa-solid fa-droplet"></i> <span data-i18n="stack_s1">Fluidos & VFX</span></h4>
-          <div class="stack-items">
-            <div class="stack-item">SideFX Houdini (DOPs/SOPs)</div>
-            <div class="stack-item">APIC & IPIC Custom Solvers</div>
-            <div class="stack-item">PIC / FLIP Physics Solvers</div>
-            <div class="stack-item">VEX Procedural Scripting</div>
-            <div class="stack-item">OpenVDB Sparse Grids</div>
-            <div class="stack-item">Karma / Solaris PBR</div>
-          </div>
-        </div>
-
-        <div class="stack-col">
-          <h4><i class="fa-solid fa-code"></i> <span data-i18n="stack_s2">Programación Gráfica</span></h4>
-          <div class="stack-items">
-            <div class="stack-item">C++ Moderno (C++17/20)</div>
-            <div class="stack-item">OpenGL 4.6 & GLSL</div>
-            <div class="stack-item">Houdini HDK (C++ API)</div>
-            <div class="stack-item">Python 3 (Numpy / Scipy)</div>
-            <div class="stack-item">OpenCV & Visión Artificial</div>
-          </div>
-        </div>
-
-        <div class="stack-col">
-          <h4><i class="fa-solid fa-screwdriver-wrench"></i> <span data-i18n="stack_s3">Pipeline & Tools</span></h4>
-          <div class="stack-items">
-            <div class="stack-item">Qt / PySide GUIs</div>
-            <div class="stack-item">Redes UDP / TCP Sockets</div>
-            <div class="stack-item">Git & GitLab CI/CD</div>
-            <div class="stack-item">Linux (Ubuntu/Debian)</div>
-            <div class="stack-item">Windows Server / Desktop</div>
-          </div>
-        </div>
-
-        <div class="stack-col">
-          <h4><i class="fa-solid fa-square-root-variable"></i> <span data-i18n="stack_s4">Matemáticas Aplicadas</span></h4>
-          <div class="stack-items">
-            <div class="stack-item">Ecuaciones Navier-Stokes</div>
-            <div class="stack-item">Álgebra Lineal & Tensores Afines</div>
-            <div class="stack-item">Variable de Impulso de Clebsch</div>
-            <div class="stack-item">Proyección Helmholtz-Hodge</div>
-            <div class="stack-item">Métodos Runge-Kutta (RK4)</div>
-          </div>
-        </div>
-      </div>
+</div>
     </div>
   </section>
 
@@ -2008,6 +2016,7 @@
         hero_bio: "Especialización técnica en dinámica de fluidos incompresible basada en las ecuaciones de Navier-Stokes, acoplamiento Lagrangiano-Euleriano con solvers híbridos avanzados (APIC e IPIC), programación vectorial en VEX, computación gráfica en C++ y desarrollo de herramientas de pipeline para producción visual VFX y simuladores interactivos.",
         tab_projects: "01. Proyectos de Simulación & Gráficos",
         tab_experience: "02. Experiencia Laboral en el Sector",
+        tab_skills: "03. Stack Tecnológico & Herramientas",
         label_tfm: "TRABAJO DE FIN DE MÁSTER (MSc) · PROYECTO PRINCIPAL",
         tfm_toggle_expand: "Ver Documentación Técnica y Pruebas del Plugin",
         tfm_toggle_collapse: "Comprimir Documentación del Proyecto",
@@ -2103,8 +2112,8 @@
         cub_p1: "Procesamiento y Edición Digital de Imagen: Tratamiento y optimización de recursos gráficos, renders arquitectónicos y material fotográfico digital para maximizar la calidad visual y el engagement en plataformas corporativas.",
         cub_p2: "Diseño de Interfaces de Usuario (UI/UX): Elaboración de interfaces funcionales, componentes visuales e iconografía vectorial para la web de soporte y herramientas internas de la empresa.",
         cub_p3: "Gestión de Activos Digitales: Catalogación estructurada, compresión sin pérdida y control de calidad de material multimedia interactivo, colaborando con los equipos de marketing y desarrollo web.",
-        label_stack: "INVENTARIO TECNOLÓGICO",
-        heading_stack: "Herramientas de Simulación, Gráficos & Pipeline",
+        label_stack: "COMPETENCIAS TÉCNICAS & HERRAMIENTAS",
+        heading_stack: "Stack Tecnológico en Simulación, Gráficos & Pipeline",
         stack_s1: "Fluidos & VFX",
         stack_s2: "Programación Gráfica",
         stack_s3: "Pipeline & Tools",
@@ -2124,6 +2133,7 @@
         hero_bio: "Technical specialization in incompressible fluid dynamics based on the Navier-Stokes equations, Lagrangian-Eulerian coupling with advanced hybrid solvers (APIC and IPIC), vectorized VEX programming, C++ graphics computing, and pipeline tool development for VFX visual production and interactive simulators.",
         tab_projects: "01. Simulation & Graphics Projects",
         tab_experience: "02. Industry Work Experience",
+        tab_skills: "03. Tech Stack & Tools",
         label_tfm: "MASTER'S THESIS (MSc) · FLAGSHIP PROJECT",
         tfm_toggle_expand: "View Technical Docs & Plugin Tests",
         tfm_toggle_collapse: "Collapse Project Documentation",
